@@ -1,17 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../screens/home/Home";
-import AccountDetail from "../screens/Account/AccountDetail/detail";
-import AccountOrder from "../screens/Account/AccountOrder/accountOrder";
-import Address from "../screens/Account/Address/address";
-import AddressDetail from "../screens/Account/AddressDetail/addressDetail";
-import Login from "../screens/auth/Login/login";
-import Register from "../screens/auth/Register/register";
-import Category from "../screens/Category/category";
-import Contact from "../screens/Contact/contact";
-import Order from "../screens/Order/order";
-import Payment from "../screens/Payment/payment";
-import Product from "../screens/Product/product";
-import ShoppingCart from "../screens/ShoppingCart/shoppingCart";
+import AccountDetail from "../screens/account/accountDetail/Detail";
+import AccountOrder from "../screens/account/accountOrder/AccountOrder";
+import Address from "../screens/account/address/Address";
+import AddressDetail from "../screens/account/addressDetail/AddressDetail";
+import Login from "../screens/auth/login/Login";
+import Register from "../screens/auth/register/Register";
+import Category from "../screens/category/Category";
+import Contact from "../screens/contact/Contact";
+import Order from "../screens/order/Order";
+import Payment from "../screens/payment/Payment";
+import Product from "../screens/product/Product";
+import ShoppingCart from "../screens/shoppingCart/ShoppingCart";
 function MainRoute() {
   return (
     <BrowserRouter>

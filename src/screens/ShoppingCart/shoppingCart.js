@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer/footer";
-import Header from "../../components/Header/header";
+import Header from "../../components/Header/Header";
 import { Fragment } from "react";
 
 const ShoppingCart = () =>{

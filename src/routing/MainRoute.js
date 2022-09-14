@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../screens/Home/home";
+import Home from "../screens/home/Home";
 import AccountDetail from "../screens/Account/AccountDetail/detail";
 import AccountOrder from "../screens/Account/AccountOrder/accountOrder";
 import Address from "../screens/Account/Address/address";
@@ -12,11 +12,10 @@ import Order from "../screens/Order/order";
 import Payment from "../screens/Payment/payment";
 import Product from "../screens/Product/product";
 import ShoppingCart from "../screens/ShoppingCart/shoppingCart";
-
 function MainRoute() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes >
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 

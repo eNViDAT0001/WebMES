@@ -1,36 +1,46 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../screens/home/Home";
-import AccountDetail from "../screens/account/accountDetail/Detail";
-import AccountOrder from "../screens/account/accountOrder/AccountOrder";
-import Address from "../screens/account/address/Address";
-import AddressDetail from "../screens/account/addressDetail/AddressDetail";
-import Login from "../screens/auth/login/Login";
-import Register from "../screens/auth/register/Register";
-import Category from "../screens/category/Category";
-import Contact from "../screens/contact/Contact";
-import Order from "../screens/order/Order";
-import Payment from "../screens/payment/Payment";
-import Product from "../screens/product/Product";
-import ShoppingCart from "../screens/shoppingCart/ShoppingCart";
+import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
+import RegisterPage from "../pages/AuthPages/RegisterPage/RegisterPage";
+import CartPage from "../pages/CartPages/CartPage";
+import CategoryPage from "../pages/CategoryPages/CategoryPages";
+import HomePage from "../pages/HomePages/HomePage";
+import OrderPage from "../pages/OrderPages/OrderPage";
+import ProductPage from "../pages/Product/ProductPage";
+import ContactPage from "../pages/StorePages/ContactPage";
+import FAQPage from "../pages/StorePages/FAQPage";
+import NotFoundPage from "../pages/StorePages/NotFoundPage";
+import { PathLayout, TitleWithPathLayout } from "./Layouts";
+
 //test git
 function MainRoute() {
   return (
     <BrowserRouter>
-      <Routes >
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <Routes>
+        <Route index element={<HomePage />} />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/shopping-cart" element={<ShoppingCart />} />
-        <Route path="/account/address" element={<Address />} />
-        <Route path="/account/detail" element={<AccountDetail />} />
-        <Route path="/account/address-detail" element={<AddressDetail />} />
-        <Route path="/account/order" element={<AccountOrder />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
+        <Route element={PathLayout}>
+          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/product" element={<ProductPage />} />
+        </Route>
+        <Route element={TitleWithPathLayout}>
+          <Route path="/order" element={<OrderPage />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
+          <Route path="/shopping-cart" element={<CartPage />} />
+        </Route>
+        <Route path="/account" element={PathLayout}>
+          {/* <Route path="/address" element={<Address />} />
+          <Route path="/detail" element={<AccountDetail />} />
+          <Route path="/address-detail" element={<AddressDetail />} />
+          <Route path="/order" element={<AccountOrder />} /> */}
+        </Route>
+        <Route element={TitleWithPathLayout}>
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/notfound" element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

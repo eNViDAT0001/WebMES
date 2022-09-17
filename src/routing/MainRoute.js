@@ -21,10 +21,12 @@ function MainRoute() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
-        <Route element={PathLayout}>
+       {/*<Route element={PathLayout}>
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/product" element={<ProductPage />} />
-        </Route>
+          </Route>*/}
+          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/product" element={<ProductPage />} />
         <Route element={TitleWithPathLayout}>
           <Route path="/order" element={<OrderPage />} />
           {/* <Route path="/payment" element={<Payment />} /> */}

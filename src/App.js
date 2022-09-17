@@ -1,14 +1,15 @@
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header"; 
+import Header from "./components/Header/Header1";
 import MainRoute from "./routing/MainRoute";
-import './App.css';
+import "./App.css";
 function App() {
-  
   return (
-    <div className="App">
-      <Header/>
-      <MainRoute></MainRoute>
-      <Footer/>
+    <div className="page-container">
+      <Header />
+      <div className="body">
+        <MainRoute></MainRoute>
+      </div>
+      <Footer />
     </div>
   );
 }

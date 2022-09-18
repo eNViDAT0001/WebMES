@@ -1,5 +1,5 @@
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header1";
+import Header from "./components/Header/Header";
 import MainRoute from "./routing/MainRoute";
 import "./App.css";
 function App() {

@@ -68,7 +68,7 @@ const CategoryPage = () =>{
                         ))}
                     </div>
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col '>
                     {product.map(data =>(
                         <div key={data.id} className = "flex flex-row justify-start w-921px h-230px my-4">
                             <img src={data.image} alt="anh san pham" className='my-4 ml-4 mr-7'></img>

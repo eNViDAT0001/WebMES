@@ -1,9 +1,10 @@
 import { ProductModel } from "./Product";
 import { ProductOptions } from "./ProductOptions";
+import { ProductSpecificationModel } from "./ProductSpecification";
 
 export class ProductDetailModel extends ProductModel {
   options = [new ProductOptions()];
-  specification = [{property: null, detail: null}] 
+  specification = [new ProductSpecificationModel()] 
   constructor({
     id,
     categoryID,

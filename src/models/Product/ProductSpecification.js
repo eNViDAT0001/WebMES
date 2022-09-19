@@ -1,5 +1,6 @@
 export class ProductSpecificationModel {
-    constructor({property, detail}){
+    constructor({id, property, detail}){
+        this.id = id;
         this.property = property;
         this.detail = detail;
     }

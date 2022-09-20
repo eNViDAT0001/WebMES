@@ -1,4 +1,4 @@
-import BannerModel from "../models/Banner/Banner";
+import { BannerModel } from "../models/Banner/Banner";
 
 export const BANNER_DUMMY = [
     new BannerModel({

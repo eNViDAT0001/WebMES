@@ -1,4 +1,4 @@
-class CartItemsModel{
+export class CartItemsModel{
     isSelected = false;
     constructor({id, productID, name, quantity , price, discount, images, createTime, updateTime}){
         this.id = id;
@@ -15,4 +15,3 @@ class CartItemsModel{
   getDiscountPrice = () => this.price - (this.discount / 100).toFixed(2) * this.price;
 }
 
-export default CartItemsModel;

@@ -1,4 +1,4 @@
-class CartModel{
+export class CartModel{
     isSelected = false;
     constructor({id, providerID, providerName}){
         this.id = id;
@@ -7,4 +7,3 @@ class CartModel{
     }
 }
 
-export default CartModel;

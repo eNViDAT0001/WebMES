@@ -1,4 +1,4 @@
-import { productBandCheckBox } from "../../dummy_database/Category"
+import { productBandCheckBox } from "../../../dummy_database/CategoryDummyDatabase"
 
 const ProductBrand = () => {
     return(

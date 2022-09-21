@@ -1,7 +1,7 @@
-import { product } from "../../dummy_database/Category" 
+import { product } from "../../../dummy_database/CategoryDummyDatabase" 
 import Rating from "react-rating"
-import starActive from '../../assets/star.png'
-import starNotActive from '../../assets/star_not.png'
+import starActive from '../../../assets/star.png'
+import starNotActive from '../../../assets/star_not.png'
 
 const ListOfProducts = () => {
     return(

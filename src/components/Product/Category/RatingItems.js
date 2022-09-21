@@ -1,7 +1,7 @@
 import Rating from "react-rating"
-import { ratingItem } from "../../dummy_database/Category"
-import starActive from '../../assets/star.png'
-import starNotActive from '../../assets/star_not.png'
+import { ratingItem } from "../../../dummy_database/CategoryDummyDatabase"
+import starActive from '../../../assets/star.png'
+import starNotActive from '../../../assets/star_not.png'
 
 
 const RatingItem = () =>{

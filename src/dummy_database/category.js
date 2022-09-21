@@ -1,59 +1,4 @@
-/*
-import star from '../assets/star.png'
-import starNotChecked from '../assets/star_not.png'
 
-const convertStar = (starAmount) =>{
-    switch(starAmount){
-        case 1:
-            return(<div className="flex flex-row">
-                    <img src={star} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                </div>)
-            break;
-        case 2:
-            (<div className="flex flex-row">
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                </div>)
-            break;
-        case 3:
-            (<div className="flex flex-row">
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                </div>)
-            break;
-        case 4:
-            (<div className="flex flex-row">
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={starNotChecked} alt="rating"></img>
-                </div>)
-            break;
-        case 5:
-            (<div className="flex flex-row">
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                    <img src={star} alt="rating"></img>
-                </div>)
-            break;
-        default: 
-        return;
-    }
-}
-*/
 import productImg1 from '../assets/product1.png'
 import productImg2 from '../assets/product2.png'
 import productImg3 from '../assets/product3.png'
@@ -122,6 +67,7 @@ const product = [
         priceSale: 26.00,
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
         image: productImg1 ,
+        rating: 5
     },
     {
         id: 2,
@@ -130,6 +76,7 @@ const product = [
         priceSale: 26,
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
         image: productImg2, 
+        rating: 4
     },
     {
         id: 3,
@@ -138,14 +85,16 @@ const product = [
         priceSale: 26.00,
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
         image: productImg3,
+        rating: 3
     },
     {
-        id: 1,
+        id: 4,
         name: "Dictum morbi",
         price: 52.00,
         priceSale: 26.00,
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
         image: productImg4,
+        rating: 2
     }
 ]
 export {ratingItem,productBandCheckBox,product}

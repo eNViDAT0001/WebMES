@@ -1,4 +1,8 @@
+import Rating from "react-rating"
 import { ratingItem } from "../../dummy_database/Category"
+import starActive from '../../assets/star.png'
+import starNotActive from '../../assets/star_not.png'
+
 
 const RatingItem = () =>{
     return(
@@ -8,6 +12,12 @@ const RatingItem = () =>{
             {ratingItem.map(rating =>(
                 <div key={rating.id} className= "flex flex-row items-center mb-2">
                     <input type="checkbox" className=" w-4 h-4 mr-9px accent-yellow-check-rating-item"/>
+                    <Rating
+                        emptySymbol={<img src={starNotActive} className="w-4 h-4 mr-1" />}
+                        fullSymbol={<img src={starActive} className="w-4 h-4 mr-1" />}
+                        readonly = {true}
+                        initialRating = {rating.star}
+                    />
                     <h1 className=" font-normal text-base text-black ">({rating.amount})</h1> 
             </div>))}
         </div>

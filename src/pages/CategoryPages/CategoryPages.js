@@ -17,8 +17,10 @@ const CategoryPage = () =>{
             <OptionBar />
         <div className="flex justify-center ">
             <div className="flex flex-row justify-around mt-100px w-1171px">
-                <ProductBrand />
-                <RatingItem />
+                <div className="flex flex-col">
+                    <ProductBrand />
+                    <RatingItem />
+                </div>
                 <ListOfProducts />
             </div>
         </div>

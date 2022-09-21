@@ -15,8 +15,8 @@ const ListOfProducts = () => {
                                     <h1 className='font-normal text-purple-name-product text-sm mr-9px'>${data.priceSale}</h1>
                                     <h1 className='font-normal text-pink-price-sale text-sm line-through mb-10px mr-4'>${data.price}</h1>
                                     <Rating 
-                                        emptySymbol={<img src={starNotActive} className="w-4 h-4 mr-1" />}
-                                        fullSymbol={<img src={starActive} className="w-4 h-4 mr-1" />}
+                                        emptySymbol={<img src={starNotActive} alt="starDisable" className="w-4 h-4 mr-1" />}
+                                        fullSymbol={<img src={starActive} alt="star" className="w-4 h-4 mr-1" />}
                                         initialRating = {data.rating}
                                         readonly = {true}
                                     />

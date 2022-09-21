@@ -13,8 +13,8 @@ const RatingItem = () =>{
                 <div key={rating.id} className= "flex flex-row items-center mb-2">
                     <input type="checkbox" className=" w-4 h-4 mr-9px accent-yellow-check-rating-item"/>
                     <Rating
-                        emptySymbol={<img src={starNotActive} className="w-4 h-4 mr-1" />}
-                        fullSymbol={<img src={starActive} className="w-4 h-4 mr-1" />}
+                        emptySymbol={<img src={starNotActive} alt="starNotDisable"className="w-4 h-4 mr-1" />}
+                        fullSymbol={<img src={starActive} alt="starDisable" className="w-4 h-4 mr-1" />}
                         readonly = {true}
                         initialRating = {rating.star}
                     />

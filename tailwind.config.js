@@ -16,17 +16,24 @@ module.exports = {
         '17px': '17px',
         '25px': '25px',
         '27px': '27px',
+        '45px': '45px',
         '46px': '46px',
         '47px': '47px',
+        '50px': '50px',
         '55px': '55px',
         '60px': '60px',
+        '61px': '61px',
         '100px': '100px',
         '183px': '183px',
         '200px':'200px',
         '230px': '230px',
         '375px': '375px',
+        '487px': '487px',
+        '547px': '547px',
+        '649px':'649px',
         '921px': '921px',
-        '1171px': '1171px'
+        '1152px': '1152px',
+        '1171px': '1171px',
       },
       colors: {
         'gray-header': '#F6F5FF',//gray
@@ -34,6 +41,7 @@ module.exports = {
         'gray-text-in-select': "#8A8FB9",//gray
         'gray-text-product-brand': "#7E81A2",//gray
         'gray-text-product-content': '#9295AA',//gray
+        'gray-product-detail-information': '#F9F8FE',
         'purple-text': '#151875',//purple
         'purple-text-2': '#3F509E',//purple
         'purple-name-product': '#111C85',

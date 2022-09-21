@@ -1,4 +1,4 @@
-const HeaderBar = () =>{
+const HeaderBarCategory = () =>{
     return(
     <div className="w-full h-47px bg-gray-header">
         <div className="flex justify-start items-center flex-row flex-nowrap py-14px px-183px font-medium text-base">
@@ -8,4 +8,4 @@ const HeaderBar = () =>{
     </div>)
 }
 
-export default HeaderBar
+export default HeaderBarCategory

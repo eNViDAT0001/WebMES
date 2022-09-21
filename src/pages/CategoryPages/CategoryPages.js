@@ -1,10 +1,4 @@
-
-import {productBandCheckBox, ratingItem,product} from '../../dummy_database/Category'
-import HeaderBar from '../../components/Category/HeaderBar'
-import OptionBar from '../../components/Category/OptionBar'
-import ProductBrand from '../../components/Category/ProductBrand' //include option anh label
-import RatingItem from '../../components/Category/RatingItems'
-import ListOfProducts from '../../components/Category/ListOfProducts'
+import Category from "../../components/Category";
 
 
 
@@ -12,19 +6,8 @@ import ListOfProducts from '../../components/Category/ListOfProducts'
 
 const CategoryPage = () =>{
     return (
-    <div className=" flex-auto" >
-            <HeaderBar />
-            <OptionBar />
-        <div className="flex justify-center ">
-            <div className="flex flex-row justify-around mt-100px w-1171px">
-                <div className="flex flex-col">
-                    <ProductBrand />
-                    <RatingItem />
-                </div>
-                <ListOfProducts />
-            </div>
-        </div>
-    </div>)  
+        <Category />
+    )  
 };
 
 export default CategoryPage;

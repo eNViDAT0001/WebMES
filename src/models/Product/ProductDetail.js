@@ -1,10 +1,12 @@
+import { DEFAULT_PRODUCT_OPTION, DEFAULT_PRODUCT_SPECS } from "../../dummy_database/ProductDummyDatabase";
 import { ProductModel } from "./Product";
 import { ProductOptions } from "./ProductOptions";
 import { ProductSpecificationModel } from "./ProductSpecification";
 
+
 export class ProductDetailModel extends ProductModel {
-  options = [new ProductOptions()];
-  specification = [new ProductSpecificationModel()] 
+  options = [DEFAULT_PRODUCT_OPTION];
+  specification = [DEFAULT_PRODUCT_SPECS] 
   constructor({
     id,
     categoryID,

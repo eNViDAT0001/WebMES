@@ -4,16 +4,11 @@ import HomeFeaturedProduct from "../../components/Product/HomeFeaturedProduct";
 import HomeLatestProduct from "../../components/Product/HomeLatestProduct";
 import ImageSlider from "../../components/Slider/ImageSlider";
 import { BANNER_DUMMY } from "../../dummy_database/BannerDummyDatabase";
-const containerStyles = {
-  padding: "10px",
-  width: "1000px",
-  height: "500px",
-  margin: "0 auto",
-};
+
 const HomePage = () => {
   return (
-    <div className="justify-center">
-      <div style={containerStyles}>
+    <div className="justify-center bg-white">
+      <div className="max-w-screen-xl m-auto relative">
         <ImageSlider slides={BANNER_DUMMY} />
       </div>
       <div className="text-center my-5 text-3xl">

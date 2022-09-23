@@ -1,8 +1,7 @@
+import { ICONS } from "../../dummy_database/FooterDummyDatabase";
 import "./Footer.css";
-import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { InfoContainer } from "./FooterInfo";
 import SocialIcons from "./SocialIcons";
-import { ICONS } from "../../dummy_database/FooterDummyDatabase";
 
 const Footer = () => {
   return (

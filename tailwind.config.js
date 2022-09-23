@@ -21,6 +21,7 @@ module.exports = {
         '46px': '46px',
         '47px': '47px',
         '50px': '50px',
+        '51px': '51px',
         '55px': '55px',
         '60px': '60px',
         '61px': '61px',
@@ -44,6 +45,8 @@ module.exports = {
         'gray-text-product-brand': "#7E81A2",//gray
         'gray-text-product-content': '#9295AA',//gray
         'gray-product-detail-information': '#F9F8FE',
+        'gray-button-amount-product': '#E7E7EF',
+        'gray-text-amount-product': 'BEBFC2',
         'purple-text': '#151875',//purple
         'purple-text-2': '#3F509E',//purple
         'purple-name-product': '#111C85',

@@ -1,10 +1,10 @@
 
 import { Fragment } from "react";
-
+import HeaderBarAddressDetail from "../GeneralLayout/HeaderBarAddressDetail";
 const AddressDetail = () =>{
     return (
         <Fragment>
-            <div>đây là AddressDetail</div>
+            <HeaderBarAddressDetail />
         </Fragment>
     )
     

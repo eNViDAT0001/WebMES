@@ -1,0 +1,14 @@
+const AddressSvg = () => {
+    return(<div>
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="30" height="30" fill="url(#pattern0)"/>
+            <defs>
+            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_243_2082" transform="scale(0.0104167)"/>
+            </pattern>
+            <image id="image0_243_2082" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABmJLR0QA/wD/AP+gvaeTAAAFkUlEQVR4nO2cS2heRRTHf6mpUvvVV7AP0kUJPiIIio90oQujuHKhEkQbKXZjtUp1o9hWFEFdCEoVFBuN6666VXyU1I2PplSlWGOLhWqtb6TJF7U0Dxdzg+lnvu+ee2fmzHw384OzyOOe/5kz995zZ+7MhUQikUgsVjpCByBkNXArsB7oBXqALqCW/b0O/AEcA8aAz4AR4Gf1SCtEF/AYMArMlrT9wNbMV0LIWuBVYJLyiW+0OrAT6FZsR9uxFHgcmMBd4httEngOOE+pTW3DlcCX+Et8o30BXKHSsjZgAL9nfTMbB+5WaF/UbALOoJ/8OZsCHvbeykh5iHCJb7StntsaHQOYsy904udfCXd5bXFEXAacInzSG20CM8irNOei+7RT1A5iHocryzbCJznPnvDW+sB0Y0akoRMsuRWt8ZSD/7FESwh4EliuqFeWGhW8CrpwO7fj2+ooTeB1aogAg8D5Dv19g5luPpn93A304+4pZjmwAXjdkb/g2Ewpz7cPgOta6FwPfORI63MH7Y6CNcAMdsmYBp4S6nUA27NjbDRngJVlGx0Tg9ifjdLkz2eHA917S+hGx2vY33bK0IH97WhnSe2oeB+7JLS65+dxo6X2exba0fAd5RNw2IH+mIX+UQf6LdEYiF1kceyIA30bHxc70G+JRgfU8v+lKScc6Nv4sIldhEYHTFkc6yI+m7VPNrGL0OiA3yyOdbGMZK3Fsb870G9J7B3Q70DfxsevDvRbotEBP1gc24uZXihLH3bLT1zUoJZodMB+y+Nfotx9vCM71gbb2KOgH/spge0ldJ91oHtLCd3oqGG/9mca0wmSK6EDeAb7CcAzKDyGarEX+7NxFjO3c0MLnT7MwMuF1l4H7c5F64XMHsz6fltuw7xb+BaT6B+z33dn/l2u99zj0FdwVhHXQizJLU/lxbzWS/lfgI+VtFywD/hJQ0hzVcQuRS1b3gwdgA86MQOb0LeXPDuJ4uo4zStgChhW1CvLEOYRtJKsIu71QZNZjGpoXgFgivFbyppFGMLEWGlWA38R/mxvtL8JsItS+woAs3n6nQC6eQzz38Cu8qwkrk0aE5grU51zQohiit1S3LxwccHzwLuhg9BmGfA94c/+E7THsnkvbCR8B2z03srI+ZBwyd9H+3wxxhuXE+ax9B8Wwa5IKU+j3wE7VFrWJnSiu331EBXfjlqG9dhvqpDYNHCTUpvajjfw3wGV2fflgwuB4/hL/vFMI9GCm/Hz/niaeEbe0fMi7jvgBdUWtDmdwKe4S/4oi+Cpp4ZshrOOGXzl0SP0J9GTrBfqwXzGLM/fBLBC4E+dzciT8gmymdhNBXw2swcEOkswy2akPh8U+FSn6G74bUK/uwv6nW+7hRpFP6MzKvSrxjUUT87p7Lg8asDXJfyPARcIYz9dwr/N9lnn7KLcGXoI814gj6uQ3Z/nbDw7Jo9lWQxlYo9moZm0+DYz6Sq0O5EtOZ8B7hH6LHvizBJRMS5SfJvZBqHWKwJfLwt9DTiIO4pi7OJTNH8C6wRanbRe/z+CbMn9ukzTNu7gxVhSfF1/mfYS4MgCOseASx1rbVlAp9GCFuOhJkHNWR3Zk0hRejn7DD4FXO1BZwX5xT9YMZYU37c96t+OWUQ7BdzhUWeYSIuxpPj2eY7h0cx80kd+Ozd7jmFBDuQE9VWIoDxxkMiKsaT4btEOyiOSYmyzo78woYpvKKIqxqGLbyiiKcYxFN8QSIqxysh4MRXfRoIX42tzAqha8W3kEQIX48VWfBtxXoyLrAyuYbbwVDnBLqhj9pqNS/65yB6xQVLyJdSA+3w4ziu+yTwWY0nxTXa2iYqx9BZU5ScbX4jGBJIinIpvOUTFWHIF3E9KfhmcFeNUfMvbgRL5TiQSiUQikUgkEhXnX9udKrAFcKrxAAAAAElFTkSuQmCC"/>
+            </defs>
+        </svg>
+    </div>)
+}
+export default AddressSvg

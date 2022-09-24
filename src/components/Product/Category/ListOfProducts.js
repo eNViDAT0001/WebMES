@@ -19,14 +19,12 @@ const ListOfProducts = () => {
                                         fullSymbol={<img src={starActive} alt="star" className="w-4 h-4 mr-1" />}
                                         initialRating = {data.rating}
                                         readonly = {true}
-                                    />
-                                    
+                                    /> 
                                 </div>
                                 <div className='text-left'>
                                     <h1 className=' text-base text-gray-text-product-content'>{data.content}</h1>
                                 </div>
-                            </div>
-                            
+                            </div>   
                         </div>
                     ))} 
                 </div>)

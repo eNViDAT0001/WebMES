@@ -9,7 +9,6 @@ const ProductDetail = () => {
                 <ProductBasicInformation />{/*both image, price, something and easily understand */}
             </div>
             <DetailInformation />
-            
         </div>
         
     )

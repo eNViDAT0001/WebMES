@@ -1,17 +1,28 @@
 import symbolIncrease from '../../../../assets/+.png'
 import symbolDecrease from '../../../../assets/-.png'
-
+import { useState } from 'react'
 const HandleQuantityAndCart = () => {
+    const [quantity,setQuantity] = useState(1)
+
+    const IncreaseQuantity = () =>{
+        setQuantity(quantity+1)
+    }
+
+    const DecreaseQuantity = () =>{
+        if(quantity>1){
+            setQuantity(quantity-1)
+        }
+    }
     return(<div>
         <div className="flex flex-row ">
                     <div className=" w-51px h-4 border mt-14 flex flex-row bg-gray-button-amount-product">
-                        <button className="flex justify-start items-center w-3 h-4 border ">
+                        <button className="flex justify-start items-center w-3 h-4 border " onClick={DecreaseQuantity}>
                             <img src={symbolDecrease} alt="Dau -"></img>
                         </button>
                         <input className="w-6 h-4 bg-gray-button-amount-product flex justify-start items-center 
-                                        text-xs text-center text-gray-text-amount-product pointer-events-none" type="text" value="1" ></input>
+                                        text-xs text-center text-gray-text-amount-product pointer-events-none" type="text" value={quantity} ></input>
                         <button className="flex justify-start items-center w-3 h-4  border">
-                            <img src={symbolIncrease} alt="Dau +"></img>
+                            <img src={symbolIncrease} alt="Dau +" onClick={IncreaseQuantity}></img>
                         </button>
                     </div>
                     <h1 className=" mt-52px ml-14px text-base font-normal text-purple-text hover:underline"> Add to cart</h1>

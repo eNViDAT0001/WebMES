@@ -6,6 +6,25 @@ import {
 } from "react-icons/ai";
 import "./Header.css";
 const Header = (props) => {
+
+  const onLoginClickHandler = () => {
+
+  }
+  const onCartClickHandler = () => {
+
+  }
+  const onHomeClickHandler = () => {
+
+  }
+  const onProductsClickHandler = () => {
+    
+  }
+  const onOrderClickHandler = () => {
+    
+  }
+  const onContactClickHandler = () => {
+    
+  }
   return (
     <div>
       <div className="bg-gray-900 text-white">
@@ -21,10 +40,10 @@ const Header = (props) => {
             </div>
           </div>
           <div className="md:flex md:items-center ">
-            <button className="mx-5 hover:text-teal-400 duration-300">
+            <button className="mx-5 hover:text-teal-400 duration-300" onClick={onLoginClickHandler}>
               Login
             </button>
-            <button className="hover:text-teal-400 duration-300">
+            <button className="hover:text-teal-400 duration-300" onClick={onCartClickHandler}>
               <AiOutlineShoppingCart />
             </button>
           </div>
@@ -35,10 +54,10 @@ const Header = (props) => {
           <div className="md:flex md:items-center">
             <h1 className="text-gray-800 text-4xl font-semibold ">MES</h1>
             <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-5 gap-10 md:items-center text-gray-900 text-2xl ml-10">
-                <button className="text-gray-800 hover:text-[#FB2E86] duration-300 ">Home</button>
-                <button className="text-gray-800 hover:text-[#FB2E86] duration-300">Products</button>
-                <button className="text-gray-800 hover:text-[#FB2E86] duration-300">Order</button>
-                <button className="text-gray-800 hover:text-[#FB2E86] duration-300">Contact</button>
+                <button className="text-gray-800 hover:text-[#FB2E86] duration-300" onClick={onHomeClickHandler}>Home</button>
+                <button className="text-gray-800 hover:text-[#FB2E86] duration-300" onClick={onProductsClickHandler}>Products</button>
+                <button className="text-gray-800 hover:text-[#FB2E86] duration-300" onClick={onOrderClickHandler}>Order</button>
+                <button className="text-gray-800 hover:text-[#FB2E86] duration-300" onClick={onContactClickHandler}>Contact</button>
               </div>
           </div>
 

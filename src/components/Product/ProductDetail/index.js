@@ -6,7 +6,7 @@ const ProductDetail = () => {
     return(
         <div>
             <HeaderBarProductDetail />
-            <div className="flex justify-center">
+            <div className="flex justify-center font-['Josefin_Sans']">
                 <ProductBasicInformation />{/*both image, price, something and easily understand */}
             </div>
             <DetailInformation />

@@ -47,8 +47,8 @@ const Relatives = () => {
                         <img className="w-full h-340px mb-4" src = {data.img} alt = "image relative"></img>
                         <div className="flex flex-row ">
                             <div className="flex flex-col space-y-auto text-purple-text ">
-                                <h1 className=" font-medium">{data.name}</h1>
-                                <h1 className=" text-xs font-semibold">${data.cost.toFixed(2)}</h1>
+                                <h1 className="">{data.name}</h1>
+                                <h1 className=" text-xs font-medium">${data.cost.toFixed(2)}</h1>
                             </div>
                             <Rating className=" ml-auto"
                             emptySymbol={<img src={starNotActive} alt="starNotDisable"className="w-3 h-3 mr-1" />}

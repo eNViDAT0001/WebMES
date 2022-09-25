@@ -10,7 +10,7 @@ const Category = () => {
     <div>
         <HeaderBarCategory />
         <OptionBar />
-        <div className="flex justify-center ">
+        <div className="flex justify-center font-['Josefin_Sans']">
                 <div className="flex flex-row justify-around mt-100px w-1171px">
                     <div className="flex flex-col">
                     <ProductBrand />

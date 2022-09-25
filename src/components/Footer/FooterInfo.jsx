@@ -27,11 +27,7 @@ export const InfoContainer = (props) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-center gap-6 sm:px-8 py-16">
       <FooterInfo title={PRIVACY.title} data={PRIVACY.list}></FooterInfo>
-
-      <FooterInfo
-        title={CUSTOMER_CARE.title}
-        data={CUSTOMER_CARE.list}
-      ></FooterInfo>
+      <FooterInfo title={CUSTOMER_CARE.title} data={CUSTOMER_CARE.list}></FooterInfo>
       <FooterInfo title={PAYMENT.title} data={PAYMENT.list}></FooterInfo>
     </div>
   );

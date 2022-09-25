@@ -1,10 +1,10 @@
 
 import { Fragment } from "react";
-
+import ProductDetail from "../../components/Product/ProductDetail";
 const ProductPage = () =>{
     return(
         <Fragment>
-                <div>đây là product</div>
+            <ProductDetail />
         </Fragment>
     )
 }

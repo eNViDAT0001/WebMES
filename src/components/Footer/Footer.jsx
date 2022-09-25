@@ -1,8 +1,7 @@
+import { ICONS } from "../../dummy_database/FooterDummyDatabase";
 import "./Footer.css";
-import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { InfoContainer } from "./FooterInfo";
 import SocialIcons from "./SocialIcons";
-import { ICONS } from "../../dummy_database/FooterDummyDatabase";
 
 const Footer = () => {
   return (
@@ -27,7 +26,7 @@ const Footer = () => {
       </div>
       <InfoContainer />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center pt-2 text-gray-400 text-sm pb-8">
-        <span>© 2022 Appy. All rights reserved.</span>
+        <span>© 2022 Apply. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
         <SocialIcons Icons={ICONS} />
       </div>

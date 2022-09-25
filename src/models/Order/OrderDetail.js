@@ -1,8 +1,8 @@
-import OrderModel from "./Order";
-import OrderItemsModel from "./OrderItem";
+import { DEFAULT_ORDER_ITEM } from "../../dummy_database/DefaultDummyDatabase";
+import { OrderModel } from "./Order";
 
 export class OrderDetailModel extends OrderModel{
-    items = [new OrderItemsModel()];
+    items = [DEFAULT_ORDER_ITEM];
     constructor({id, userID, name, gender, phone, province, district, ward, street, items, quantity, totalCost, status, payment, paid, createTime, updateTime}){
        super({id: id, userID: userID, name: name, gender: gender, phone: phone, paid: paid, totalCost: totalCost})
         this.province = province;

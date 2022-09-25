@@ -1,5 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
+import AddressPage from "../pages/AccountPages/AddressPage";
+import AddressDetailPage from "../pages/AccountPages/AddressDetailPage";
+import AccountDetailPage from "../pages/AccountPages/AccountDetailPage";
+import AccountOrderPage from "../pages/AccountPages/AccountOrderPage";
 import RegisterPage from "../pages/AuthPages/RegisterPage/RegisterPage";
 import CartPage from "../pages/CartPages/CartPage";
 import CategoryPage from "../pages/CategoryPages/CategoryPages";
@@ -32,12 +36,20 @@ function MainRoute() {
           {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/shopping-cart" element={<CartPage />} />
         </Route>
-        <Route path="/account" element={PathLayout}>
-          {/* <Route path="/address" element={<Address />} />
-          <Route path="/detail" element={<AccountDetail />} />
-          <Route path="/address-detail" element={<AddressDetail />} />
-          <Route path="/order" element={<AccountOrder />} /> */}
-        </Route>
+        {/*<Route path="/account" element={PathLayout}>
+          <Route path="/address" element={<AddressPage />} />
+          <Route path="/detail" element={<AccountDetailPage />} />
+          <Route path="/address-detail" element={<AddressDetailPage />} />
+          <Route path="/order" element={<AccountOrderPage />} /> 
+        </Route>*/}
+
+          <Route path="/account-order" element={<AccountOrderPage />} /> 
+          <Route path="/address" element={<AddressPage />} />
+          <Route path="/detail" element={<AccountDetailPage />} />
+          <Route path="/address-detail" element={<AddressDetailPage />} />
+          
+
+
         <Route element={TitleWithPathLayout}>
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />

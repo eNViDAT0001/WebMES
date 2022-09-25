@@ -3,17 +3,45 @@ import img2 from '../../../../assets/product2.png'
 import img3 from '../../../../assets/product3.png'
 import img4 from '../../../../assets/product4.png'
 import img5 from '../../../../assets/product5.png'
+import { useState } from 'react'
 
+const ListImage = [
+    {
+        id: 0,
+        img: img1,
+    },
+    {
+        id: 1,
+        img: img2,
+    },
+    {
+        id: 2,
+        img: img3,
+    },
+]
 
 const ImageProduct = () => {
+    
+
+
+
+    const [imageBig,setImageBig] = useState(ListImage[0].img)
+
+    const handleClickImage = event => {
+        const id = event.currentTarget.id
+        setImageBig(ListImage[id].img)
+
+    }
+
     return(
         <div className="w-547px h-full flex flex-row justify-start">
-            <div className="flex flex-col"> 
-                <img className=" w-151px h-155px" src={img1}></img>
-                <img className=" w-151px h-155px mt-4" src={img2}></img>
-                <img className=" w-151px h-155px mt-4" src={img3}></img>
+            <div className="space-y-1">
+                {ListImage.map(image => (
+                    <button key= {image.id} onClick={handleClickImage} readOnly={true}><img src={image.img} className = "w-151px h-155px"  /></button>
+                ))}
             </div>
-            <img className=" ml-5 flex justify-self-end w-375px" src={img5}></img>   
+            
+            <img className=" ml-5 flex justify-self-end w-375px h-full" src={imageBig}></img>   
         </div>
         
     )

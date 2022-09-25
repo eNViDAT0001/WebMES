@@ -1,11 +1,11 @@
-
 import { Fragment } from "react";
-import HeaderBarAccountDetail from "../GeneralLayout/HeaderBarAccountDetail";
+import HeaderBarAddress from "../GeneralLayout/HeaderBarAddress";
 import ChangeBarInformation from "../GeneralLayout/ChangeBarInformation";
-const AccountDetail = () =>{
+import AddressPiece from "./AddressPiece";
+const Address = () =>{
     return (
         <Fragment>
-            <HeaderBarAccountDetail />
+            <HeaderBarAddress />
             <div className="flex justify-center">
                 <div className=" w-1200px h-full flex flex-row ">
                     <ChangeBarInformation />
@@ -16,4 +16,4 @@ const AccountDetail = () =>{
     
 };
 
-export default AccountDetail;
+export default Address;

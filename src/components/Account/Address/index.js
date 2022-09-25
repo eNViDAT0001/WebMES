@@ -1,7 +1,7 @@
-
 import { Fragment } from "react";
 import HeaderBarAddress from "../GeneralLayout/HeaderBarAddress";
 import ChangeBarInformation from "../GeneralLayout/ChangeBarInformation";
+import AddressPiece from "./AddressPiece";
 const Address = () =>{
     return (
         <Fragment>

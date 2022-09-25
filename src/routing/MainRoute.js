@@ -43,10 +43,11 @@ function MainRoute() {
           <Route path="/order" element={<AccountOrderPage />} /> 
         </Route>*/}
 
+          <Route path="/account-order" element={<AccountOrderPage />} /> 
           <Route path="/address" element={<AddressPage />} />
           <Route path="/detail" element={<AccountDetailPage />} />
           <Route path="/address-detail" element={<AddressDetailPage />} />
-          <Route path="/order" element={<AccountOrderPage />} /> 
+          
 
 
         <Route element={TitleWithPathLayout}>

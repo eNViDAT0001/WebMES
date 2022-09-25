@@ -1,4 +1,4 @@
-import AddressDetail from "../../components/Account/AddressDetail/AddressDetail";
+import AddressDetail from "../../components/Account/AddressDetail";
 
 const AddressDetailPage = () => {
     return(

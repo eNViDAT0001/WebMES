@@ -26,15 +26,15 @@ const ListBannerSmall = [
 
 const BannerSmall = () => {
     return(
-        <div className="flex justify-center mt-7">
-            <div className="w-[70%] h-[250px]  flex flex-row justify-between">
+        <div className="flex justify-center mt-20">
+            <div className="w-[80%] h-[250px]  flex flex-row justify-between">
                 {ListBannerSmall.map(data =>(
                     <div key = {data.id} className = "w-[30%] border">
                         <img src = {data.img} alt= "anh banner nho"></img>
                     </div>
                 ))}
             </div>
-
+        
         </div>
     )
 }

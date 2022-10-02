@@ -30,6 +30,30 @@ const ListProductOverview = [
         img: "https://preview.colorlib.com/theme/cozastore/images/xproduct-01.jpg.pagespeed.ic.6WHvZRJRuO.webp",
         title: "Esprit Ruffle Shirt",
         price: 16.64,
+    },
+    {
+        id: 5,
+        img: "https://preview.colorlib.com/theme/cozastore/images/xproduct-01.jpg.pagespeed.ic.6WHvZRJRuO.webp",
+        title: "Esprit Ruffle Shirt",
+        price: 16.64,
+    },
+    {
+        id: 6,
+        img: "https://preview.colorlib.com/theme/cozastore/images/xproduct-01.jpg.pagespeed.ic.6WHvZRJRuO.webp",
+        title: "Esprit Ruffle Shirt",
+        price: 16.64,
+    },
+    {
+        id: 7,
+        img: "https://preview.colorlib.com/theme/cozastore/images/xproduct-01.jpg.pagespeed.ic.6WHvZRJRuO.webp",
+        title: "Esprit Ruffle Shirt",
+        price: 16.64,
+    },
+    {
+        id: 8,
+        img: "https://preview.colorlib.com/theme/cozastore/images/xproduct-01.jpg.pagespeed.ic.6WHvZRJRuO.webp",
+        title: "Esprit Ruffle Shirt",
+        price: 16.64,
     }
 ]
 
@@ -38,12 +62,12 @@ const ListProductOverview = [
 const ProductOverview = () =>{
     return(
         <div className="flex justify-center">
-            <div className="mt-20 w-[80%] ">
+            <div className="mt-20 min-w-[80%] w-[80%]">
                 <h1 className=" text-4xl font-['Poppins_Bold'] font-extrabold">PRODUCT OVERVIEW</h1>
 
                 <div className="flex flex-row justify-between flex-wrap mt-[100px] ">
                     {ListProductOverview.map(data => (
-                        <div key = {data.id} className = "w-[21%] mb-10 hover:scale-110 ">
+                        <div key = {data.id} className = "min-w-[200px] w-[21%] mb-10 hover:scale-110 ">
                             <img 
                                 src = {data.img}
                                 alt="anh san pham"

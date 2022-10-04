@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from "react-icons/ai";
+import { AiOutlineVerticalLeft, AiCOutlineVerticalRight } from "react-icons/ai";
 import { BANNER_DUMMY } from "../../dummy_database/BannerDummyDatabase";
 import { DEFAULT_IMGAGE } from "../../dummy_database/DefaultDummyDatabase";
 import Slide from "./Slide";

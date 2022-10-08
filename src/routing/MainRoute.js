@@ -31,11 +31,11 @@ function MainRoute() {
           </Route>*/}
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/product" element={<ProductPage />} />
-        <Route element={TitleWithPathLayout}>
+        {/*<Route element={TitleWithPathLayout}>*/}
           <Route path="/order" element={<OrderPage />} />
           {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/shopping-cart" element={<CartPage />} />
-        </Route>
+        {/*</Route>*/}
         {/*<Route path="/account" element={PathLayout}>
           <Route path="/address" element={<AddressPage />} />
           <Route path="/detail" element={<AccountDetailPage />} />

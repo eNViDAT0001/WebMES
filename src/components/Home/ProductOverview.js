@@ -71,7 +71,9 @@ const ProductOverview = () =>{
                             <img 
                                 src = {data.img}
                                 alt="anh san pham"
+                              
                             />
+                            
                             <div className="flex flex-row mt-2">
                                 <h1 className=" text-sm font-['Poppins_Regular'] text-gray-400 hover:text-blue-400">{data.title}</h1>
                             </div>

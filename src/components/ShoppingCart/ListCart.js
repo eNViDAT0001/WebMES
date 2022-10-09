@@ -17,34 +17,42 @@ const dataCart = [
 ]
 
 const ListCart = () => {
-    return(<div className=" w-[65%] border">
-        <div className="flex flex-row justify-between items-center h-[52px] px-[10%] font-['Poppins_Bold'] text-sm font-bold">
-            <h1>PRODUCT</h1>
-            <h1 className=" ml-[180px]">PRICE</h1>
-            <h1 className="ml-4">QUANTITY</h1>
-            <h1 className="mr-[-10px]">TOTAL</h1>
-        </div>
-        <div>
-            {dataCart.map(data=>(
-                <div key = {data.id} className="flex flex-row justify-between items-center h-[185px] px-[10%] border">
-                    <img src={data.image} alt="anh san pham" className="h-[60px] w-[80px] "></img>
-                    <h1>{data.title}</h1>
-                    <price>{data.price}$</price>
-                    <div className="flex justify-start">
-                        <button className="flex justify-center items-center w-[45px] h-[45px] border ">
-                            <img src={symbolDecrease} alt="Dau -"></img>
-                        </button>
-                        <input className="w-[45px] h-[45px] bg-[#f7f7f7] flex justify-start items-center 
-                                        text-xs text-center pointer-events-none" type="text" value="1" ></input>
-                        <button className="flex justify-center items-center w-[45px] h-[45px]  border">
-                            <img src={symbolIncrease} alt="Dau +"></img>
-                        </button>
-                    </div>
-                    <h1>{data.price}$</h1>
+    return(<div className=" w-[65%]">
+                <div className="flex flex-row justify-between items-center h-[52px] px-[10%] font-['Poppins_Bold'] text-sm font-bold border" >
+                    <h1>PRODUCT</h1>
+                    <h1 className=" ml-[180px]">PRICE</h1>
+                    <h1 className="ml-4">QUANTITY</h1>
+                    <h1 className="mr-[-10px]">TOTAL</h1>
                 </div>
-            ))}
-        </div>
-
+                <div>
+                    {dataCart.map(data=>(
+                    <div key = {data.id} className="flex flex-row justify-between items-center h-[185px] px-[10%] border">
+                        <img src={data.image} alt="anh san pham" className="h-[60px] w-[80px] "></img>
+                        <h1>{data.title}</h1>
+                        <price>{data.price}$</price>
+                        <div className="flex justify-start">
+                            <button className="flex justify-center items-center w-[45px] h-[45px] border ">
+                                <img src={symbolDecrease} alt="Dau -"></img>
+                            </button>
+                            <input className="w-[45px] h-[45px] bg-[#f7f7f7] flex justify-start items-center 
+                                        text-xs text-center pointer-events-none" type="text" value="1" ></input>
+                            <button className="flex justify-center items-center w-[45px] h-[45px]  border">
+                                <img src={symbolIncrease} alt="Dau +"></img>
+                            </button>
+                        </div>
+                        <h1>{data.price}$</h1>
+                    </div>
+                    ))}
+                </div>
+                <div className='h-[100px] border flex justify-between items-center px-[10%] '>
+                    <input type="text" className='w-[35%] h-[55px] min-w-[100px] border rounded-3xl text-center' placeholder='Coupon code'></input>
+                    <button class="w-[25%] min-w-[100px] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
+                        APPLY COUPON
+                    </button>
+                    <button class="w-[25%] min-w-[100px] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
+                        UPDATE CART
+                    </button>
+                </div>
     </div>)
 }
 

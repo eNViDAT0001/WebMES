@@ -50,9 +50,12 @@ const Banner = () => {
                 <img src={BannerList[indexBanner].img} alt="Anh banner" className="w-full h-full"></img>
                 
             </div>
-            <div className="w-full flex absolute top-1/2 transform -translate-y-1/2 py-2 px-3 justify-between">
+            <div className="w-[100%]  absolute top-1/2 transform -translate-y-1/2 px-5 ">
+                <div className='flex items-between justify-between  '>
                     <button onClick={onPrevClickHandler}><AiOutlineVerticalRight size={30} className="bg-black text-white rounded-full bg-opacity-50 hover:bg-opacity-100 transition"/></button>
                     <button onClick={onNextClickHandler}><AiOutlineVerticalLeft size={30} className="bg-black text-white rounded-full bg-opacity-50 hover:bg-opacity-100 transition"/></button>
+                </div>
+                   
             </div>
         </div>
     )

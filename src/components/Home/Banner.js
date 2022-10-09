@@ -45,12 +45,12 @@ const Banner = () => {
         else setIndexBanner(indexBanner+1);
     }
     return(
-        <div className="flex justify-center px-[15%] bg-red-100">
-            <div className="w-[90%] h-[500px]">
+        <div className="flex justify-center items-center px-[15%] bg-red-100">
+            <div className="w-[900px] h-[500px]">
                 <img src={BannerList[indexBanner].img} alt="Anh banner" className="w-full h-full"></img>
                 
             </div>
-            <div className="w-full flex absolute top-1/2 transform -translate-y-1/2 py-2 px-3 justify-between">
+            <div className="w-full h-auto flex items-center justify-between absolute  px-5 ">
                     <button onClick={onPrevClickHandler}><AiOutlineVerticalRight size={30} className="bg-black text-white rounded-full bg-opacity-50 hover:bg-opacity-100 transition"/></button>
                     <button onClick={onNextClickHandler}><AiOutlineVerticalLeft size={30} className="bg-black text-white rounded-full bg-opacity-50 hover:bg-opacity-100 transition"/></button>
             </div>

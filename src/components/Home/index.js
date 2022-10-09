@@ -3,7 +3,7 @@ import BannerSmall from "./BannerSmall"
 import ProductOverview from './ProductOverview'
 const Home = () =>{
     return(
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
         <Banner />
         <BannerSmall />
         <ProductOverview />

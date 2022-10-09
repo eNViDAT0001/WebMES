@@ -7,7 +7,7 @@ import AccountOrderPage from "../pages/AccountPages/AccountOrderPage";
 import RegisterPage from "../pages/AuthPages/RegisterPage/RegisterPage";
 import CartPage from "../pages/CartPages/CartPage";
 import CategoryPage from "../pages/CategoryPages/CategoryPages";
-import HomePage from "../pages/HomePages";
+import HomePage from "../pages/HomePages/HomePages";
 import OrderPage from "../pages/OrderPages/OrderPage";
 import ProductPage from "../pages/Product/ProductPage";
 import ContactPage from "../pages/StorePages/ContactPage";

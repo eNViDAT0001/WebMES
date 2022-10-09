@@ -4,7 +4,6 @@ import {
   AiOutlinePhone,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import "./Header.css";
 const Header = (props) => {
 
   const onLoginClickHandler = () => {

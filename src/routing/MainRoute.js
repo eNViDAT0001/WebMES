@@ -13,6 +13,7 @@ import ProductPage from "../pages/Product/ProductPage";
 import ContactPage from "../pages/StorePages/ContactPage";
 import FAQPage from "../pages/StorePages/FAQPage";
 import NotFoundPage from "../pages/StorePages/NotFoundPage";
+import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
 import { PathLayout, TitleWithPathLayout } from "./Layouts";
 
 //test git
@@ -50,11 +51,12 @@ function MainRoute() {
           
 
 
-        <Route element={TitleWithPathLayout}>
+        {/*<Route element={TitleWithPathLayout}>*/}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/notfound" element={<NotFoundPage />} />
-        </Route>
+          <Route path="/completed" element={<OrderCompletedPage/>}/>
+        {/*</Route>*/}
       </Routes>
     </BrowserRouter>
   );

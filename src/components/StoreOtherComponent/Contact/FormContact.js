@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function FormContact() {
   return (
+    
     <div className='flex flex-col mt-[46px] mb-[300px] w-[50%] space-y-[47px]'>
         <div className='flex flex-row justify-between'>
             <input type="text" placeholder='Your Name*' className='w-[55%] h-[10%] min-h-[45px] px-2 py-3 border rounded-md'></input>

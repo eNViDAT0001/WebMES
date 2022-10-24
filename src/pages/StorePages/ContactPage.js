@@ -1,11 +1,11 @@
-import ContactHeaderBar from "../../components/StoreOtherComponent/Contact/ContactHeaderBar";
 import contact from '../../components/StoreOtherComponent/Contact/asset/contact.svg'
 import imgContact from '../../components/StoreOtherComponent/Contact/asset/imgContact.svg'
 import FormContact from "../../components/StoreOtherComponent/Contact/FormContact";
+import HeaderBarBig from '../../components/StoreOtherComponent/HeaderBarBig';
 const ContactPage = () =>{
     return (
         <div className="flex flex-col font-['Josefin_Sans']">
-            <ContactHeaderBar />
+            <HeaderBarBig nameTitle="Contact us" name1= "Home . Pages" name2= " . Contact us"/>
             <div className="flex justify-center mt-[120px]">
                 <div className="w-[65%] flex justify-center flex-col">
                     <img src={contact} alt="thong tin contact" ></img>

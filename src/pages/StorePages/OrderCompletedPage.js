@@ -1,5 +1,5 @@
 import React from 'react'
-import { OrderCompletedHeaderBar } from '../../components/StoreOtherComponent/OrderCompleted/OrderCompletedHeaderBar'
+import HeaderBarBig from '../../components/StoreOtherComponent/HeaderBarBig';
 import { VectorForOrderCompleted } from '../../components/StoreOtherComponent/OrderCompleted/VectorForOrderCompleted'
 import Book from '../../components/StoreOtherComponent/OrderCompleted/asset/book.svg'
 import Clock from '../../components/StoreOtherComponent/OrderCompleted/asset/clock.svg'
@@ -9,7 +9,7 @@ import listLogo from '../../components/StoreOtherComponent/OrderCompleted/asset/
 const OrderCompletedPage = () => {
   return (
     <div className="font-['Josefin_Sans']">
-        <OrderCompletedHeaderBar />
+        <HeaderBarBig nameTitle="Order Completed" name1= "Home . Pages" name2= " . OrderCompleted"/>
         <div className='flex justify-center'>
             <div className='w-[85%] flex items-center flex-col mt-24'>
                 <div className='flex flex-row'>

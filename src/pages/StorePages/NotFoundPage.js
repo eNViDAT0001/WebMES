@@ -1,11 +1,11 @@
-import NotFoundHeaderBar from "../../components/StoreOtherComponent/NotFound/NotFoundHeaderBar";
+import HeaderBarBig from '../../components/StoreOtherComponent/HeaderBarBig';
 import svgNotFound from "../../components/StoreOtherComponent/NotFound/asset/svgNotFound.svg";
 import svgTextNotFound from "../../components/StoreOtherComponent/NotFound/asset/svgTextNotFound.svg";
 
 const NotFoundPage = () =>{
     return(
         <div className="font-['Josefin_Sans']">
-            <NotFoundHeaderBar />
+            <HeaderBarBig nameTitle="404 Not Found" name1= "Home . Pages" name2= " . 404 Not Found"/>
             <div className='flex justify-center'>
                 <div className='w-[45%] min-w-[400px] flex items-center flex-col'>
                     <img src = {svgNotFound} alt="anh not found" ></img>

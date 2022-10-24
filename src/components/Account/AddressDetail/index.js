@@ -1,17 +1,15 @@
-
-import { Fragment } from "react";
-import HeaderBarAddressDetail from "../GeneralLayout/HeaderBarAddressDetail";
+import HeaderBar from "../../StoreOtherComponent/HeaderBar";
 import ChangeBarInformation from "../GeneralLayout/ChangeBarInformation";
 const AddressDetail = () =>{
     return (
-        <Fragment>
-            <HeaderBarAddressDetail />
+        <div>
+            <HeaderBar name1="Home . Account . Address" name2=" . Detail"/>
             <div className="flex justify-center">
                 <div className=" w-1200px h-full flex flex-row ">
                     <ChangeBarInformation />
                 </div>
             </div>
-        </Fragment>
+        </div>
     )
     
 };

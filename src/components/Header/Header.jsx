@@ -1,16 +1,13 @@
-import { Fragment } from "react";
 import {
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 const Header = (props) => {
-
   const onLoginClickHandler = () => {
 
   }
   const onCartClickHandler = () => {
-
   }
   const onHomeClickHandler = () => {
 

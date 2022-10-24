@@ -14,7 +14,6 @@ import ContactPage from "../pages/StorePages/ContactPage";
 import FAQPage from "../pages/StorePages/FAQPage";
 import NotFoundPage from "../pages/StorePages/NotFoundPage";
 import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
-import { PathLayout, TitleWithPathLayout } from "./Layouts";
 
 //test git
 function MainRoute() {

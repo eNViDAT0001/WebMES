@@ -1,14 +1,12 @@
 
-import CustomerInformation from "../../components/Account/AccountDetail/CustomerInformation"
-import HeaderBarAccountDetail from "../../components/Account/GeneralLayout/HeaderBarAccountOrder";
 import ChangeBarInformation from "../../components/Account/GeneralLayout/ChangeBarInformation";
-import PhoneAndEmail from "../../components/Account/AccountDetail/PhoneAndEmail";
 import AccountDetail from "../../components/Account/AccountDetail/AccountDetail";
+import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 const AccountDetailPage = () =>{
         return (
             <div className="font-['Josefin_Sans']">
                 <div className="flex flex-col w-full">
-                    <HeaderBarAccountDetail />
+                    <HeaderBar name1="Home .Account" name2=" . Detail"/>
                     <div className="flex justify-center">
                         <div className=" w-[85%] h-full flex flex-row ">
                             <ChangeBarInformation />

@@ -3,11 +3,14 @@ import {
   AiOutlinePhone,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-const Header = (props) => {
-  const onLoginClickHandler = () => {
+import { useNavigate } from "react-router-dom";
 
+const Header = (props) => {
+  
+  const onLoginClickHandler = () => {
   }
   const onCartClickHandler = () => {
+    
   }
   const onHomeClickHandler = () => {
 

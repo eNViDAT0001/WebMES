@@ -3,20 +3,21 @@ import {
   AiOutlinePhone,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const Header = (props) => {
-  
+
+  const navigate = useNavigate()
   const onLoginClickHandler = () => {
   }
   const onCartClickHandler = () => {
-    
+
   }
   const onHomeClickHandler = () => {
 
   }
   const onProductsClickHandler = () => {
-    
+    navigate("/product")
   }
   const onOrderClickHandler = () => {
     

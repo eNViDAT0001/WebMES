@@ -1,14 +1,25 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
 
-
-export const PathLayout = () => {
-  return (
+export const LoginLayOut = () => {
+  return(
     <div>
       <Outlet></Outlet>
     </div>
+  )
+}
+export const UserLayout = () => {
+  return (
+    <div>
+      <Header />
+        <Outlet></Outlet>
+      <Footer />
+    </div>
+    
   );
 };
-export const TitleWithPathLayout = () => {
+export const AdminLayOut = () => {
     return (
       <div>
         <Outlet></Outlet>

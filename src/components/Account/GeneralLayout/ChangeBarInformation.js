@@ -4,32 +4,39 @@ import Notification from '../../../assets/Notification.png'
 import Order from '../../../assets/Order.png'
 import Address from '../../../assets/Address.png'
 import LogOut from '../../../assets/LogOut.png'
+import { Link } from 'react-router-dom'
 
 const SlideBarData = [
     {
         id: 1,
         title: "Account",
         img: Account,
+        url: "/detail",
     },
     {
         id: 2,
         title: "Notification",
         img: Notification,
+        url: "/notification",
+
     },
     {
         id: 3,
         title: "Order",
         img: Order,
+        url:"/account-order"
     },
     {
         id: 4,
         title: "Address",
         img: Address,
+        url:"/address-detail"
     },
     {
         id: 5,
         title: "Logout",
         img: LogOut,
+        url:"/login"
     },
 ]
 const ChangeBarInformation = () => {
@@ -42,15 +49,15 @@ const ChangeBarInformation = () => {
                 <h1 className="drop-shadow-2xl">User's Name</h1>
             </div>
         </div>
-        <div className = "space-y-4">
+        <div className = "space-y-3">
             {SlideBarData.map(data=>(
                 <div key = {data.id} className="flex flex-col">
-                    <div className="w-full h-30px hover:bg-[#D9D9D9] space-y-4">
+                    <Link to={data.url} className="w-full h-30px hover:bg-[#D9D9D9] space-y-4">
                         <div className="ml-4 flex flex-row items-center ">
                             <img src = {data.img} alt = "Account" className = "w-30px h-30px"></img>
                             <h1 className="ml-3">{data.title}</h1>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             ))}
         </div>

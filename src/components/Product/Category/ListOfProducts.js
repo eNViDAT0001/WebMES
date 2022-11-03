@@ -2,12 +2,16 @@ import { product } from "../../../dummy_database/CategoryDummyDatabase"
 import Rating from "react-rating"
 import starActive from '../../../assets/star.png'
 import starNotActive from '../../../assets/star_not.png'
-
+import { useParams, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useState } from "react"
 const ListOfProducts = () => {
+
+     
     return(
         <div className='flex flex-col '>
                     {product.map(data =>(
-                        <div key={data.id} className = "flex flex-row justify-start w-921px h-230px my-4 border-2 hover:shadow-lg">
+                        <Link to={`/product/${data.id}`} key={data.id} className = "flex flex-row justify-start w-921px h-230px my-4 border-2 hover:shadow-lg">
                             <img src={data.image} alt="anh san pham" className='my-4 ml-4 mr-7'></img>
                             <div className='flex flex-col mt-46px'>
                                 <h1 className='flex justify-start font-normal text-lg text-purple-name-product mb-3'>{data.name}</h1>
@@ -25,7 +29,7 @@ const ListOfProducts = () => {
                                     <h1 className=' text-base text-gray-text-product-content'>{data.content}</h1>
                                 </div>
                             </div>   
-                        </div>
+                        </Link>
                     ))} 
                 </div>)
 }

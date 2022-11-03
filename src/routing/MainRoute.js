@@ -15,34 +15,33 @@ import FAQPage from "../pages/StorePages/FAQPage";
 import NotFoundPage from "../pages/StorePages/NotFoundPage";
 import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
 //test git
-import { UserLayout } from "./Layouts";
+import { UserLayout,LoginLayOut } from "./Layouts";
+import { TestingPages } from "../pages/TestingPages";
 function MainRoute() {
   return (
     <BrowserRouter>
       <Routes>
-
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        
+        <Route element={<LoginLayOut />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
         <Route element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/product" element={<ProductPage />} />
-
-
           <Route path="/order" element={<OrderPage />} />
           <Route path="/shopping-cart" element={<CartPage />} />
-    
           <Route path="/account-order" element={<AccountOrderPage />} /> 
           <Route path="/address" element={<AddressPage />} />
           <Route path="/detail" element={<AccountDetailPage />} />
           <Route path="/address-detail" element={<AddressDetailPage />} />
-          
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/notfound" element={<NotFoundPage />} />
           <Route path="/completed" element={<OrderCompletedPage/>}/>
         </Route>
+        <Route path="/testing" element={<TestingPages />}/>
+
       </Routes>
     </BrowserRouter>
   );

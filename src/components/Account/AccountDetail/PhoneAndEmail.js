@@ -5,7 +5,7 @@ import Lock from './assets/Lock.png'
 const PhoneAndEmail = () => {
   return (
     <div className='w-[28%]'>
-        <div className='ml-2 w-full bg-[#F8F8FD] h-full border-l py-2 px-7'>
+        <div className='ml-2 w-full bg-[#F8F8FD] h-full border-l py-10 px-7'>
             <h1 className='text-xl text-[#1D1378]'>Phone number and email</h1>
             <div>
                 <div className='flex flex-row justify-between mt-3'>

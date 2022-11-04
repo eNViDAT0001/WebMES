@@ -3,7 +3,7 @@ import User from './assets/User.png'
 
 const CustomerInformation = () =>{
     return (
-        <div className='flex flex-col '>
+        <div className='flex flex-col p-10'>
                 <div className='flex flex-row'>
                     <div className='flex flex-col'>
                         <h1 className="text-xl text-[#1D1378]">Information</h1>

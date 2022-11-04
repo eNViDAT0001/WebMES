@@ -28,7 +28,7 @@ function MainRoute() {
         <Route element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/category" element={<CategoryPage />} />
-          <Route path="/product" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/shopping-cart" element={<CartPage />} />
           <Route path="/account-order" element={<AccountOrderPage />} /> 

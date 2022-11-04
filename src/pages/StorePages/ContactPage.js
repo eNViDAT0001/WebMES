@@ -7,7 +7,7 @@ const ContactPage = () =>{
         <div className="flex flex-col font-['Josefin_Sans']">
             <HeaderBarBig nameTitle="Contact us" name1= "Home . Pages" name2= " . Contact us"/>
             <div className="flex justify-center mt-[120px]">
-                <div className="w-[65%] flex justify-center flex-col">
+                <div className="w-[65%] min-w-[500px] flex justify-center flex-col">
                     <img src={contact} alt="thong tin contact" ></img>
                     <div className="flex flex-row justify-between">
                         <FormContact />

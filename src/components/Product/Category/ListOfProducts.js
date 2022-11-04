@@ -2,8 +2,12 @@ import { product } from "../../../dummy_database/CategoryDummyDatabase"
 import Rating from "react-rating"
 import starActive from '../../../assets/star.png'
 import starNotActive from '../../../assets/star_not.png'
-import { useParams, useSearchParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import {
+    Route,
+    Link,
+    Routes,
+  } from "react-router-dom";
+import ProductPage from "../../../pages/Product/ProductPage";
 import { useState } from "react"
 const ListOfProducts = () => {
 
@@ -29,9 +33,11 @@ const ListOfProducts = () => {
                                     <h1 className=' text-base text-gray-text-product-content'>{data.content}</h1>
                                 </div>
                             </div>   
-                        </Link>
-                    ))} 
-                </div>)
+                    </Link>
+                    ))}
+                </div>
+            
+                )
 }
 
 export default ListOfProducts

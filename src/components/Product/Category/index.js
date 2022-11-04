@@ -4,7 +4,6 @@ import ProductBrand from "./ProductBrand"
 import RatingItem from "./RatingItems"
 import ListOfProducts from "./ListOfProducts"
 
-
 const Category = () => {
     return(
     <div>

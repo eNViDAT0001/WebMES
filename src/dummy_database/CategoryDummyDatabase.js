@@ -3,7 +3,6 @@ import productImg1 from '../assets/product1.png'
 import productImg2 from '../assets/product2.png'
 import productImg3 from '../assets/product3.png'
 import productImg4 from '../assets/product4.png'
-
 const productBandCheckBox = [
     {
         id: 1,

@@ -23,7 +23,7 @@ const CartTotal = () => {
                     <input type = "text" className="text-center w-[90%] h-25px border " placeholder="State/country"></input>
                     <input type = "text" className="text-center w-[90%] h-25px border "placeholder="Postcode/Zip" ></input>
   
-                    <button class="w-[95%] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
+                    <button className="w-[95%] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
                         UPDATE TOTALS
                     </button>
                 </div>

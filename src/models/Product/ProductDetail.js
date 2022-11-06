@@ -1,7 +1,6 @@
 import { DEFAULT_PRODUCT_OPTION, DEFAULT_PRODUCT_SPECS } from "../../dummy_database/ProductDummyDatabase";
 import { ProductModel } from "./Product";
-import { ProductOptions } from "./ProductOptions";
-import { ProductSpecificationModel } from "./ProductSpecification";
+
 
 
 export class ProductDetailModel extends ProductModel {
@@ -15,13 +14,12 @@ export class ProductDetailModel extends ProductModel {
     price,
     options,
     specification,
-    unit,
     discount,
     rating,
     sold,
     media,
   }) {
-    super({id: id, name: name, price: price, unit: unit, discount: discount, media: media, rating: rating});
+    super({id: id, name: name, price: price, discount: discount, media: media, rating: rating});
     this.categoryID = categoryID;
     this.description = description;
     this.specification = specification;

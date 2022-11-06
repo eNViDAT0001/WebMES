@@ -1,17 +1,16 @@
 import { ProductModel } from "./Product"
-
+import { MediaModel } from "../Media/Media";
 export class ProductPreviewModel extends ProductModel{
     constructor({
       id,
       name,
-      description,
+      previewDescriptions,
       price,
-      unit,
       discount,
       rating,
       media,
     }) {
-      super({id: id, name: name, price: price, unit: unit, discount: discount, media: media, rating: rating});
-      this.description = description;
+      super({id: id, name: name, price: price, discount: discount, media: media, rating: rating});
+      this.previewDescriptions = previewDescriptions;
     }
 }

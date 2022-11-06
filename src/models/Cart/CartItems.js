@@ -2,7 +2,6 @@ import { MediaModel } from "../Media/Media";
 
 export class CartItemsModel {
   isSelected = false;
-  images = new MediaModel({ id: 0, src: "" });
   constructor({
     id,
     productID,

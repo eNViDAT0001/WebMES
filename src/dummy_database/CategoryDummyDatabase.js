@@ -3,33 +3,68 @@ import productImg1 from '../assets/product1.png'
 import productImg2 from '../assets/product2.png'
 import productImg3 from '../assets/product3.png'
 import productImg4 from '../assets/product4.png'
-const productBandCheckBox = [
-    {
-        id: 1,
-        name: "Coaster Furniture"
-    },
-    {
-        id: 2,
-        name: "Fusion Dot High Fashion"
-    },
-    {
-        id: 3,
-        name: "Unique Furniture Resort"
-    },
-    {
-        id: 4,
-        name: "Dream Furniture Flipping"
-    },
-    {
-        id: 5,
-        name: "Young Repurposed"
-    },
-    {
-        id: 6,
-        name: "Green DIY furniture"
-    },
-]
+import { BrandModel } from '../models/Brand/Brand'
+import CategoryModel from '../models/Category/Category'
+import { ProductPreviewModel } from '../models/Product/ProductPreview'
 
+export const ProductBranch = [
+    new BrandModel({
+        id: 0,
+        name: "Branch 1",
+    }),
+    new BrandModel({
+        id: 1,
+        name: "Branch 2",
+    }),
+    new BrandModel({
+        id: 2,
+        name: "Branch 3",
+    })
+]
+export const ProductPreview = 
+[
+    new ProductPreviewModel({
+        id: 0,
+        name: "Dictum morbi",
+        description: "a",
+        price: 52.00,
+        discount: 50,
+        rating: 5,
+        media: productImg1,
+    }),
+    new ProductPreviewModel({
+        id: 1,
+        name: "Dictum morbi",
+        description: "a",
+        price: 52.00,
+        discount: 50,
+        rating: 5,
+        media: productImg2
+    }),
+    new ProductPreviewModel({
+        id: 1,
+        name: "Dictum morbi",
+        description: "a",
+        price: 52.00,
+        discount: 50,
+        rating: 5,
+        media: productImg3
+    }),
+    new ProductPreviewModel({
+        id: 1,
+        name: "Dictum morbi",
+        description: "a",
+        price: 52.00,
+        discount: 50,
+        rating: 5,
+        media: productImg4
+    }),
+
+]
+export const CATEGORY_DUMMY_DATABASE = {
+   branch: ProductBranch,
+   product: ProductPreview
+}
 const ratingItem = [
     {
         id: 1,
@@ -58,42 +93,4 @@ const ratingItem = [
     },
 ]
 
-const product = [
-    {
-        id: 1,
-        name: "Dictum morbi",
-        price: 52.00,
-        priceSale: 26.00,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-        image: productImg1 ,
-        rating: 5
-    },
-    {
-        id: 2,
-        name: "Sodales sit",
-        price: 52.00,
-        priceSale: 26,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-        image: productImg2, 
-        rating: 4
-    },
-    {
-        id: 3,
-        name: "Nibh varius",
-        price: 52.00,
-        priceSale: 26.00,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-        image: productImg3,
-        rating: 3
-    },
-    {
-        id: 4,
-        name: "Dictum morbi",
-        price: 52.00,
-        priceSale: 26.00,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-        image: productImg4,
-        rating: 2
-    }
-]
-export {ratingItem,productBandCheckBox,product}
+export {ratingItem}

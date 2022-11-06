@@ -1,9 +1,10 @@
+import { MediaModel } from "../Media/Media";
+
 export class CategoryModel{
-    constructor({id, prevID, name, image}){
+    constructor({id, name})
+    {
         this.id = id;
-        this.prevID = prevID;
         this.name = name;
-        this.image = image;
     }
 
 }

@@ -57,7 +57,7 @@ export const RegisterForm = () => {
         </h1>
       </div>
       <div className="flex flex-col ">
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between flex-wrap">
           <div className="flex flex-col w-[40%]">
             <TextFormRegister
               setName="Name Account :"

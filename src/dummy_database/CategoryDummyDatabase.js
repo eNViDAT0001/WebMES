@@ -4,7 +4,6 @@ import productImg2 from '../assets/product2.png'
 import productImg3 from '../assets/product3.png'
 import productImg4 from '../assets/product4.png'
 import { BrandModel } from '../models/Brand/Brand'
-import CategoryModel from '../models/Category/Category'
 import { ProductPreviewModel } from '../models/Product/ProductPreview'
 
 export const ProductBranch = [

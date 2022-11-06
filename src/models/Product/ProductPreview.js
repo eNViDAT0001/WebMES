@@ -1,5 +1,4 @@
 import { ProductModel } from "./Product"
-import { MediaModel } from "../Media/Media";
 export class ProductPreviewModel extends ProductModel{
     constructor({
       id,

@@ -41,7 +41,7 @@ export const ProductPreview =
         media: productImg2
     }),
     new ProductPreviewModel({
-        id: 1,
+        id: 2,
         name: "Dictum morbi",
         description: "a",
         price: 52.00,
@@ -50,7 +50,7 @@ export const ProductPreview =
         media: productImg3
     }),
     new ProductPreviewModel({
-        id: 1,
+        id: 3,
         name: "Dictum morbi",
         description: "a",
         price: 52.00,

@@ -7,7 +7,6 @@ export const HOME_PRODUCT = [
     id: 0,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
       new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -19,7 +18,6 @@ export const HOME_PRODUCT = [
     id: 1,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_2, priority: 1 }),
@@ -31,7 +29,6 @@ export const HOME_PRODUCT = [
     id: 2,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -43,7 +40,6 @@ export const HOME_PRODUCT = [
     id: 3,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -55,7 +51,6 @@ export const HOME_PRODUCT = [
     id: 4,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -67,7 +62,6 @@ export const HOME_PRODUCT = [
     id: 5,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -79,7 +73,6 @@ export const HOME_PRODUCT = [
     id: 6,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -91,7 +84,6 @@ export const HOME_PRODUCT = [
     id: 7,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -103,7 +95,6 @@ export const HOME_PRODUCT = [
     id: 8,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -115,7 +106,6 @@ export const HOME_PRODUCT = [
     id: 9,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -127,7 +117,6 @@ export const HOME_PRODUCT = [
     id: 10,
     name: "Gud",
     price: 20000,
-    unit: "Hộp",
     discount: 20,
     media: [
         new ProductMediaModel({ id: 0, src: DEFAULT_IMGAGE.DEFAULT_IMAGE_1, priority: 1 }),
@@ -136,3 +125,5 @@ export const HOME_PRODUCT = [
     rating: 4,
   }),
 ];
+
+

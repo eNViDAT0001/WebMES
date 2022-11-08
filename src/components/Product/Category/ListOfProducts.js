@@ -1,14 +1,21 @@
-import { product } from "../../../dummy_database/CategoryDummyDatabase" 
 import Rating from "react-rating"
 import starActive from '../../../assets/star.png'
 import starNotActive from '../../../assets/star_not.png'
 import {Link} from "react-router-dom";
-import { CATEGORY_DUMMY_DATABASE } from "../../../dummy_database/CategoryDummyDatabase";
+import { useDispatch,useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAllProduct } from "../../../store/slices/CategorySlice";
 const ListOfProducts = () => {
-     
+    const dispatch = useDispatch()
+    const getInitalStateCategory = useSelector((state)=> state.category)
+    useEffect(() => {
+        dispatch(fetchAllProduct())
+      },[])
+    const categoryProduct = getInitalStateCategory.product
+    console.log(categoryProduct)
     return(
         <div className='flex flex-col '>
-                    {CATEGORY_DUMMY_DATABASE.product.map(data =>(
+                    {categoryProduct.map(data =>(
                         <Link to={`/product/${data.id}`} key={data.id} className = "flex flex-row justify-start w-921px h-230px my-4 border-2 hover:shadow-lg">
                             <img src={data.media} alt="anh san pham" className='my-4 ml-4 mr-7'></img>
                             <div className='flex flex-col mt-46px'>
@@ -21,7 +28,7 @@ const ListOfProducts = () => {
                                         fullSymbol={<img src={starActive} alt="star" className="w-4 h-4 mr-1" />}
                                         initialRating = {data.rating}
                                         readonly = {true}
-                                    /> 
+                                    />
                                 </div>
                                 <div className='text-left'>
                                     <h1 className=' text-base text-gray-text-product-content'>{data.description}</h1>

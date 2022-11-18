@@ -12,7 +12,6 @@ const ListOfProducts = () => {
         dispatch(fetchAllProduct())
       },[])
     const categoryProduct = getInitalStateCategory.product
-    console.log(categoryProduct)
     return(
         <div className='flex flex-col '>
                     {categoryProduct.map(data =>(

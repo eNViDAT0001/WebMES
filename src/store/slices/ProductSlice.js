@@ -1,35 +1,13 @@
 //https://api.publicapis.org/entries
 
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-const ListId = [
-    {
-        id: 0,
-    },
-    {
-        id: 1,
-    },
-    {
-        id: 2,
-    },
-    {
-        id: 3,
-    },
-    {
-        id: 4,
-    }
-]
+import { ProductApi } from "../../api/productApi";
 const initialState= {
     loading: false,
-    product:undefined,
+    product:{},
     error: '',
 }
-/*
-export const fetchTestApi = createAsyncThunk('api/fetchAPI',() =>{
-    return axios
-    .get('https://api.publicapis.org/entries')
-    .then((response) =>response.data)
-})
-*/
+
 
 const productSlice = createSlice({
     name:'product',
@@ -42,9 +20,9 @@ const productSlice = createSlice({
     }
 })
 
-export const fetchOneProductFromId = (id) => async (dispatch) => {
+export const fetchOneProduct = (id) => async (dispatch) => {
     try {
-        const response = await ListId[id].id
+        const response = await ProductApi.ReadOneProduct(id)
         dispatch(setProduct(response))
     } catch (error) {
         console.log(error)

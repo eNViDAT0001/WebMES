@@ -1,16 +1,10 @@
 import { useEffect } from "react"
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { fetchTestApi } from "../../store/slices/TestApiSlice"
+import { ProductApi } from "../../api/productApi"
 export const TestingPages = () => {
-  const test = useSelector((state) => state.test)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchTestApi())
-  },[])
-  const entries = test.entries
-  console.log(entries)
-
+  useEffect(()=>
+    console.log(ProductApi.ReadOneProduct("6253ef7f5b01a8842718b366"))
+  ,[])
   return (
     <div>TestingPages
     </div>

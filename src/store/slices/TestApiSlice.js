@@ -10,9 +10,8 @@ const initialState= {
 }
 
 export const fetchTestApi = createAsyncThunk('api/fetchAPI',() =>{
-    return axios
-    .get('https://api.publicapis.org/entries')
-    .then((response) =>response.data)
+    return fetch('https://api.publicapis.org/entries')
+    .then((response) =>response.json())
 })
 
 const testApiSlice = createSlice({

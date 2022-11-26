@@ -30,7 +30,7 @@ const BillData = [
 ];
 export const Bill = () => {
   return (
-    <div className="w-[40%] font-['Josefin_Sans']">
+    <div className="w-[36%] font-['Josefin_Sans']">
       <div className="flex flex-row items-center">
         <h1 className=" text-xl mr-4 font-bold"> Discount </h1>
         <TextField

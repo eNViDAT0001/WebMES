@@ -6,34 +6,42 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch,useSelector } from "react-redux"
+import { useEffect } from "react" 
+import {fetchAllProvince, fetchDistrictFromProvince, fetchWardFromDistrict} from "../../store/slices/AddressSlice"
 
 const ShippingOrder = () => {
+
+  const dispatch = useDispatch()
+
   const [isClicked, setIsClicked] = useState(false);
+
   const ChangeUIWhenClickButton = () => {
     setIsClicked(!isClicked);
   };
-  const saveAddress = [
-    {
-      label: "TP HCM",
-    },
-    {
-      label: "TP HN",
-    },
-    {
-      label: "TP CM",
-    },
-  ];
-  const shipping = [
-    {
-      label: "Free Shipping",
-    },
-    {
-      label: "Fast Shipping",
-    },
-    {
-      label: "Slow Shipping",
-    },
-  ];
+
+  const onChangeProvince = (e, value) =>{
+    dispatch(fetchDistrictFromProvince(value.id))
+  }
+
+  const onChangeDistrict = (e,value) =>{
+    dispatch(fetchWardFromDistrict(value.id))
+  }
+  useEffect(() => {
+    dispatch(fetchAllProvince());
+  }, []);
+  
+
+
+  const DataProvince = useSelector((state) => state.address.Province)
+  const DataDistrict = useSelector((state)=> state.address.District)
+  const DataWard = useSelector((state) => state.address.Ward)
+
+  const newDataProvince = DataProvince.map(({name: label,...rest}) => ({label,...rest}));
+  const newDataDistrict = DataDistrict.map(({name: label,...rest}) => ({label,...rest}));
+  const newDataWard = DataWard.map(({name: label,...rest}) => ({label,...rest}));
+
+
   return (
     <div className="w-full space-y-8 bg-[#F7FAFC] p-8">
       <h1 className=" text-xl font-sans font-semibold"> Shipping Detail</h1>
@@ -48,7 +56,7 @@ const ShippingOrder = () => {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={saveAddress}
+          options={[]}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Address" />}
         />
@@ -59,28 +67,34 @@ const ShippingOrder = () => {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={saveAddress}
+          options={newDataProvince}
+          getOptionSelected={(option, value) => option.id === value.id}
           disabled={isClicked}
           sx={{ width: 300 }}
+          onChange = {onChangeProvince}
           renderInput={(params) => <TextField {...params} label="Province" />}
         />
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={saveAddress}
+          getOptionSelected={(option, value) => option.id === value.id}
+
+          options={newDataDistrict}
           disabled={isClicked}
+          onChange = {onChangeDistrict}
 
           sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Wist" />}
+          renderInput={(params) => <TextField {...params} label="District" />}
         />
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={saveAddress}
+          getOptionSelected={(option, value) => option.id === value.id}
+          options={newDataWard}
           disabled={isClicked}
 
           sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="District" />}
+          renderInput={(params) => <TextField {...params} label="Ward" />}
         />
       </div>
       <h1 className=" text-[#ABB1B9]">Street Name: </h1>
@@ -109,7 +123,7 @@ const ShippingOrder = () => {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={shipping}
+            options={[]}
             sx={{ width: 300 }}
             className="w-full"
             renderInput={(params) => <TextField {...params} label="Shipping" />}

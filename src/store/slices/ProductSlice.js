@@ -1,6 +1,6 @@
 //https://api.publicapis.org/entries
 
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { ProductApi } from "../../api/productApi";
 const initialState= {
     loading: false,

@@ -2,7 +2,7 @@ import { Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOneProduct, fetchOneProductFromId } from "../../store/slices/ProductSlice";
+import { fetchOneProduct } from "../../store/slices/ProductSlice";
 import ProductBasicInformation from '../../components/Product/ProductDetail/ProductBasicInformation'
 import DetailInformation from '../../components/Product/ProductDetail/DetailInformation'
 import Relatives from "../../components/Product/ProductDetail/Relatives";

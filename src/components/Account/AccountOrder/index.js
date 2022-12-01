@@ -1,6 +1,7 @@
 
 import HeaderBar from "../../StoreOtherComponent/HeaderBar";
 import ChangeBarInformation from "../GeneralLayout/ChangeBarInformation";
+import OrderTab from "./OrderTab";
 const AccountOrder = () =>{
     return (
         <div>
@@ -8,6 +9,7 @@ const AccountOrder = () =>{
             <div className="flex justify-center">
                 <div className=" w-[85%] h-full flex flex-row ">
                     <ChangeBarInformation />
+                    <OrderTab />
                 </div>
             </div>
         </div>

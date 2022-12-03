@@ -6,7 +6,14 @@ export const AuthApi = {
     LoginUser:(body) =>{
         return fetch(`${base}/app/login`, {
             method: "POST",
-            body: body,
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: body.username,
+                password: body.password
+            }),
+       
           });
     },
     RegisterUser:(body) =>{

@@ -1,3 +1,5 @@
+
+
 export function crudBuilder(
   baseRoute,
   transformFilters,
@@ -13,6 +15,7 @@ export function crudBuilder(
       params += "?"
     }
     return fetch(`${path}${params}`)
+
       .then((res) => res.json())
       .then((res) => ({
         data: res.data.map((entity) => transformEntity(entity)),
@@ -33,6 +36,9 @@ export function crudBuilder(
 
     return fetch(path, {
       method: "POST",
+      headers:{
+        
+      },
       body: prepareFormValues(formValues),
     });
   }

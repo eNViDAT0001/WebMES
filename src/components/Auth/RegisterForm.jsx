@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Register } from "../../store/slices/AuthSlice";
 const TextFormRegister = (props) => {
-  // const classNameText = "mt-7 mb-1 whitespace-nowrap"
   return (
     <div>
       <h1 className={props.classNameText}>{props.setName}</h1>
@@ -48,6 +50,13 @@ const ChoiceTwoOption = (props) => {
   );
 };
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
+  const register = useSelector((state) => state.auth.RegisterForm);
+
+  const activeRegister = () =>{
+    
+  }
+
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px]">
       <div className=" flex items-center flex-col">
@@ -91,7 +100,10 @@ export const RegisterForm = () => {
           className=" w-[30%] w-max-[150px] h-[10%] p-2 border-b-2 border-[#27A69E]"
         />
       </div>
-      <button className="w-full h-[40px] bg-[#FF1788] text-white mt-10">
+      <button
+        className="w-full h-[40px] bg-[#FF1788] text-white mt-10"
+        onClick={activeRegister}
+      >
         Sign Up
       </button>
     </div>

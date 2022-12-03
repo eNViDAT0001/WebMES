@@ -4,7 +4,36 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from "react-social-login-buttons";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Login } from "../../store/slices/AuthSlice";
+import {LoginFormReq} from '../../models/AuthForm/LoginFormReq'
+import { useState } from "react";
+
+
+
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const [usernameText,setUsernameText] = useState("")
+  const [passwordText,setPasswordText] = useState("")
+
+  const dataToken = useSelector((state) => state.auth.dataToken);
+
+  const handleChangePassword = (e) =>{
+    setPasswordText(e.target.value)
+  }
+  const handleChangeUsername = (e) =>{
+    setUsernameText(e.target.value)
+  }
+
+  const handleLoginButton = () =>{
+    const body = new LoginFormReq({
+      username : usernameText,
+      password : passwordText,
+    })
+    dispatch(Login(body))
+  }
+  console.log(dataToken)
   return (
     <div className="w-[80%] w-max-[200px] shadow-lg border p-[50px]">
       <div className="flex justify-center items-center flex-col">
@@ -20,20 +49,24 @@ export const LoginForm = () => {
           <div className=" flex items-center flex-col">
             <input
               type="text"
-              placeholder="Email address"
+              placeholder="Username"
               className="w-full p-2 border rounded-md mt-9"
+              onChange={handleChangeUsername}
+
             ></input>
             <input
               type="text"
               placeholder="Password"
               className="w-full p-2 border rounded-md mt-5"
+              onChange={handleChangePassword}
+
             ></input>
           </div>
           <h1 className="font-[Lato] mt-3 text-[#9096B2] hover:underline">
             Forgot your password?
           </h1>
-          <button className="w-full h-[13%] h-max-[47px] bg-[#FF1788] text-white  mt-5 mb-5">
-            {" "}
+          <button className="w-full h-[13%] h-max-[47px] bg-[#FF1788] text-white  mt-5 mb-5"
+          onClick={handleLoginButton}>
             Sign in
           </button>
         </div>

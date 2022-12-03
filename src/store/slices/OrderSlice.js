@@ -3,6 +3,7 @@ import { OrderList } from '../../dummy_database/OrderDummyDatabase'
 
 const initialState = {
     OrderAccount:[],
+    Cart: [],
 }
 
 

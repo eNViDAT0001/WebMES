@@ -3,14 +3,14 @@ import starActive from '../../../../assets/star.png'
 import starNotActive from '../../../../assets/star_not.png'
 import { useDispatch,useSelector } from "react-redux"
 import { useEffect } from "react"
-import { fetchOneProduct } from "../../../../store/slices/ProductSlice"
+import { fetchAllProduct } from "../../../../store/slices/ProductSlice"
 const TitleAndRating = () => {
-const dispatch = useDispatch();
-  const product = useSelector((state) => state.product.product);
-  useEffect(() => {
-    dispatch(fetchOneProduct("6253ef7f5b01a8842718b366"));
+    const dispatch = useDispatch();
+    const product = useSelector((state) => state.product.ProductDetail);
+    useEffect(() => {
+    dispatch(fetchAllProduct("6253ef7f5b01a8842718b366"));
   }, []);
-  
+    console.log(product)
     return(
         <div>
             <h1 className=" font-normal text-4xl text-purple-text-name-product-detail ">{product.nameProduct}</h1>

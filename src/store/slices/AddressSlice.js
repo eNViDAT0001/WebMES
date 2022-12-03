@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { ListDistrict, ListProvince, ListWard } from '../../dummy_database/AddressDummyDatabase' 
 
 const initialState = {
+    CurrentAddress:[],
+    UserAddress:[],
     Province:[],
     Ward:[],
     District:[],
@@ -13,6 +15,9 @@ const AddressSlice = createSlice({
 
     reducers:
     {
+        setUserAddress: (state,action) =>{
+            state.setUserAddress = action.payload
+        },
         setProvince: (state,action) =>{
             state.Province = action.payload
         },

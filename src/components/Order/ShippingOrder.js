@@ -9,11 +9,11 @@ import React, { useState } from "react";
 import { useDispatch,useSelector } from "react-redux"
 import { useEffect } from "react" 
 import {fetchAllProvince, fetchDistrictFromProvince, fetchWardFromDistrict} from "../../store/slices/AddressSlice"
-
+import { ProductApi } from "../../api/productApi";
 const ShippingOrder = () => {
 
   const dispatch = useDispatch()
-
+  const [data,setData] = useState([])
   const [isClicked, setIsClicked] = useState(false);
 
   const ChangeUIWhenClickButton = () => {
@@ -31,8 +31,11 @@ const ShippingOrder = () => {
     dispatch(fetchAllProvince());
   }, []);
   
+  useEffect(()=>{
+    setData(ProductApi.ReadFullProduct())
+  },[])
 
-
+  console.log(data)
   const DataProvince = useSelector((state) => state.address.Province)
   const DataDistrict = useSelector((state)=> state.address.District)
   const DataWard = useSelector((state) => state.address.Ward)

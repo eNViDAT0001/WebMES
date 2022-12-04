@@ -52,7 +52,7 @@ export const fetchProvince = (id) => async (dispatch) => {
 export const fetchDistrictFromProvince = (idProvince) => async (dispatch) => {
     try {
         
-        const response = await ListDistrict.filter((data) => data.provinceID.id == idProvince)
+        const response = await ListDistrict.filter((data) => data.provinceID.id === idProvince)
         dispatch(setDistrict(response))
     } catch (error) {
         console.log(error)
@@ -72,7 +72,7 @@ export const fetchAllDistrict = () => async (dispatch) => {
 export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
     try {
         
-        const response = await ListWard.filter((data) => data.districtID.id == idDistrict)
+        const response = await ListWard.filter((data) => data.districtID.id === idDistrict)
         dispatch(setWard(response))
     } catch (error) {
         console.log(error)

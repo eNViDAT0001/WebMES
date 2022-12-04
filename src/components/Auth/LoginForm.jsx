@@ -5,7 +5,6 @@ import {
   GoogleLoginButton,
 } from "react-social-login-buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { Login } from "../../store/slices/AuthSlice";
 import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
 import { useState } from "react";
@@ -15,7 +14,7 @@ export const LoginForm = () => {
   const dispatch = useDispatch();
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
-  const dataToken = useSelector((state) => state.auth.dataToken);
+  //const dataToken = useSelector((state) => state.auth.dataToken);
 
   const handleChangePassword = (e) => {
     setPasswordText(e.target.value);
@@ -32,6 +31,7 @@ export const LoginForm = () => {
 
     dispatch(Login(body));
   };
+
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] mb-20 min-w-[300px]">
       <div className="flex justify-center items-center flex-col">

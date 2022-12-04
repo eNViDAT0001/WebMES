@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 
+import { Register } from "../../store/slices/AuthSlice";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
@@ -12,11 +13,20 @@ import RadioGroup from "@mui/material/RadioGroup";
 
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
-
+import { RegisterFormReq } from "../../models/AuthForm/RegisterFormReq";
 export const RegisterForm = () => {
-  const [date, setDate] = React.useState(dayjs("2022-08-18T21:11:54"));
-  const [gender, setGender] = React.useState("1");
+
+  const dataToken = useSelector((state) => state.auth.dataToken);
+  const dispatch = useDispatch()
+
+  const [username,setUsername] = useState("")
+  const [password,setPassword] = useState("")
+  const [name,setName] = useState("")
+  const [phone,setPhone] = useState("")
+  const [date, setDate] = useState("2001-01-01");
+  const [gender, setGender] = useState("1");
   const [type, setType] = useState("BUYER");
+  const [email, setEmail] = useState("");
 
   const handleChangeDataPicker = (event) => {
     setDate(event.target.value);
@@ -30,11 +40,50 @@ export const RegisterForm = () => {
     setType(event.target.value);
   };
 
-  console.log(date);
+  const handleChangePassword = (event) =>{
+    setPassword(event.target.value);
 
+  }
 
-  const activeRegister = () => {};
+  const handleChangeUsername = (event) =>{
+    setUsername(event.target.value);
 
+  }
+  const handleChangePhone = (event) =>{
+    setPhone(event.target.value);
+
+  }
+  const handleChangeName = (event) =>{
+    setName(event.target.value);
+
+  }
+
+  const handleChangeEmail = (event) =>{
+    setEmail(event.target.value)
+  }
+
+  const trueGender = (gender) => {
+    if(gender === "1") return true
+    else return false 
+  }
+
+  const activeRegister =()=> {
+    const body = new RegisterFormReq({
+      username: username,
+      password: password,
+      phone: phone,
+      gender: trueGender(gender),
+      type: type,
+      birthday: date,
+      name: name,
+      email: email,
+    });
+    console.log(body)
+    dispatch(Register(body));
+  }
+  useEffect(()=>{
+    console.log(dataToken)
+  },[dataToken])
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] min-w-[300px]">
       <div className=" flex items-center flex-col">
@@ -52,10 +101,11 @@ export const RegisterForm = () => {
         >
           <TextField
             fullWidth
-            label="Email"
+            label="User name"
             id="outlined-required"
             size="small"
             variant="standard"
+            onChange={handleChangeUsername}
           />
         </Box>
 
@@ -71,6 +121,24 @@ export const RegisterForm = () => {
             id="outlined-required"
             size="small"
             variant="standard"
+            onChange={handleChangePassword}
+
+          />
+        </Box>
+        <Box
+          sx={{
+            width: 500,
+            maxWidth: "100%",
+          }}
+        >
+          <TextField
+            fullWidth
+            label="Email"
+            id="outlined-required"
+            size="small"
+            variant="standard"
+            onChange={handleChangeEmail}
+
           />
         </Box>
         <div className="flex flex-row justify-between">
@@ -86,9 +154,11 @@ export const RegisterForm = () => {
               id="outlined-required"
               size="small"
               variant="standard"
+              onChange={handleChangeName}
+
             />
           </Box>
-
+            
           <Box
             sx={{
               width: "40%",
@@ -101,6 +171,8 @@ export const RegisterForm = () => {
               id="outlined-required"
               size="small"
               variant="standard"
+              onChange={handleChangePhone}
+
             />
           </Box>
         </div>
@@ -109,7 +181,8 @@ export const RegisterForm = () => {
             id="date"
             label="Birthday"
             type="date"
-            defaultValue="2017-05-24"
+            defaultValue={date}
+
             onChange={handleChangeDataPicker}
             sx={{ width: 220 }}
             InputLabelProps={{

@@ -1,5 +1,5 @@
 export class RegisterFormReq{
-    constructor({username,password,name,birthday,gender,phone,type}){
+    constructor({username,password,name,birthday,gender,phone,type,email}){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -7,5 +7,6 @@ export class RegisterFormReq{
         this.gender = gender;
         this.phone = phone;
         this.type = type;
+        this.email = email;
     }
 }

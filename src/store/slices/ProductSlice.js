@@ -1,11 +1,11 @@
 //https://api.publicapis.org/entries
 
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { ProductApi } from "../../api/productApi";
 const initialState= {
-    loading: false,
-    product:{},
-    error: '',
+    ProductDetail:[],
+    ProductReview:[],
+    ProductBanner:[],
 }
 
 
@@ -14,21 +14,31 @@ const productSlice = createSlice({
     initialState,
     reducers:
     {
-        setProduct: (state,action) =>{
-            state.product = action.payload
+        setProductDetail: (state,action) =>{
+            state.ProductDetail = action.payload
+        },
+        setProductPreview: (state,action) =>{
+            state.ProductReview = action.payload
+        },
+        setProductBanner: (state,action) =>{
+            state.ProductBanner = action.payload
         }
     }
 })
 
-export const fetchOneProduct = (id) => async (dispatch) => {
+
+
+export const fetchAllProduct = (filters) => async (dispatch) => {
     try {
-        const response = await ProductApi.ReadOneProduct(id)
-        dispatch(setProduct(response))
+        const response = await ProductApi.ReadFullProduct(filters)
+        dispatch(setProductDetail(response))
     } catch (error) {
         console.log(error)
     }
 } 
 export const {
-    setProduct,
+    setProductDetail,
+    setProductPreview,
+    setProductBanner,
 } = productSlice.actions
 export default productSlice.reducer

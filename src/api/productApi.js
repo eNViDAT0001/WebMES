@@ -1,11 +1,11 @@
-import { crudBuilder } from "./fetchClient";
-import { baseUrl } from "./fetchClient";
+import { crudBuilder } from "./Client";
+import { baseUrl } from "./Client";
 
 const products = crudBuilder(`${baseUrl}/product`)
 
 export const ProductApi = {
-    ReadAllProduct:() => {
-        return products.show()
+    ReadFullProduct: (filters)=>{
+        return products.list(filters)
     },
     ReadOneProduct:(id)=>{
         return products.show(id)

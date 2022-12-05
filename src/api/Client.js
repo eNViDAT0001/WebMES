@@ -10,11 +10,17 @@ export function crudBuilder(
 
   function list(filters) {
     const path = paths.list || baseRoute;
+    
     let params = transformFilters(filters)?.join("&");
     if(params) {
       params += "?"
     }
-    return fetch(`${path}${params}`)
+    return fetch(`${path}${params}`,{
+      method:'GET',
+      headers:{
+        "Authorization": "Bearer" + localStorage.getItem("AccessToken")
+      },
+    })
 
       .then((res) => res.json())
       .then((res) => ({
@@ -37,7 +43,7 @@ export function crudBuilder(
     return fetch(path, {
       method: "POST",
       headers:{
-        
+        "Authorization": "Bearer" + localStorage.getItem("AccessToken")
       },
       body: prepareFormValues(formValues),
     });
@@ -46,7 +52,13 @@ export function crudBuilder(
   function update(id, formValues) {
     const path = paths.update?.(id) || `${baseRoute}/${id}`;
 
-    return fetch(path, { method: "PUT", body: formValues });
+    return fetch(path, { 
+      method: "PUT",
+      body: formValues,
+      headers:{
+        "Authorization": "Bearer" + localStorage.getItem("AccessToken")
+      }, 
+    });
   }
 
   function remove(id) {
@@ -64,4 +76,4 @@ export function crudBuilder(
   }
 }
 
-export const baseUrl = "http://localhost:5000"
+export const baseUrl = "http://localhost:8082/api/v1"

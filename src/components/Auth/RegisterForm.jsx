@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import dayjs from "dayjs";
 
-import { Register } from "../../store/slices/AuthSlice";
 
+import { AuthApi } from "../../api/userApi";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -16,9 +13,6 @@ import { Box } from "@mui/system";
 import { RegisterFormReq } from "../../models/AuthForm/RegisterFormReq";
 export const RegisterForm = () => {
 
-  const dataToken = useSelector((state) => state.auth.dataToken);
-  const dispatch = useDispatch()
-
   const [username,setUsername] = useState("")
   const [password,setPassword] = useState("")
   const [name,setName] = useState("")
@@ -27,6 +21,8 @@ export const RegisterForm = () => {
   const [gender, setGender] = useState("1");
   const [type, setType] = useState("BUYER");
   const [email, setEmail] = useState("");
+
+
 
   const handleChangeDataPicker = (event) => {
     setDate(event.target.value);
@@ -66,7 +62,22 @@ export const RegisterForm = () => {
     if(gender === "1") return true
     else return false 
   }
-
+  
+  const Register = async(body) =>{
+    await AuthApi.RegisterUser(body)
+    .then((res) => res.json())
+    .then((respond) =>{
+      console.log(respond.data)
+      if(respond.data !== undefined){
+        localStorage.setItem("AccessToken",respond.data.access_token)
+        localStorage.setItem("AccessTokenExpiry",respond.data.access_token_expiry)
+        localStorage.setItem("RefreshToken",respond.data.refresh_token)
+        localStorage.setItem("RefreshTokenExpiry",respond.data.refresh_token_expiry)
+      }else{
+        console.log("Can't storage access token")
+      }
+    })
+  }
   const activeRegister =()=> {
     const body = new RegisterFormReq({
       username: username,
@@ -78,12 +89,10 @@ export const RegisterForm = () => {
       name: name,
       email: email,
     });
-    console.log(body)
-    dispatch(Register(body));
+    
+    Register(body)
   }
-  useEffect(()=>{
-    console.log(dataToken)
-  },[dataToken])
+
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] min-w-[300px]">
       <div className=" flex items-center flex-col">

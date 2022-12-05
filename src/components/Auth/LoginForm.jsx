@@ -4,17 +4,15 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from "react-social-login-buttons";
-import { useDispatch, useSelector } from "react-redux";
-import { Login } from "../../store/slices/AuthSlice";
 import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
 import { useState } from "react";
 import { Box, Divider, TextField } from "@mui/material";
-
+import { AuthApi } from "../../api/userApi";
+import { AddressApi } from "../../api/AddressApi";
 export const LoginForm = () => {
-  const dispatch = useDispatch();
+
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
-  //const dataToken = useSelector((state) => state.auth.dataToken);
 
   const handleChangePassword = (e) => {
     setPasswordText(e.target.value);
@@ -23,14 +21,48 @@ export const LoginForm = () => {
     setUsernameText(e.target.value);
   };
 
-  const handleLoginButton = () => {
+
+  const Login = async(body) =>{
+    await AuthApi.LoginUser(body)
+    .then((res) => res.json())
+    .then((respond) =>{
+      console.log(respond.data)
+      if(respond.data !== undefined){
+        localStorage.setItem("AccessToken",respond.data.access_token)
+        localStorage.setItem("AccessTokenExpiry",respond.data.access_token_expiry)
+        localStorage.setItem("RefreshToken",respond.data.refresh_token)
+        localStorage.setItem("RefreshTokenExpiry",respond.data.refresh_token_expiry)
+       
+      }else{
+        console.log("Can't storage access token")
+      }
+    })
+  }
+  const test = async()=>{
+    console.log(localStorage.getItem("AccessToken"))
+
+    try {
+      await AddressApi.ReadAllProvince({})
+    .then((res)=>res.json())
+    .then((data)=>{
+      if(data!==undefined) console.log(data)
+    })
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  const handleLoginButton = async() => {
     const body = new LoginFormReq({
       username: usernameText,
       password: passwordText,
     });
 
-    dispatch(Login(body));
+    Login(body)
+
   };
+  test()
 
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] mb-20 min-w-[300px]">

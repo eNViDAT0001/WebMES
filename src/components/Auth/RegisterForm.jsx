@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-import { AuthApi } from "../../api/userApi";
+import { AuthApi } from "../../api/AuthApi";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -64,11 +64,8 @@ export const RegisterForm = () => {
   }
   
   const Register = async(body) =>{
-    await AuthApi.RegisterUser(body)
-    .then((res) => res.json())
-    .then((respond) =>{
-      console.log(respond.data)
-      if(respond.data !== undefined){
+    const respond = await AuthApi.RegisterUser(body)
+      if(respond.data.Token !== undefined){
         localStorage.setItem("AccessToken",respond.data.access_token)
         localStorage.setItem("AccessTokenExpiry",respond.data.access_token_expiry)
         localStorage.setItem("RefreshToken",respond.data.refresh_token)
@@ -76,8 +73,8 @@ export const RegisterForm = () => {
       }else{
         console.log("Can't storage access token")
       }
-    })
-  }
+    }
+
   const activeRegister =()=> {
     const body = new RegisterFormReq({
       username: username,

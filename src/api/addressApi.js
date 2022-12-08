@@ -1,26 +1,32 @@
-import { crudBuilder } from "./Client";
-import { baseUrl } from "./Client";
+import axiosClient from "./Client"
+
 
 //const province = crudBuilder(`${baseUrl}/provinces`)
 
 
-export const AddressApi = {
-    
+export const AddressApi = {   
     ReadAllProvince: () =>{
-        return fetch(`${baseUrl}/users?type=cursor&marker=1&limit=6`,{
-            method:'GET',
-            headers:{
-              "Authorization": "Bearer " + localStorage.getItem("AccessToken")
-              
-            },
-          })
-        /*
-        return fetch(`${baseUrl}/provinces`,{
-            method:'GET',
-            headers:{
-              "Authorization": "Bearer" + localStorage.getItem("AccessToken")
-            },
-          })*/
-        //return province.list(filters)
+      const url = "/provinces"
+      return axiosClient.get(url)
+    },
+    ReadAllDistrict: (id) =>{
+      const url = `/province/${id}`
+      return axiosClient.get(url)
+    },
+    ReadAllWard: (id) =>{
+      const url = `/district/${id}`
+      return axiosClient.get(url)
+    },
+    AddressById: (id) =>{
+      const url = `/user/${id}`
+      return axiosClient.get(url)
+    },
+    AddressList: ()=>{
+      const url = "/addresses"
+      return axiosClient.get(url)
+    },
+    DetailById: (idAddress,idUser)=>{
+      const url = `/addresses/${idAddress}/user/${idUser}`
+      return axiosClient.get(url)
     }
 }

@@ -13,7 +13,7 @@ export const AddressApi = {
       return axiosClient.get(url)
     },
     ReadAllWard: (id) =>{
-      const url = `/districts/${id}`
+      const url = `/wards/district/${id}`
       return axiosClient.get(url)
     },
     AddressById: (id) =>{
@@ -24,12 +24,18 @@ export const AddressApi = {
       const url = "/addresses"
       return axiosClient.get(url)
     },
-    DetailById: (idAddress,idUser)=>{
+    DetailByUserID: (idAddress,idUser)=>{
       const url = `/addresses/${idAddress}/user/${idUser}`
       return axiosClient.get(url)
     }, 
-    AddSaveAddress: (idAddress,idUser)=>{
-      const url = "/addresses"
+    GetListAddressByUserID:(id)=>{
+      const url = `/addresses/user/${id}`
       return axiosClient.get(url)
+    },
+    AddSaveAddress: (id,body)=>{
+      const url = `/addresses/user/${id}`
+      console.log(body)
+
+      return axiosClient.post(url,{...body})
     },
 }

@@ -10,7 +10,6 @@ const headerLogic = (token) =>{
   {
     obj = {'Content-type': 'application/json',"Authorization": "Bearer " + localStorage.getItem("AccessToken")}
   }
-  console.log(obj)
 
   return obj
 }

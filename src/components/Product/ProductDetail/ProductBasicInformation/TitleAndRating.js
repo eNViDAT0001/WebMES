@@ -10,7 +10,6 @@ const TitleAndRating = () => {
     useEffect(() => {
     dispatch(fetchAllProduct("6253ef7f5b01a8842718b366"));
   }, []);
-    console.log(product)
     return(
         <div>
             <h1 className=" font-normal text-4xl text-purple-text-name-product-detail ">{product.nameProduct}</h1>

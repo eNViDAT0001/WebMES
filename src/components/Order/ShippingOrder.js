@@ -6,57 +6,109 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useDispatch,useSelector } from "react-redux"
-import { useEffect } from "react" 
-import {fetchAllProvince, fetchDistrictFromProvince, fetchWardFromDistrict} from "../../store/slices/AddressSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  AddSaveAddress,
+  fetchAllProvince,
+  fetchDistrictFromProvince,
+  fetchWardFromDistrict,
+  GetListAddress,
+} from "../../store/slices/AddressSlice";
 import { GetUserInformationDetail } from "../../store/slices/UserSlice";
+import { SaveAddressForm } from "../../models/SaveAddressForm/SaveAddressForm";
 const ShippingOrder = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  const [ProvinceId,setProvinceId] = useState("")
+  const UserDetail =  useSelector((state) => state.user.UserDetail);
+  const Name = UserDetail.name
+  const Gender = UserDetail.gender;
+  const Phone = UserDetail.phone;
+
+  
+  const ID = localStorage.getItem("UserID");
+
+  const [ProvinceID, setProvinceID] = useState("");
+  const [DistrictID, setDistrictID] = useState("");
+  const [WardID, setWardID] = useState("");
+  const [Street, setStreet] = useState("");
+
   const [isClicked, setIsClicked] = useState(false);
 
   const ChangeUIWhenClickButton = () => {
     setIsClicked(!isClicked);
   };
+  const ChangeStreetTextBox = (e) => {
+    setStreet(e.target.value);
+  };
+  const onChangeProvince = (e, value) => {
+    setProvinceID(value.id);
+  };
 
-  const onChangeProvince = (e, value) =>{
-    setProvinceId(value.id)
-  }
+  const onChangeDistrict = (e, value) => {
+    setDistrictID(value.id);
+  };
+  const onChangeWard = (e, value) => {
+    setWardID(value.id);
+  };
 
-  const onChangeDistrict = (e,value) =>{
-    dispatch(fetchWardFromDistrict(value.id))
-  }
   useEffect(() => {
     dispatch(fetchAllProvince());
+    dispatch(GetListAddress(ID))
+    dispatch(GetUserInformationDetail(ID));
   }, []);
+
   useEffect(() => {
-    dispatch(fetchDistrictFromProvince(ProvinceId))
-  },[ProvinceId]);
-  
- //name,gender,phone
-  const Name = useSelector((state)=>state.user.name)
-  const ID = useSelector((state)=>state.user.ID)
-  const Gender =  useSelector((state)=>state.user.gender)
-  const Phone = useSelector((state)=>state.user.phone)
+    dispatch(fetchDistrictFromProvince(ProvinceID));
+  }, [ProvinceID]);
+  useEffect(() => {
+    dispatch(fetchWardFromDistrict(DistrictID));
+  }, [DistrictID]);
 
-  dispatch(GetUserInformationDetail(localStorage.getItem("UserID")))
+  const ClickGoToPayment = () => {
+    if (!isClicked) {
+      const body = new SaveAddressForm({
+        user_id: ID,
+        name: Name,
+        gender: Gender,
+        phone: Phone,
+        province_code: ProvinceID,
+        district_code: DistrictID,
+        ward_code: WardID,
+        street: Street,
+      });
+      const data = dispatch(AddSaveAddress(ID, body));
+      if (data !== undefined) {
+        window.location.reload(false)
+      }
+    }
+  };
 
-  const DataProvince = useSelector((state) => state.address.Province)
-  const DataDistrict = useSelector((state)=> state.address.District)
-  const DataWard = useSelector((state) => state.address.Ward)
+  const DataAddressSave = useSelector((state) => state.address.UserAddress);
+  const DataProvince = useSelector((state) => state.address.Province);
+  const DataDistrict = useSelector((state) => state.address.District);
+  const DataWard = useSelector((state) => state.address.Ward);
 
-  const newDataProvince = DataProvince.map(({Name: label,Code: id,...rest}) => ({label,id,...rest}));
+  const newAddressSave = DataAddressSave.map(
+    ({ Street: label, ...rest }) => ({ label,  ...rest })
+  );
+  const newDataProvince = DataProvince.map(
+    ({ Name: label, Code: id, ...rest }) => ({ label, id, ...rest })
+  );
 
-  const newDataDistrict = DataDistrict.map(({Name: label,...rest}) => ({label,...rest}));
-  const newDataWard = DataWard.map(({Name: label,...rest}) => ({label,...rest}));
+  const newDataDistrict = DataDistrict.map(
+    ({ Name: label, Code: id, ...rest }) => ({ label, id, ...rest })
+  );
+  const newDataWard = DataWard.map(({ Name: label, Code: id, ...rest }) => ({
+    label,
+    id,
+    ...rest,
+  }));
 
-  GetUserInformationDetail(localStorage.getItem("UserID"))
   return (
     <div className="w-full space-y-8 bg-[#F7FAFC] p-8">
       <h1 className=" text-xl font-sans font-semibold"> Shipping Detail</h1>
       <div className="flex flex-row justify-between items-center mt">
-
         <FormControlLabel
           className="text-[#2D3748]"
           control={<Checkbox size="small" color="default" />}
@@ -66,57 +118,54 @@ const ShippingOrder = () => {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={[]}
+          disabled={!isClicked}
+          options={newAddressSave}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Address" />}
         />
       </div>
       <div className="space-y-8">
-      <h1 className="text-[#ABB1B9]">Select Address: </h1>
-      <div className="flex flex-row space-x-6">
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={newDataProvince}
-          getOptionSelected={(option, value) => option === value}
+        <h1 className="text-[#ABB1B9]">Select Address: </h1>
+        <div className="flex flex-row space-x-6">
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={newDataProvince}
+            disabled={isClicked}
+            sx={{ width: 300 }}
+            onChange={onChangeProvince}
+            renderInput={(params) => <TextField {...params} label="Province" />}
+          />
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={newDataDistrict}
+            disabled={isClicked}
+            onChange={onChangeDistrict}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="District" />}
+          />
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={newDataWard}
+            disabled={isClicked}
+            onChange={onChangeWard}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Ward" />}
+          />
+        </div>
+        <h1 className=" text-[#ABB1B9]">Street Name: </h1>
+        <TextField
+          id="outlined-basic"
+          label="Street"
+          variant="outlined"
+          
           disabled={isClicked}
-          sx={{ width: 300 }}
-          onChange = {onChangeProvince}
-          renderInput={(params) => <TextField {...params} label="Province" />}
-        />
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          getOptionSelected={(option, value) => option.id === value.id}
-
-          options={newDataDistrict}
-          disabled={isClicked}
-          onChange = {onChangeDistrict}
-
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="District" />}
-        />
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          getOptionSelected={(option, value) => option.id === value.id}
-          options={newDataWard}
-          disabled={isClicked}
-
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Ward" />}
+          onChange={ChangeStreetTextBox}
+          className="h-max-[5px] w-full"
         />
       </div>
-      <h1 className=" text-[#ABB1B9]">Street Name: </h1>
-      <TextField
-        id="outlined-basic"
-        label="Street"
-        variant="outlined"
-        disabled={isClicked}
-
-        className="h-max-[5px] w-full"
-      />
-    </div>
 
       <div className="flex flex-row ">
         <div className="flex flex-col space-y-3">
@@ -146,7 +195,7 @@ const ShippingOrder = () => {
           <Button variant="outlined" disabled size="large">
             Cancel Order
           </Button>
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" onClick={ClickGoToPayment}>
             Payment
           </Button>
         </div>

@@ -20,7 +20,6 @@ export const LoginForm = () => {
     setUsernameText(e.target.value);
   };
 
-  console.log(localStorage.getItem("UserId"));
   const Login = async (body) => {
     const respond = await AuthApi.LoginUser(body);
     if (respond.data.data.Token !== undefined) {

@@ -15,7 +15,7 @@ const AddressSlice = createSlice({
     reducers:
     {
         setUserAddress: (state,action) =>{
-            state.setUserAddress = action.payload
+            state.UserAddress = action.payload
         },
         setProvince: (state,action) =>{
             state.Province = action.payload
@@ -46,20 +46,48 @@ export const fetchAllProvince = () => async(dispatch) =>{
 
 export const fetchDistrictFromProvince = (idProvince) => async (dispatch) => {
     try {
-        
-        const response = await AddressApi.ReadAllDistrict(idProvince)
-        dispatch(setDistrict(response.data.data))
+        if(idProvince!==""){
+            const response = await AddressApi.ReadAllDistrict(idProvince)
+            dispatch(setDistrict(response.data.data))
+        }
     } catch (error) {
         console.log(error)
     }
 } 
 
+export const GetDetailAddressByUserId = (idAddress,idUser) => async(dispatch) =>{
+    try {
+            const response = await AddressApi.DetailByUserID(idAddress,idUser)
+            dispatch(setDistrict(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+export const GetListAddress = (id)=>async(dispatch)=>{
+    try {
+        const response = await AddressApi.GetListAddressByUserID(id)
+        dispatch(setUserAddress(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+export const AddSaveAddress= (userID,body)=>async(dispatch)=>{
+    try {
+        const response = await AddressApi.AddSaveAddress(userID,body)
+        console.log(response)
+        dispatch(setDistrict(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
     try {
-        const response = await AddressApi.ReadAllWard(idDistrict)
-        dispatch(setWard(response.data.data))
+        if(idDistrict!==""){
+            const response = await AddressApi.ReadAllWard(idDistrict)
+            dispatch(setWard(response.data.data))
+        }
     } catch (error) {
         console.log(error)
     }

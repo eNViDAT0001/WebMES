@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 import { AuthApi } from "../../api/AuthApi";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
@@ -12,17 +11,14 @@ import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { RegisterFormReq } from "../../models/AuthForm/RegisterFormReq";
 export const RegisterForm = () => {
-
-  const [username,setUsername] = useState("")
-  const [password,setPassword] = useState("")
-  const [name,setName] = useState("")
-  const [phone,setPhone] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [date, setDate] = useState("2001-01-01");
   const [gender, setGender] = useState("1");
   const [type, setType] = useState("BUYER");
   const [email, setEmail] = useState("");
-
-
 
   const handleChangeDataPicker = (event) => {
     setDate(event.target.value);
@@ -36,46 +32,51 @@ export const RegisterForm = () => {
     setType(event.target.value);
   };
 
-  const handleChangePassword = (event) =>{
+  const handleChangePassword = (event) => {
     setPassword(event.target.value);
+  };
 
-  }
-
-  const handleChangeUsername = (event) =>{
+  const handleChangeUsername = (event) => {
     setUsername(event.target.value);
-
-  }
-  const handleChangePhone = (event) =>{
+  };
+  const handleChangePhone = (event) => {
     setPhone(event.target.value);
-
-  }
-  const handleChangeName = (event) =>{
+  };
+  const handleChangeName = (event) => {
     setName(event.target.value);
+  };
 
-  }
-
-  const handleChangeEmail = (event) =>{
-    setEmail(event.target.value)
-  }
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
 
   const trueGender = (gender) => {
-    if(gender === "1") return true
-    else return false 
-  }
-  
-  const Register = async(body) =>{
-    const respond = await AuthApi.RegisterUser(body)
-      if(respond.data.Token !== undefined){
-        localStorage.setItem("AccessToken",respond.data.access_token)
-        localStorage.setItem("AccessTokenExpiry",respond.data.access_token_expiry)
-        localStorage.setItem("RefreshToken",respond.data.refresh_token)
-        localStorage.setItem("RefreshTokenExpiry",respond.data.refresh_token_expiry)
-      }else{
-        console.log("Can't storage access token")
-      }
-    }
+    if (gender === "1") return true;
+    else return false;
+  };
 
-  const activeRegister =()=> {
+  const Register = async (body) => {
+    const respond = await AuthApi.RegisterUser(body);
+    if (respond.data.data.Token !== undefined) {
+      localStorage.setItem("AccessToken", respond.data.data.Token.access_token);
+      localStorage.setItem(
+        "AccessTokenExpiry",
+        respond.data.data.Token.access_token_expiry
+      );
+      localStorage.setItem(
+        "RefreshToken",
+        respond.data.data.Token.refresh_token
+      );
+      localStorage.setItem(
+        "RefreshTokenExpiry",
+        respond.data.data.Token.refresh_token_expiry
+      );
+    } else {
+      console.log("Can't storage access token");
+    }
+  };
+
+  const activeRegister = () => {
     const body = new RegisterFormReq({
       username: username,
       password: password,
@@ -86,9 +87,9 @@ export const RegisterForm = () => {
       name: name,
       email: email,
     });
-    
-    Register(body)
-  }
+
+    Register(body);
+  };
 
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] min-w-[300px]">
@@ -128,7 +129,6 @@ export const RegisterForm = () => {
             size="small"
             variant="standard"
             onChange={handleChangePassword}
-
           />
         </Box>
         <Box
@@ -144,7 +144,6 @@ export const RegisterForm = () => {
             size="small"
             variant="standard"
             onChange={handleChangeEmail}
-
           />
         </Box>
         <div className="flex flex-row justify-between">
@@ -161,10 +160,9 @@ export const RegisterForm = () => {
               size="small"
               variant="standard"
               onChange={handleChangeName}
-
             />
           </Box>
-            
+
           <Box
             sx={{
               width: "40%",
@@ -178,23 +176,21 @@ export const RegisterForm = () => {
               size="small"
               variant="standard"
               onChange={handleChangePhone}
-
             />
           </Box>
         </div>
 
-          <TextField
-            id="date"
-            label="Birthday"
-            type="date"
-            defaultValue={date}
-
-            onChange={handleChangeDataPicker}
-            sx={{ width: 220 }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+        <TextField
+          id="date"
+          label="Birthday"
+          type="date"
+          defaultValue={date}
+          onChange={handleChangeDataPicker}
+          sx={{ width: 220 }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
         <div className="flex justify-between">
           <FormControl component="fieldset">
             <FormLabel component="legend">Gender</FormLabel>

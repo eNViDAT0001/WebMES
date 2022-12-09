@@ -1,7 +1,6 @@
 import axiosClient from "./Client"
 
 
-//const province = crudBuilder(`${baseUrl}/provinces`)
 
 
 export const AddressApi = {   
@@ -10,11 +9,11 @@ export const AddressApi = {
       return axiosClient.get(url)
     },
     ReadAllDistrict: (id) =>{
-      const url = `/province/${id}`
+      const url = `/districts/province/${id}`
       return axiosClient.get(url)
     },
     ReadAllWard: (id) =>{
-      const url = `/district/${id}`
+      const url = `/districts/${id}`
       return axiosClient.get(url)
     },
     AddressById: (id) =>{
@@ -28,5 +27,9 @@ export const AddressApi = {
     DetailById: (idAddress,idUser)=>{
       const url = `/addresses/${idAddress}/user/${idUser}`
       return axiosClient.get(url)
-    }
+    }, 
+    AddSaveAddress: (idAddress,idUser)=>{
+      const url = "/addresses"
+      return axiosClient.get(url)
+    },
 }

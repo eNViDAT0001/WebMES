@@ -2,7 +2,7 @@ import axios from 'axios'
 import { stringify } from "qs";
 const API_BASE_URL = "http://localhost:8082/api/v1"
 const headerLogic = (token) =>{
-  if(!token) 
+  if(token===undefined) 
   {
     var obj = {'Content-Type': 'application/json'}
   }

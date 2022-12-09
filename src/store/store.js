@@ -4,6 +4,7 @@ import CategoryReducer from './slices/CategorySlice'
 import ProductReducer from './slices/ProductSlice'
 import OrderReducer from './slices/OrderSlice'
 import AddressReducer from './slices/AddressSlice'
+import UserReducer from './slices/UserSlice'
 export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     product: ProductReducer,
     order: OrderReducer,
     address: AddressReducer,
+    user: UserReducer,
   },
 })

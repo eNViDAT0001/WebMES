@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ListDistrict, ListProvince, ListWard } from '../../dummy_database/AddressDummyDatabase' 
-
+import { AddressApi } from '../../api/AddressApi'
 const initialState = {
     CurrentAddress:[],
     UserAddress:[],
@@ -26,54 +25,41 @@ const AddressSlice = createSlice({
         },
         setDistrict: (state,action) =>{
             state.District = action.payload
-        }
+        },
+        setCurrentAddress: (state,action) =>{
+            state.CurrentAddress = action.payload
+        },
     },
 
 })
 
 export const fetchAllProvince = () => async(dispatch) =>{
     try{
-        const response = await ListProvince
-        dispatch(setProvince(response))
+        const response = await AddressApi.ReadAllProvince()
+        dispatch(setProvince(response.data.data))
     }catch(err){
         console.log(err)
     }
 }
 
-export const fetchProvince = (id) => async (dispatch) => {
-    try {
-        const response = await ListProvince[id]
-        dispatch(setProvince(response))
-    } catch (error) {
-        console.log(error)
-    }
-} 
+
 
 export const fetchDistrictFromProvince = (idProvince) => async (dispatch) => {
     try {
         
-        const response = await ListDistrict.filter((data) => data.provinceID.id === idProvince)
-        dispatch(setDistrict(response))
+        const response = await AddressApi.ReadAllDistrict(idProvince)
+        dispatch(setDistrict(response.data.data))
     } catch (error) {
         console.log(error)
     }
 } 
 
-export const fetchAllDistrict = () => async (dispatch) => {
-    try {
-        
-        const response = await ListDistrict
-        dispatch(setDistrict(response))
-    } catch (error) {
-        console.log(error)
-    }
-} 
+
 
 export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
     try {
-        
-        const response = await ListWard.filter((data) => data.districtID.id === idDistrict)
-        dispatch(setWard(response))
+        const response = await AddressApi.ReadAllWard(idDistrict)
+        dispatch(setWard(response.data.data))
     } catch (error) {
         console.log(error)
     }
@@ -81,6 +67,8 @@ export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
 export const {
     setProvince,
     setDistrict,
-    setWard
+    setWard,
+    setCurrentAddress,
+    setUserAddress
 } = AddressSlice.actions
 export default AddressSlice.reducer

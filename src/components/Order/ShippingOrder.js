@@ -9,11 +9,11 @@ import React, { useState } from "react";
 import { useDispatch,useSelector } from "react-redux"
 import { useEffect } from "react" 
 import {fetchAllProvince, fetchDistrictFromProvince, fetchWardFromDistrict} from "../../store/slices/AddressSlice"
-import { ProductApi } from "../../api/productApi";
+import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 const ShippingOrder = () => {
 
   const dispatch = useDispatch()
-  const [data,setData] = useState([])
+  const [ProvinceId,setProvinceId] = useState("")
   const [isClicked, setIsClicked] = useState(false);
 
   const ChangeUIWhenClickButton = () => {
@@ -21,7 +21,7 @@ const ShippingOrder = () => {
   };
 
   const onChangeProvince = (e, value) =>{
-    dispatch(fetchDistrictFromProvince(value.id))
+    setProvinceId(value.id)
   }
 
   const onChangeDistrict = (e,value) =>{
@@ -30,21 +30,28 @@ const ShippingOrder = () => {
   useEffect(() => {
     dispatch(fetchAllProvince());
   }, []);
+  useEffect(() => {
+    dispatch(fetchDistrictFromProvince(ProvinceId))
+  },[ProvinceId]);
   
-  useEffect(()=>{
-    setData(ProductApi.ReadFullProduct())
-  },[])
+ //name,gender,phone
+  const Name = useSelector((state)=>state.user.name)
+  const ID = useSelector((state)=>state.user.ID)
+  const Gender =  useSelector((state)=>state.user.gender)
+  const Phone = useSelector((state)=>state.user.phone)
 
-  console.log(data)
+  dispatch(GetUserInformationDetail(localStorage.getItem("UserID")))
+
   const DataProvince = useSelector((state) => state.address.Province)
   const DataDistrict = useSelector((state)=> state.address.District)
   const DataWard = useSelector((state) => state.address.Ward)
 
-  const newDataProvince = DataProvince.map(({name: label,...rest}) => ({label,...rest}));
-  const newDataDistrict = DataDistrict.map(({name: label,...rest}) => ({label,...rest}));
-  const newDataWard = DataWard.map(({name: label,...rest}) => ({label,...rest}));
+  const newDataProvince = DataProvince.map(({Name: label,Code: id,...rest}) => ({label,id,...rest}));
 
+  const newDataDistrict = DataDistrict.map(({Name: label,...rest}) => ({label,...rest}));
+  const newDataWard = DataWard.map(({Name: label,...rest}) => ({label,...rest}));
 
+  GetUserInformationDetail(localStorage.getItem("UserID"))
   return (
     <div className="w-full space-y-8 bg-[#F7FAFC] p-8">
       <h1 className=" text-xl font-sans font-semibold"> Shipping Detail</h1>
@@ -53,7 +60,7 @@ const ShippingOrder = () => {
         <FormControlLabel
           className="text-[#2D3748]"
           control={<Checkbox size="small" color="default" />}
-          label="Create new Address"
+          label="Choose address save"
           onChange={ChangeUIWhenClickButton}
         />
         <Autocomplete
@@ -71,7 +78,7 @@ const ShippingOrder = () => {
           disablePortal
           id="combo-box-demo"
           options={newDataProvince}
-          getOptionSelected={(option, value) => option.id === value.id}
+          getOptionSelected={(option, value) => option === value}
           disabled={isClicked}
           sx={{ width: 300 }}
           onChange = {onChangeProvince}

@@ -8,9 +8,8 @@ import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
 import { useState } from "react";
 import { Box, Divider, TextField } from "@mui/material";
 import { AuthApi } from "../../api/AuthApi";
-import {AddressApi} from "../../api/AddressApi";
+import { AddressApi } from "../../api/AddressApi";
 export const LoginForm = () => {
-
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
 
@@ -21,29 +20,36 @@ export const LoginForm = () => {
     setUsernameText(e.target.value);
   };
 
+  console.log(localStorage.getItem("UserId"));
+  const Login = async (body) => {
+    const respond = await AuthApi.LoginUser(body);
+    if (respond.data.data.Token !== undefined) {
+      localStorage.setItem("AccessToken", respond.data.data.Token.access_token);
+      localStorage.setItem(
+        "AccessTokenExpiry",
+        respond.data.data.Token.access_token_expiry
+      );
+      localStorage.setItem(
+        "RefreshToken",
+        respond.data.data.Token.refresh_token
+      );
+      localStorage.setItem(
+        "RefreshTokenExpiry",
+        respond.data.data.Token.refresh_token_expiry
+      );
+      localStorage.setItem("UserID", respond.data.data.UserID);
+    } else {
+      console.log("Can't storage access token");
+    }
+  };
 
-  const Login = async(body) =>{
-    const respond = await AuthApi.LoginUser(body)
-      if(respond.data.Token !== undefined){
-        localStorage.setItem("AccessToken",respond.data.access_token)
-        localStorage.setItem("AccessTokenExpiry",respond.data.access_token_expiry)
-        localStorage.setItem("RefreshToken",respond.data.refresh_token)
-        localStorage.setItem("RefreshTokenExpiry",respond.data.refresh_token_expiry)
-      }else{
-        console.log("Can't storage access token")
-  }
-}
-  
-
-
-  const handleLoginButton = async() => {
+  const handleLoginButton = async () => {
     const body = new LoginFormReq({
       username: usernameText,
       password: passwordText,
     });
-   Login(body)
+    Login(body);
   };
-
 
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] mb-20 min-w-[300px]">

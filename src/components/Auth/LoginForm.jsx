@@ -8,7 +8,6 @@ import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
 import { useState } from "react";
 import { Box, Divider, TextField } from "@mui/material";
 import { AuthApi } from "../../api/AuthApi";
-import { AddressApi } from "../../api/AddressApi";
 export const LoginForm = () => {
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
@@ -51,6 +50,11 @@ export const LoginForm = () => {
     Login(body);
   };
 
+  const loginWithEnter = async (event) => {
+    if (event.key === "Enter") {
+      handleLoginButton()
+    }
+  };
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] mb-20 min-w-[300px]">
       <div className="flex justify-center items-center flex-col">
@@ -100,6 +104,7 @@ export const LoginForm = () => {
           <button
             className="w-full h-[40px] h-max-[70px] bg-[#FF1788] text-white  mt-5 mb-5"
             onClick={handleLoginButton}
+            onKeyDown={loginWithEnter}
           >
             Sign in
           </button>

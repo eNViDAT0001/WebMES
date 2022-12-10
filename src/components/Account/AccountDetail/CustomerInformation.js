@@ -1,31 +1,26 @@
+import React, { useEffect, useState } from "react";
 import User from "./assets/User.png";
-const TextFormName = (props) => {
-  const setClassName = "min-w ["+ props.setWidth + " ] min-h-[36px] p-2 border"
-  return (
-    <div className="ml-[5%] mt-[4%] font-['Lato']">
-      <h1>{props.name}</h1>
-      <input
-        type="text"
-        className={setClassName}
-      ></input>
-    </div>
-  );
-};
-
-
-const TextFormBasicInformation = (props) => {
-  const setClassName = "min-w ["+ props.setWidth + " ] min-h-[36px] p-2 border"
-  return (
-    <div>    
-    <h1>{props.name}</h1>
-    <input
-      type="text"
-      className={setClassName}
-    ></input>
-  </div>
-  );
-};
+import { useDispatch, useSelector } from "react-redux";
+import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
+import { TextField } from "@mui/material";
 const CustomerInformation = () => {
+
+  const UserDetail = useSelector((state) => state.user.UserDetail);
+  const [userInfo, setUserInfo] = useState(
+    {
+      fullName: UserDetail.name,
+      nickName: UserDetail.username,
+      birthday: UserDetail.birthday,
+      gender: (UserDetail.gender) ? "Male" :"Female",
+      phone: UserDetail.phone ,
+    }
+  )
+  const dispatch = useDispatch();
+  const userID = localStorage.getItem("UserID")
+  useEffect(() => {
+    dispatch(GetUserInformationDetail(userID));
+  }, [dispatch,userID]);
+  
   return (
     <div className="flex flex-col p-10">
       <div className="flex flex-row">
@@ -37,25 +32,89 @@ const CustomerInformation = () => {
             alt="anh user"
           ></img>
         </div>
-        <div className="flex flex-col">
-          <TextFormName name="Full name" setWidth="100%"/>
-          <TextFormName name="Nick name" setWidth="100%"/>
+        <div className="flex flex-col mt-4 ml-2 space-y-4">
+          <TextField
+            id="standard-read-only-input"
+            label="Full name"
+            defaultValue={userInfo.fullName}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+          <TextField
+            id="standard-read-only-input"
+            label="Nick name"
+            defaultValue={userInfo.nickName}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
         </div>
       </div>
-      <div className="flex flex-row justify-start space-x-5  font-['Lato']">
-        <TextFormBasicInformation name="Birthday" setWidth="277px"/>
-        <TextFormBasicInformation name="Phone Number" setWidth="166px"/>
-        <TextFormBasicInformation name="Gender" setWidth="15px"/>
+      <div className="space-y-5">
+        <div className="flex flex-row justify-start space-x-7  font-['Lato']">
+          <TextField
+            id="standard-read-only-input"
+            label="Birthday"
+            defaultValue={userInfo.birthday}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+          <TextField
+            id="standard-read-only-input"
+            label="Phone"
+            defaultValue={userInfo.phone}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+          <TextField
+            id="standard-read-only-input"
+            label="Gender"
+            defaultValue={userInfo.gender}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <div className="flex flex-row justify-start space-x-5 font-['Lato']">
+          <TextField
+            id="standard-read-only-input"
+            label="Province"
+            defaultValue="Province"
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+          <TextField
+            id="standard-read-only-input"
+            label="District"
+            defaultValue="Hello World"
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+          <TextField
+            id="outlined-read-only-input"
+            label="Ward"
+            defaultValue="Hello World"
+
+            variant="standard"
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </div>
       </div>
-      <div>
-        <h1>Address</h1>
-        <input type="text" className="w-full p-2 border"></input>
-      </div>
-      <div className="flex flex-row justify-start space-x-5 font-['Lato']">
-        <TextFormBasicInformation name="Province" setWidth="277px"/>
-        <TextFormBasicInformation name="District" setWidth="166px"/>
-        <TextFormBasicInformation name="Ward" setWidth="115px"/>
-      </div>
+
       <button className="w-[20%] h-[35px] bg-[#0B74E5] text-white my-[5%]">
         Confirm
       </button>

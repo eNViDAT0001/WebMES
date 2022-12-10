@@ -10,10 +10,9 @@ import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 
 export const HeaderMain = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(GetUserInformationDetail(localStorage.getItem("UserID")));
-  },[]);
+  },[dispatch]);
   const UserDetail = useSelector((state) => state.user.UserDetail);
   const Name = UserDetail.name;
   const Phone = UserDetail.phone;

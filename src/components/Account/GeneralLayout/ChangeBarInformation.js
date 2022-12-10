@@ -5,6 +5,9 @@ import Order from "../../../assets/Order.png";
 import Address from "../../../assets/Address.png";
 import LogOut from "../../../assets/LogOut.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
+import { useEffect, useState } from "react";
 
 const SlideBarData = [
   {
@@ -33,6 +36,19 @@ const SlideBarData = [
   },
 ];
 const ChangeBarInformation = () => {
+  const dispatch = useDispatch()
+  const UserDetail = useSelector((state) => state.user.UserDetail);
+  const [userInfo, setUserInfo] = useState(
+    {
+      nickName: UserDetail.username,
+      fullName: UserDetail.name,
+    }
+  )
+  const userID = localStorage.getItem("UserID")
+  useEffect(() => {
+    dispatch(GetUserInformationDetail(userID));
+  }, [dispatch,userID]);
+  
   const ResetToken = (e) => {
     localStorage.setItem("AccessToken",undefined);
     localStorage.setItem("AccessTokenExpiry",undefined);
@@ -47,8 +63,8 @@ const ChangeBarInformation = () => {
       <div className="ml-5 w-44 flex flex-row flex-nowrap mb-10">
         <img src={AvatarBig} alt="avatar" className="w-55px h-55px"></img>
         <div className=" ml-2 flex flex-col mt-2 text-left ">
-          <h1 className="drop-shadow-2xl">Nickname</h1>
-          <h1 className="drop-shadow-2xl">User's Name</h1>
+          <h1 className="drop-shadow-2xl">{userInfo.nickName}</h1>
+          <h1 className="drop-shadow-2xl">{userInfo.fullName}</h1>
         </div>
       </div>
       <div className="space-y-3">

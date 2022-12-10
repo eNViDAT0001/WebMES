@@ -27,10 +27,7 @@ const ShippingOrder = () => {
 
   
   const ID = localStorage.getItem("UserID");
-  useEffect(()=>{
-    console.log(ID)
-    console.log(localStorage.getItem("AccessToken"))
-  },[])
+  
 
   const [ProvinceID, setProvinceID] = useState("");
   const [DistrictID, setDistrictID] = useState("");
@@ -60,14 +57,14 @@ const ShippingOrder = () => {
     dispatch(fetchAllProvince());
     dispatch(GetListAddress(ID))
     dispatch(GetUserInformationDetail(ID));
-  }, []);
+  }, [dispatch,ID]);
 
   useEffect(() => {
     dispatch(fetchDistrictFromProvince(ProvinceID));
-  }, [ProvinceID]);
+  }, [dispatch,ProvinceID]);
   useEffect(() => {
     dispatch(fetchWardFromDistrict(DistrictID));
-  }, [DistrictID]);
+  }, [dispatch,DistrictID]);
 
   const ClickGoToPayment = () => {
     if (!isClicked) {

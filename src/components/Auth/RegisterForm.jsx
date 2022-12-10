@@ -28,9 +28,7 @@ export const RegisterForm = () => {
     setGender(event.target.value);
   };
 
-  const handleChangeType = (event) => {
-    setType(event.target.value);
-  };
+
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
@@ -77,7 +75,11 @@ export const RegisterForm = () => {
       console.log("Can't storage access token");
     }
   };
-
+  const signUpWithEnter = (event) =>{
+    if (event.key === "Enter") {
+      activeRegister()
+    }
+  }
   const activeRegister = () => {
     const body = new RegisterFormReq({
       username: username,
@@ -213,6 +215,7 @@ export const RegisterForm = () => {
       <button
         className="w-full h-[40px] bg-[#FF1788] text-white mt-10"
         onClick={activeRegister}
+        onKeyDown={signUpWithEnter}
       >
         Sign Up
       </button>

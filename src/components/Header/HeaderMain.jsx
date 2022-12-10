@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 
 export const HeaderMain = () => {
+  console.log(localStorage.getItem("UserID"))
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetUserInformationDetail(localStorage.getItem("UserID")));

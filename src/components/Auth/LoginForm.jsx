@@ -5,9 +5,22 @@ import {
   GoogleLoginButton,
 } from "react-social-login-buttons";
 import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
+
 import { useState } from "react";
 import { Box, Divider, TextField } from "@mui/material";
 import { AuthApi } from "../../api/AuthApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
+
+const ChangeToTypeFromResponse = (status) => {
+  const types = {
+    200: "success",
+    404: "error",
+    500: "error",
+    default: "warning",
+  };
+  return types[status] || types["default"];
+};
 export const LoginForm = () => {
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
@@ -20,26 +33,33 @@ export const LoginForm = () => {
   };
 
   const Login = async (body) => {
-    const respond = await AuthApi.LoginUser(body);
-    if (respond.data.data.Token !== undefined) {
-      localStorage.setItem("AccessToken", respond.data.data.Token.access_token);
-      localStorage.setItem(
-        "AccessTokenExpiry",
-        respond.data.data.Token.access_token_expiry
-      );
-      localStorage.setItem(
-        "RefreshToken",
-        respond.data.data.Token.refresh_token
-      );
-      localStorage.setItem(
-        "RefreshTokenExpiry",
-        respond.data.data.Token.refresh_token_expiry
-      );
-      localStorage.setItem("UserID", respond.data.data.UserID);
-      window.open(`/`);
-    } else {
-      console.log("Can't storage access token");
-    }
+    await AuthApi.LoginUser(body)
+      .then((response) => {
+        const Status = response.status;
+        if (Status === 200) {
+          const Status = response.status;
+          const tokenResponse = response.data.data.Token;
+          const userResponse = response.data.data.UserID;
+          localStorage.setItem("AccessToken", tokenResponse.access_token);
+          localStorage.setItem("AccessTokenExpiry",tokenResponse.Token.access_token_expiry);
+          localStorage.setItem("RefreshToken",tokenResponse.Token.refresh_token);
+          localStorage.setItem("RefreshTokenExpiry",tokenResponse.Token.refresh_token_expiry);
+          localStorage.setItem("UserID", userResponse);
+          console.log(localStorage.getItem("AccessToken"))
+          toast("Đăng nhập thành công", {
+            type: ChangeToTypeFromResponse(Status),
+            onClose:()=> window.location.replace('/')
+          });
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data.errors[0].message);
+          toast(err.response.data.errors[0].message, {
+            type: ChangeToTypeFromResponse(err.response.status),
+          });
+        }
+      });
   };
 
   const handleLoginButton = async () => {
@@ -52,11 +72,13 @@ export const LoginForm = () => {
 
   const loginWithEnter = async (event) => {
     if (event.key === "Enter") {
-      handleLoginButton()
+      handleLoginButton();
     }
   };
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] mb-20 min-w-[300px]">
+      <ToastContainer position="top-right" newestOnTop />
+
       <div className="flex justify-center items-center flex-col">
         <h1 className=" font-[Josefin_Sans] text-[32px]">Login</h1>
         <h1 className="font-[Lato] mt-2 text-[#9096B2]">

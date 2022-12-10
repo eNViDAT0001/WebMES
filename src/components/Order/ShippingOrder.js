@@ -119,6 +119,7 @@ const ShippingOrder = () => {
         <FormControlLabel
           className="text-[#2D3748]"
           control={<Checkbox size="small" color="default" />}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           label="Choose address save"
           onChange={ChangeUIWhenClickButton}
         />
@@ -127,6 +128,7 @@ const ShippingOrder = () => {
           id="combo-box-demo"
           disabled={!isClicked}
           options={newAddressSave}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Address" />}
         />

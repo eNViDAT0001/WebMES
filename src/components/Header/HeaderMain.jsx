@@ -13,7 +13,7 @@ export const HeaderMain = () => {
 
   useEffect(() => {
     dispatch(GetUserInformationDetail(localStorage.getItem("UserID")));
-  });
+  },[]);
   const UserDetail = useSelector((state) => state.user.UserDetail);
   const Name = UserDetail.name;
   const Phone = UserDetail.phone;

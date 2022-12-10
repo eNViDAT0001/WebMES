@@ -16,16 +16,18 @@ const UserSlices = createSlice({
 });
 
 export const GetUserInformationDetail = (id) => async (dispatch) => {
-  try {
-    if (localStorage.getItem("UserID") !== undefined) {
-      const response = await UserApi.DetailUser(id);
-      dispatch(setUserDetail(response.data.data));
-    }else{
-      const reset={}
-      dispatch(setUserDetail(reset))
+  if (id !== "undefined") {
+    try {
+      if (localStorage.getItem("UserID") !== undefined) {
+        const response = await UserApi.DetailUser(id);
+        dispatch(setUserDetail(response.data.data));
+      }
+    } catch (err) {
+      console.log(err);
     }
-  } catch (err) {
-    console.log(err);
+  }
+  else{
+    console.log("Day la guest")
   }
 };
 

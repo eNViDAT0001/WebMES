@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
+const ORDER = {
+  LOGIN_ROUTE: "/login",
+  ORDER_ROUTE: "/order",
+};
 export const HeaderUser = () => {
-  const ResetToken = (e) => {
-    localStorage.setItem("AccessToken",undefined);
-    localStorage.setItem("AccessTokenExpiry",undefined);
-    localStorage.setItem("RefreshToken",undefined);
-    localStorage.setItem("RefreshTokenExpiry",undefined);
-    localStorage.setItem("UserID", undefined);
-    window.open('/login')
 
-  };
+  const [orderRoute, setOrderRoute] = useState("/login");
+
+  
+  useEffect(() => {
+    const changeRoute = () => {
+      const token = localStorage.getItem("AccessToken");
+
+      if(token==="undefined")
+         setOrderRoute(ORDER.LOGIN_ROUTE)
+      else setOrderRoute(ORDER.ORDER_ROUTE);
+    };
+     changeRoute()
+  }, []);
+
   return (
     <div className="bg-white shadow-sm ">
       <div className="md:flex md:justify-around md:items-center sm:px-12 px-4 bg-white py-2">
@@ -31,22 +41,15 @@ export const HeaderUser = () => {
             >
               Products
             </Link>
-            {(localStorage.getItem("AccessToken")===undefined) ? (
+            <div>
               <Link
-                to="/order"
+                to={orderRoute}
                 className="text-gray-800 hover:text-[#FB2E86] duration-300"
               >
                 Order
               </Link>
-            ) : (
-              <div
-                to="/login"
-                className="text-gray-800 hover:text-[#FB2E86] duration-300"
-                onClick={ResetToken}
-              >
-                Order
-              </div>
-            )}
+            </div>
+
             <Link
               to="/contact"
               className="text-gray-800 hover:text-[#FB2E86] duration-300"

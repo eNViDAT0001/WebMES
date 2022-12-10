@@ -8,7 +8,6 @@ import Payment from "./Payment";
 export const OrderTabPages = () => {
   const [value, setValue] = React.useState("1");
 
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

@@ -27,6 +27,10 @@ const ShippingOrder = () => {
 
   
   const ID = localStorage.getItem("UserID");
+  useEffect(()=>{
+    console.log(ID)
+    console.log(localStorage.getItem("AccessToken"))
+  },[])
 
   const [ProvinceID, setProvinceID] = useState("");
   const [DistrictID, setDistrictID] = useState("");
@@ -89,9 +93,12 @@ const ShippingOrder = () => {
   const DataDistrict = useSelector((state) => state.address.District);
   const DataWard = useSelector((state) => state.address.Ward);
 
-  const newAddressSave = DataAddressSave.map(
-    ({ Street: label, ...rest }) => ({ label,  ...rest })
-  );
+  const newAddressSave = DataAddressSave.map((data)=>{
+    return {
+      ...data,
+      label: data.Street + ","+data.Ward + ","+ data.District + ","+ data.Province
+    }
+  })
   const newDataProvince = DataProvince.map(
     ({ Name: label, Code: id, ...rest }) => ({ label, id, ...rest })
   );

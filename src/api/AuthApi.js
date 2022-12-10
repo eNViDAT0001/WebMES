@@ -9,7 +9,6 @@ export const AuthApi = {
     },
     RegisterUser:(body) =>{
         const url = "app/register"   
-          
         return axiosClient.post(url,{...body})
     }
 }

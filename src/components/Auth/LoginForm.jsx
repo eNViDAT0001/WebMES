@@ -37,6 +37,7 @@ export const LoginForm = () => {
         respond.data.data.Token.refresh_token_expiry
       );
       localStorage.setItem("UserID", respond.data.data.UserID);
+      window.open(`/`);
     } else {
       console.log("Can't storage access token");
     }

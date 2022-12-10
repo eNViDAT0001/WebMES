@@ -71,6 +71,8 @@ export const RegisterForm = () => {
         "RefreshTokenExpiry",
         respond.data.data.Token.refresh_token_expiry
       );
+      localStorage.setItem("UserID", respond.data.data.UserID);
+      window.open(`/`);
     } else {
       console.log("Can't storage access token");
     }
@@ -205,27 +207,7 @@ export const RegisterForm = () => {
               <FormControlLabel value="0" control={<Radio />} label="Female" />
             </RadioGroup>
           </FormControl>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Type</FormLabel>
-            <RadioGroup
-              row
-              aria-label="type"
-              name="Type"
-              value={type}
-              onChange={handleChangeType}
-            >
-              <FormControlLabel
-                value="SELLER"
-                control={<Radio />}
-                label="Seller"
-              />
-              <FormControlLabel
-                value="BUYER"
-                control={<Radio />}
-                label="Buyer"
-              />
-            </RadioGroup>
-          </FormControl>
+          
         </div>
       </div>
       <button

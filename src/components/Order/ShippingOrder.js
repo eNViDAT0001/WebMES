@@ -21,9 +21,9 @@ const ShippingOrder = () => {
   const dispatch = useDispatch();
 
   const UserDetail =  JSON.parse(localStorage.getItem("UserInWeb"))
-  const Name = UserDetail.name
+  const [Name,setName] = useState("")
   const Gender = UserDetail.gender;
-  const Phone = UserDetail.phone;
+  const [Phone,setPhone] = useState("")
 
   
   const ID = localStorage.getItem("UserID");
@@ -36,9 +36,16 @@ const ShippingOrder = () => {
 
   const [isClicked, setIsClicked] = useState(false);
 
+
   const ChangeUIWhenClickButton = () => {
     setIsClicked(!isClicked);
   };
+  const handlePhone = (e)=>{
+    setPhone(e.target.value)
+  }
+  const handleName = (e) =>{
+    setName(e.target.value)
+  }
   const ChangeStreetTextBox = (e) => {
     setStreet(e.target.value);
   };
@@ -52,7 +59,7 @@ const ShippingOrder = () => {
   const onChangeWard = (e, value) => {
     setWardID(value.id);
   };
-
+  
   useEffect(() => {
     dispatch(fetchAllProvince());
     dispatch(GetListAddress(ID))
@@ -79,7 +86,7 @@ const ShippingOrder = () => {
       });
       const data = dispatch(AddSaveAddress(ID, body));
       if (data !== undefined) {
-        window.location.reload(false)
+        //window.location.reload(false)
       }
     }
   };
@@ -108,8 +115,34 @@ const ShippingOrder = () => {
 
   return (
     <div className="w-full space-y-8 bg-[#F7FAFC] p-8">
+
       <h1 className=" text-xl font-sans font-semibold"> Shipping Detail</h1>
+      <div className="flex flex-row ">
+        <div className="flex flex-col space-y-3">
+          <h1 className=" text-[#ABB1B9]">Full Name</h1>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            sx={{ width: 300 }}
+            variant="outlined"
+            onChange = {handleName}
+            className="h-max-[5px] "
+          />
+        </div>
+        <div className="flex flex-col  ml-10  space-y-3">
+          <h1 className=" text-[#ABB1B9]">Phone</h1>
+          <TextField
+            id="outlined-basic"
+            label="Phone"
+            sx={{ width: 175 }}
+            onChange={handlePhone}
+            variant="outlined"
+            className="h-max-[5px] "
+          />
+        </div>
+      </div>
       <div className="flex flex-row justify-between items-center mt">
+        
         <FormControlLabel
           className="text-[#2D3748]"
           control={<Checkbox size="small" color="default" />}
@@ -170,28 +203,7 @@ const ShippingOrder = () => {
         />
       </div>
 
-      <div className="flex flex-row ">
-        <div className="flex flex-col space-y-3">
-          <h1 className=" text-[#ABB1B9]">Postcode</h1>
-          <TextField
-            id="outlined-basic"
-            label="Code"
-            variant="outlined"
-            className="h-max-[5px] "
-          />
-        </div>
-        <div className="flex flex-col  ml-10  space-y-3">
-          <h1 className=" text-[#ABB1B9]">Select Shipping</h1>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={[]}
-            sx={{ width: 300 }}
-            className="w-full"
-            renderInput={(params) => <TextField {...params} label="Shipping" />}
-          />
-        </div>
-      </div>
+      
       <div className=" border-b mx-[-20px] border-black"></div>
       <div className="flex flex-row-reverse">
         <div className="space-x-8">

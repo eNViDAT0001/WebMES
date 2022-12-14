@@ -76,8 +76,7 @@ export const GetListAddress = (id)=>async(dispatch)=>{
 export const AddSaveAddress= (userID,body)=>async(dispatch)=>{
     try {
         const response = await AddressApi.AddSaveAddress(userID,body)
-        console.log(response)
-        dispatch(setDistrict(response.data.data))
+        dispatch(setUserAddress(response.data.data))
     } catch (error) {
         console.log(error)
     }

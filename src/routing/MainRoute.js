@@ -17,6 +17,7 @@ import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
 //test git
 import { UserLayout,LoginLayOut } from "./Layouts";
 import { TestingPages } from "../pages/TestingPages";
+import CreateAddressPage from "../pages/AccountPages/CreateAddressPage";
 function MainRoute() {
   return (
     <BrowserRouter>
@@ -35,6 +36,7 @@ function MainRoute() {
           <Route path="/address/:id" element={<AddressPage />} />
           <Route path="/detail/:id" element={<AccountDetailPage />} />
           <Route path="/address-detail/:id" element={<AddressDetailPage />} />
+          <Route path="/address-create" element={<CreateAddressPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/notfound" element={<NotFoundPage />} />

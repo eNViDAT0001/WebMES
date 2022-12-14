@@ -7,6 +7,7 @@ import LogOut from "../../../assets/LogOut.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
 
 
 const SlideBarData = [

@@ -20,17 +20,33 @@ export const FormResetPassword = (props) => {
       password: passwordOld,
       new_password: passwordNew,
     };
-    Update(userID, body);
+    Reset(userID, body);
   };
 
-  const Update = async (userID, body) => {
+  const Reset = async (userID, body) => {
     await UserApi.UpdateNewPassword(userID, body).then((res) => {
-      console.log(res);
-      toast("Đổi password thành công", {
-        type: "success",
-        autoClose: 1000,
-        Close: setTimeout(() => window.location.reload(), 1000),
-      });
+      switch (res.status) {
+        case 200:
+          toast("Change password successfully", {
+            type: "success",
+            autoClose: 1000,
+            Close: setTimeout(() => window.location.reload(), 1000),
+          });
+          break;
+        case 204:
+          toast("Change password failed ", {
+            type: "error",
+            autoClose: 1000,
+            Close: setTimeout(() => window.location.reload(), 1000),
+          });
+          break;
+        default:
+          toast("An unknown error", {
+            type: "error",
+            autoClose: 1000,
+            Close: setTimeout(() => window.location.reload(), 1000),
+          });
+      }
     });
   };
   return (

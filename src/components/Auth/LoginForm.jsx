@@ -11,7 +11,6 @@ import { AuthApi } from "../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { UserApi } from "../../api/UserApi";
-import { useDispatch } from "react-redux";
 
 const ChangeToTypeFromResponse = (status) => {
   const types = {
@@ -24,7 +23,6 @@ const ChangeToTypeFromResponse = (status) => {
 };
 
 export const LoginForm = () => {
-  const dispatch = useDispatch()
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
   useEffect(()=>{

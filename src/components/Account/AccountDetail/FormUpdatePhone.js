@@ -31,9 +31,9 @@ export const FormUpdatePhone = (props) => {
     });
   };
   return (
-    <div className="w-[250px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6">
+    <div className="w-[250px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6 border">
       <ToastContainer position="top-right" newestOnTop />
-      <h1 className="text-xl text-[#1D1378] align-middle">Update Phone</h1>
+      <h1 className="text-xl text-[#1D1378] text-center">Update Phone</h1>
       <TextField size="small" defaultValue={phone} onChange={changePhone} />
       <Button
         variant="contained"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Phone from "./assets/Phone.svg";
 import Mail from "./assets/Mail.svg";
 import Lock from "./assets/Lock.png";
@@ -9,7 +9,6 @@ import { FormResetPassword } from "./FormResetPassword";
 
 
 const PhoneAndEmail = (props) => {
-  const id = props.id
   const UserDetail = JSON.parse(localStorage.getItem("UserInWeb"))
   const PhoneInformation = UserDetail.phone;
   const Email = UserDetail.email;
@@ -80,7 +79,7 @@ const PhoneAndEmail = (props) => {
               position="left bottom"
               nested
             >
-              <FormResetPassword />
+              <FormResetPassword id={props.id} />
             </Popup>
           </div>
         </div>

@@ -10,7 +10,6 @@ export const UserApi = {
   },
   UpdateNewPassword: (id,body)=>{
     const url = `users/${id}`;
-    console.log(body)
     return axiosClient.put(url,{...body})
   }
 };

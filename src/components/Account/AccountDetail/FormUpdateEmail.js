@@ -31,9 +31,9 @@ export const FormUpdateEmail = (props) => {
     });
   };
   return (
-    <div className="w-[350px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6">
+    <div className="w-[275px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6 border">
       <ToastContainer position="top-right" newestOnTop />
-      <h1 className="text-xl text-[#1D1378] align-middle">Update Email</h1>
+      <h1 className="text-xl text-[#1D1378] text-center">Update Email</h1>
       <TextField size="small" defaultValue={email} onChange={changeEmail} />
       <Button
         variant="contained"

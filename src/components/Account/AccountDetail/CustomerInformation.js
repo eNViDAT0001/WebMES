@@ -3,8 +3,7 @@ import User from "./assets/User.png";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
 import { TextField } from "@mui/material";
-const CustomerInformation = () => {
-
+const CustomerInformation = (props) => {
   const UserDetail = useSelector((state) => state.user.UserDetail);
   const [userInfo, setUserInfo] = useState(
     {
@@ -16,7 +15,7 @@ const CustomerInformation = () => {
     }
   )
   const dispatch = useDispatch();
-  const userID = localStorage.getItem("UserID")
+  const userID = props.id
   useEffect(() => {
     dispatch(GetUserInformationDetail(userID));
   }, [dispatch,userID]);

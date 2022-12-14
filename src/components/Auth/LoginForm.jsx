@@ -5,7 +5,6 @@ import {
   GoogleLoginButton,
 } from "react-social-login-buttons";
 import { LoginFormReq } from "../../models/AuthForm/LoginFormReq";
-
 import { useState } from "react";
 import { Box, Divider, TextField } from "@mui/material";
 import { AuthApi } from "../../api/AuthApi";
@@ -35,28 +34,37 @@ export const LoginForm = () => {
   const Login = async (body) => {
     await AuthApi.LoginUser(body)
       .then((response) => {
-        const Status = response.status;
-        if (Status === 200) {
-          const Status = response.status;
-          const tokenResponse = response.data.data.Token;
-          const userResponse = response.data.data.UserID;
-          localStorage.setItem("AccessToken", tokenResponse.access_token);
-          localStorage.setItem("AccessTokenExpiry",tokenResponse.Token.access_token_expiry);
-          localStorage.setItem("RefreshToken",tokenResponse.Token.refresh_token);
-          localStorage.setItem("RefreshTokenExpiry",tokenResponse.Token.refresh_token_expiry);
-          localStorage.setItem("UserID", userResponse);
-          console.log(localStorage.getItem("AccessToken"))
+        if (response.status === 200) {
+          localStorage.setItem(
+            "AccessToken",
+            response.data.data.Token.access_token
+          );
+          localStorage.setItem(
+            "AccessTokenExpiry",
+            response.data.data.Token.access_token_expiry
+          );
+          localStorage.setItem(
+            "RefreshToken",
+            response.data.data.Token.refresh_token
+          );
+          localStorage.setItem(
+            "RefreshTokenExpiry",
+            response.data.data.Token.refresh_token_expiry
+          );
+          localStorage.setItem("UserID", response.data.data.UserID);
           toast("Đăng nhập thành công", {
-            type: ChangeToTypeFromResponse(Status),
-            onClose:()=> window.location.replace('/')
+            type: ChangeToTypeFromResponse(response.status),
+            autoClose: 2000,
+            onClose: setTimeout(() => window.location.replace("/"), 2000),
           });
         }
       })
       .catch((err) => {
-        if (err.response) {
+         if (err.response) {
           console.log(err.response.data.errors[0].message);
           toast(err.response.data.errors[0].message, {
             type: ChangeToTypeFromResponse(err.response.status),
+            autoClose: 2000,
           });
         }
       });

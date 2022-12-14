@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 
 export const HeaderMain = () => {
+  console.log(localStorage.getItem("AccessToken"))
   console.log(localStorage.getItem("UserID"))
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,7 +52,7 @@ export const HeaderMain = () => {
           ) : (
             <div  className="md:flex md:items-center ">
               <Link
-                to="/detail"
+                to={`/detail/${localStorage.getItem("UserID")}`}
                 className="mx-5 hover:text-teal-400 duration-300"
               >
                 {Name}

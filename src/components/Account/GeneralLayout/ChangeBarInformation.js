@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
 import { useEffect, useState } from "react";
 
+
 const SlideBarData = [
   {
     id: 1,
@@ -35,7 +36,9 @@ const SlideBarData = [
     url: "/address-detail",
   },
 ];
-const ChangeBarInformation = () => {
+const ChangeBarInformation = (props) => {
+  console.log(`"ahihi userID "  ${props.id}`)
+  const userID = props.id
   const dispatch = useDispatch()
   const UserDetail = useSelector((state) => state.user.UserDetail);
   const [userInfo, setUserInfo] = useState(
@@ -44,7 +47,6 @@ const ChangeBarInformation = () => {
       fullName: UserDetail.name,
     }
   )
-  const userID = localStorage.getItem("UserID")
   useEffect(() => {
     dispatch(GetUserInformationDetail(userID));
   }, [dispatch,userID]);
@@ -55,8 +57,7 @@ const ChangeBarInformation = () => {
     localStorage.setItem("RefreshToken",undefined);
     localStorage.setItem("RefreshTokenExpiry",undefined);
     localStorage.setItem("UserID", undefined);
-    window.open('/login')
-
+    window.location.replace('/login')
   };
   return (
     <div className="flex flex-col w-214px mt-6 font-['Josefin_Sans']">
@@ -71,13 +72,13 @@ const ChangeBarInformation = () => {
         {SlideBarData.map((data) => (
           <div key={data.id} className="flex flex-col">
             <Link
-              to={data.url}
+              to={`${data.url}/${userID}`}
               className="w-full h-30px hover:bg-[#D9D9D9] space-y-4"
             >
               <div className="ml-4 flex flex-row items-center ">
                 <img
                   src={data.img}
-                  alt="Account"
+                  alt={`Account/${props.id}`}
                   className="w-30px h-30px"
                 ></img>
                 <h1 className="ml-3">{data.title}</h1>

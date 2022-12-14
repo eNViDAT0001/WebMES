@@ -6,11 +6,27 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { RegisterFormReq } from "../../models/AuthForm/RegisterFormReq";
+
+
+const ChangeToTypeFromResponse = (status) => {
+  const types = {
+    200: "success",
+    400: "error",
+    404: "error",
+    409: "error",
+    500: "error",
+    default: "warning",
+  };
+  return types[status] || types["default"];
+};
+
 export const RegisterForm = () => {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -54,26 +70,31 @@ export const RegisterForm = () => {
   };
 
   const Register = async (body) => {
-    const respond = await AuthApi.RegisterUser(body);
-    if (respond.data.data.Token !== undefined) {
-      localStorage.setItem("AccessToken", respond.data.data.Token.access_token);
-      localStorage.setItem(
-        "AccessTokenExpiry",
-        respond.data.data.Token.access_token_expiry
-      );
-      localStorage.setItem(
-        "RefreshToken",
-        respond.data.data.Token.refresh_token
-      );
-      localStorage.setItem(
-        "RefreshTokenExpiry",
-        respond.data.data.Token.refresh_token_expiry
-      );
-      localStorage.setItem("UserID", respond.data.data.UserID);
-      window.open(`/`);
-    } else {
-      console.log("Can't storage access token");
-    }
+    await AuthApi.RegisterUser(body)
+    .then((response) => {
+      if (response.status === 200) {      
+        localStorage.setItem("AccessToken", response.data.data.Token.access_token);
+        localStorage.setItem("AccessTokenExpiry",response.data.data.Token.access_token_expiry);
+        localStorage.setItem("RefreshToken",response.data.data.Token.refresh_token);
+        localStorage.setItem("RefreshTokenExpiry",response.data.data.Token.refresh_token_expiry);
+        localStorage.setItem("UserID", response.data.data.UserID);
+        toast("Đăng ký thành công", {
+          type: ChangeToTypeFromResponse(response.status),
+          autoClose: 2000,
+          onClose:setTimeout(()=> window.location.replace('/'),2000)
+        });
+      }
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response.data.errors[0].message);
+        toast(err.response.data.errors[0].message, {
+          type: ChangeToTypeFromResponse(err.response.status),
+          autoClose: 2000,
+
+        });
+      }
+    });
   };
   const signUpWithEnter = (event) =>{
     if (event.key === "Enter") {
@@ -97,6 +118,8 @@ export const RegisterForm = () => {
 
   return (
     <div className="w-[60%] w-max-[200px] shadow-lg border p-[50px] min-w-[300px]">
+      <ToastContainer position="top-right" newestOnTop />
+
       <div className=" flex items-center flex-col">
         <h1 className=" font-[Josefin_Sans] text-[32px]">Sign up Form</h1>
         <h1 className="font-[Lato] mt-2 text-[#9096B2]">

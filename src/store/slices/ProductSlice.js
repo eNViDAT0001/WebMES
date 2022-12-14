@@ -1,7 +1,6 @@
 //https://api.publicapis.org/entries
 
 import { createSlice } from "@reduxjs/toolkit";
-import { ProductApi } from "../../api/productApi";
 const initialState= {
     ProductDetail:[],
     ProductReview:[],
@@ -30,7 +29,7 @@ const productSlice = createSlice({
 
 export const fetchAllProduct = (filters) => async (dispatch) => {
     try {
-        const response = await ProductApi.ReadFullProduct(filters)
+        const response ={} //await ProductApi.ReadFullProduct(filters)
         dispatch(setProductDetail(response))
     } catch (error) {
         console.log(error)

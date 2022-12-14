@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom";
 import AddressDetail from "../../components/Account/AddressDetail";
 
 const AddressDetailPage = () => {
+    const id = useParams()
     return(
-        <AddressDetail />
+        <AddressDetail id={id}/>
     )
 }
 

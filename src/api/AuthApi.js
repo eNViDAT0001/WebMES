@@ -6,7 +6,7 @@ export const AuthApi = {
         return axiosClient.post(url,{...body})
     },
     RegisterUser:(body) =>{
-        const url = "app/register"   
+        const url = "app/register"  
         return axiosClient.post(url,{...body})
     }
 }

@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { TabPanel } from "@mui/lab";
 import { TabContext } from "@mui/lab";
 
-const OrderTab = () => {
+const OrderTab = (props) => {
 
   const [value, setValue] = React.useState("ALL");
 

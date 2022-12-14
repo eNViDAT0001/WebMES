@@ -97,8 +97,9 @@ export const LoginForm = () => {
   };
 
   const loginWithEnter = async (event) => {
+
     if (event.key === "Enter") {
-      handleLoginButton();
+      handleLoginButton()
     }
   };
   return (

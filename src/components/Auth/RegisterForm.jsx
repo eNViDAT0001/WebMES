@@ -99,11 +99,7 @@ export const RegisterForm = () => {
         localStorage.setItem("RefreshTokenExpiry",response.data.data.Token.refresh_token_expiry);
         localStorage.setItem("UserID", response.data.data.UserID);
         SaveUserDetail(localStorage.getItem("UserID"))
-        toast("Đăng ký thành công", {
-          type: ChangeToTypeFromResponse(response.status),
-          autoClose: 2000,
-          onClose:setTimeout(()=> window.location.replace('/'),2000)
-        });
+        
       }
     })
     .catch((err) => {

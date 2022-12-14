@@ -5,6 +5,7 @@ import Lock from "./assets/Lock.png";
 import Popup from "reactjs-popup";
 import { FormUpdatePhone } from "./FormUpdatePhone";
 import { FormUpdateEmail } from "./FormUpdateEmail";
+import { FormResetPassword } from "./FormResetPassword";
 
 
 const PhoneAndEmail = (props) => {
@@ -79,7 +80,7 @@ const PhoneAndEmail = (props) => {
               position="left bottom"
               nested
             >
-              <FormUpdatePhone />
+              <FormResetPassword />
             </Popup>
           </div>
         </div>

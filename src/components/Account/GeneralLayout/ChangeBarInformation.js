@@ -36,16 +36,14 @@ const SlideBarData = [
   },
 ];
 const ChangeBarInformation = (props) => {
-  //console.log(`"ahihi userID "  ${props.id}`)
+  
   const userID = props.id
-  const dispatch = useDispatch()
-  const UserDetail = JSON.parse(localStorage.getItem("UserID"))
-  const [userInfo, setUserInfo] = useState(
-    {
+
+  const UserDetail = JSON.parse(localStorage.getItem("UserInWeb"))
+  const userInfo = {
       nickName: UserDetail.username,
       fullName: UserDetail.name,
-    }
-  )
+  }
   
   const ResetToken = (e) => {
     window.location.replace('/login')

@@ -13,8 +13,8 @@ export const HeaderUser = () => {
   useEffect(() => {
     const changeRoute = () => {
       const token = localStorage.getItem("AccessToken");
-
-      if(token==="undefined")
+      console.log(token)
+      if(token===null)
          setOrderRoute(ORDER.LOGIN_ROUTE)
       else setOrderRoute(ORDER.ORDER_ROUTE);
     };

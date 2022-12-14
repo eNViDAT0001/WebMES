@@ -20,7 +20,7 @@ import { SaveAddressForm } from "../../models/SaveAddressForm/SaveAddressForm";
 const ShippingOrder = () => {
   const dispatch = useDispatch();
 
-  const UserDetail =  JSON.parse(localStorage("UserIn"))
+  const UserDetail =  JSON.parse(localStorage.getItem("UserInWeb"))
   const Name = UserDetail.name
   const Gender = UserDetail.gender;
   const Phone = UserDetail.phone;
@@ -89,12 +89,10 @@ const ShippingOrder = () => {
   const DataDistrict = useSelector((state) => state.address.District);
   const DataWard = useSelector((state) => state.address.Ward);
 
-  const newAddressSave = DataAddressSave.map((data)=>{
-    return {
+  const newAddressSave = (DataAddressSave)? DataAddressSave.map((data)=>({
       ...data,
       label: data.Street + ","+data.Ward + ","+ data.District + ","+ data.Province
-    }
-  })
+  })) : []
   const newDataProvince = DataProvince.map(
     ({ Name: label, Code: id, ...rest }) => ({ label, id, ...rest })
   );

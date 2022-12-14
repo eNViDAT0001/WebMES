@@ -6,7 +6,6 @@ import Address from "../../../assets/Address.png";
 import LogOut from "../../../assets/LogOut.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
 import { useEffect, useState } from "react";
 
 
@@ -37,26 +36,18 @@ const SlideBarData = [
   },
 ];
 const ChangeBarInformation = (props) => {
-  console.log(`"ahihi userID "  ${props.id}`)
+  //console.log(`"ahihi userID "  ${props.id}`)
   const userID = props.id
   const dispatch = useDispatch()
-  const UserDetail = useSelector((state) => state.user.UserDetail);
+  const UserDetail = JSON.parse(localStorage.getItem("UserID"))
   const [userInfo, setUserInfo] = useState(
     {
       nickName: UserDetail.username,
       fullName: UserDetail.name,
     }
   )
-  useEffect(() => {
-    dispatch(GetUserInformationDetail(userID));
-  }, [dispatch,userID]);
   
   const ResetToken = (e) => {
-    localStorage.setItem("AccessToken",undefined);
-    localStorage.setItem("AccessTokenExpiry",undefined);
-    localStorage.setItem("RefreshToken",undefined);
-    localStorage.setItem("RefreshTokenExpiry",undefined);
-    localStorage.setItem("UserID", undefined);
     window.location.replace('/login')
   };
   return (

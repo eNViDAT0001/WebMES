@@ -15,13 +15,12 @@ import {
   fetchWardFromDistrict,
   GetListAddress,
 } from "../../store/slices/AddressSlice";
-import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 import { SaveAddressForm } from "../../models/SaveAddressForm/SaveAddressForm";
 
 const ShippingOrder = () => {
   const dispatch = useDispatch();
 
-  const UserDetail =  useSelector((state) => state.user.UserDetail);
+  const UserDetail =  JSON.parse(localStorage("UserIn"))
   const Name = UserDetail.name
   const Gender = UserDetail.gender;
   const Phone = UserDetail.phone;
@@ -57,7 +56,6 @@ const ShippingOrder = () => {
   useEffect(() => {
     dispatch(fetchAllProvince());
     dispatch(GetListAddress(ID))
-    dispatch(GetUserInformationDetail(ID));
   }, [dispatch,ID]);
 
   useEffect(() => {

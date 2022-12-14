@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
 import User from "./assets/User.png";
-import { useDispatch, useSelector } from "react-redux";
-import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
 import { TextField } from "@mui/material";
 const CustomerInformation = (props) => {
-  const UserDetail = useSelector((state) => state.user.UserDetail);
-  const [userInfo, setUserInfo] = useState(
-    {
-      fullName: UserDetail.name,
-      nickName: UserDetail.username,
-      birthday: UserDetail.birthday,
-      gender: (UserDetail.gender) ? "Male" :"Female",
-      phone: UserDetail.phone ,
-    }
-  )
-  const dispatch = useDispatch();
-  const userID = props.id
-  useEffect(() => {
-    dispatch(GetUserInformationDetail(userID));
-  }, [dispatch,userID]);
+  const [UserDetail, setUserDetail] = useState(JSON.parse(localStorage.getItem("UserInWeb")));
   
+  const changeGender = (gender) => {
+    if (gender) return "Male";
+    else return "Female";
+  };
   return (
     <div className="flex flex-col p-10">
       <div className="flex flex-row">
@@ -35,7 +23,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Full name"
-            defaultValue={userInfo.fullName}
+            defaultValue={UserDetail.name}
             InputProps={{
               readOnly: true,
             }}
@@ -44,7 +32,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Nick name"
-            defaultValue={userInfo.nickName}
+            defaultValue={UserDetail.username}
             InputProps={{
               readOnly: true,
             }}
@@ -57,7 +45,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Birthday"
-            defaultValue={userInfo.birthday}
+            defaultValue={UserDetail.birthday}
             InputProps={{
               readOnly: true,
             }}
@@ -66,7 +54,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Phone"
-            defaultValue={userInfo.phone}
+            defaultValue={UserDetail.phone}
             InputProps={{
               readOnly: true,
             }}
@@ -75,7 +63,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Gender"
-            defaultValue={userInfo.gender}
+            defaultValue={changeGender(UserDetail.gender)}
             InputProps={{
               readOnly: true,
             }}
@@ -105,7 +93,6 @@ const CustomerInformation = (props) => {
             id="outlined-read-only-input"
             label="Ward"
             defaultValue="Hello World"
-
             variant="standard"
             InputProps={{
               readOnly: true,

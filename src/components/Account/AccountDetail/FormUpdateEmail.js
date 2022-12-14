@@ -5,15 +5,15 @@ import { UserApi } from "../../../api/UserApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 
-export const FormUpdatePhone = (props) => {
+export const FormUpdateEmail = (props) => {
   const userID = props.id
-  const [phone,setPhone] = useState(props.phone)
-  const changePhone=(e)=>{
-    setPhone(e.target.value)
+  const [email,setEmail] = useState(props.email)
+  const changeEmail=(e)=>{
+    setEmail(e.target.value)
   }  
-  const updatePhone = (e)=>{
+  const updateEmail = (e)=>{
     const body = {
-      "phone": phone
+      "email": email,
     }
     Update(userID,body)
   }
@@ -22,25 +22,25 @@ export const FormUpdatePhone = (props) => {
     await UserApi.UpdateUser(userID,body)
     .then((res)=>
     {
-      toast("Cập nhật phone thành công",{
+      toast("Cập nhật email thành công",{
         type: "success",
         autoClose:1000,
-        Close: setTimeout(() => window.location.reload(), 1000)
+        Close: setTimeout(() => window.location.replace(`/`), 1000)
       })
     })
   }
   return (
-    <div className="w-[250px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6">
+    <div className="w-[350px] h-[175px] bg-[#F8F8FD] flex justify-center flex-col p-10 space-y-6">
       <ToastContainer position="top-right" newestOnTop />
 
-      <h1 className="text-xl text-[#1D1378] align-middle">Update Phone</h1>
+      <h1 className="text-xl text-[#1D1378] align-middle">Update Email</h1>
       <TextField size="small" 
-      defaultValue={phone}
-      onChange={changePhone}/>
+      defaultValue={email}
+      onChange={changeEmail}/>
       <Button 
       variant="contained" 
       endIcon={<ChangeCircleIcon />}
-      onClick={updatePhone}
+      onClick={updateEmail}
       >
         Send
       </Button>{" "}

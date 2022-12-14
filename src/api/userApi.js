@@ -6,6 +6,6 @@ export const UserApi = {
   },
   UpdateUser: (id,body)=>{
     const url = `users/${id}`;
-    return axiosClient.patch(url);
+    return axiosClient.patch(url,{...body});
   }
 };

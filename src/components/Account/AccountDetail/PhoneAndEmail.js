@@ -2,18 +2,14 @@ import React, { useEffect } from "react";
 import Phone from "./assets/Phone.svg";
 import Mail from "./assets/Mail.svg";
 import Lock from "./assets/Lock.png";
-import { useDispatch, useSelector } from "react-redux";
-import { GetUserInformationDetail } from "../../../store/slices/UserSlice";
 import Popup from "reactjs-popup";
 import { FormUpdatePhone } from "./FormUpdatePhone";
+import { FormUpdateEmail } from "./FormUpdateEmail";
+
 
 const PhoneAndEmail = (props) => {
   const id = props.id
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(GetUserInformationDetail(id));
-  }, [dispatch]);
-  const UserDetail = useSelector((state) => state.user.UserDetail);
+  const UserDetail = JSON.parse(localStorage.getItem("UserInWeb"))
   const PhoneInformation = UserDetail.phone;
   const Email = UserDetail.email;
   return (
@@ -40,7 +36,7 @@ const PhoneAndEmail = (props) => {
               position="left bottom"
               nested
             >
-              <FormUpdatePhone />
+              <FormUpdatePhone id={props.id} phone={PhoneInformation} />
             </Popup>
           </div>
           <div className="flex flex-row justify-between mt-3">
@@ -62,7 +58,7 @@ const PhoneAndEmail = (props) => {
               position="left bottom"
               nested
             >
-              <FormUpdatePhone />
+              <FormUpdateEmail id={props.id} email={Email} />
             </Popup>
           </div>
         </div>

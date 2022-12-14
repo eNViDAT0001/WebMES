@@ -31,10 +31,10 @@ function MainRoute() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/shopping-cart" element={<CartPage />} />
-          <Route path="/account-order:id" element={<AccountOrderPage />} /> 
+          <Route path="/account-order/:id" element={<AccountOrderPage />} /> 
           <Route path="/address/:id" element={<AddressPage />} />
           <Route path="/detail/:id" element={<AccountDetailPage />} />
-          <Route path="/address-detail:id" element={<AddressDetailPage />} />
+          <Route path="/address-detail/:id" element={<AddressDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/notfound" element={<NotFoundPage />} />

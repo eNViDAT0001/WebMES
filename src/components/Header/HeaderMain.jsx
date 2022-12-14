@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { GetUserInformationDetail } from "../../store/slices/UserSlice";
 
 export const HeaderMain = () => {
-  console.log(localStorage.getItem("AccessToken"))
-  console.log(localStorage.getItem("UserID"))
-  const dispatch = useDispatch();
+  //console.log(localStorage.getItem("AccessToken"))
+  //console.log(localStorage.getItem("UserID"))
+
+  const [UserDetail, setUserDetail] = useState({});
   useEffect(() => {
-    dispatch(GetUserInformationDetail(localStorage.getItem("UserID")));
-  },[dispatch]);
-  const UserDetail = useSelector((state) => state.user.UserDetail);
-  const Name = UserDetail.name;
-  const Phone = UserDetail.phone;
-  const Email = UserDetail.email;
+    setUserDetail(JSON.parse(localStorage.getItem("UserInWeb")));
+  }, []);
+    const Name = (UserDetail) ? UserDetail.name : "";
+    const Phone = (UserDetail) ? UserDetail.phone : "";
+    const Email = (UserDetail) ? UserDetail.email : "";
+  
   return (
     <div className="bg-gray-900 text-white">
       <div className="md:flex md:justify-around md:items-center sm:px-12 px-4 bg-[#ffffff19] py-2">
@@ -50,7 +49,7 @@ export const HeaderMain = () => {
               Login
             </Link>
           ) : (
-            <div  className="md:flex md:items-center ">
+            <div className="md:flex md:items-center ">
               <Link
                 to={`/detail/${localStorage.getItem("UserID")}`}
                 className="mx-5 hover:text-teal-400 duration-300"

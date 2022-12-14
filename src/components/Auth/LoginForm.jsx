@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FacebookLoginButton,
@@ -10,6 +10,8 @@ import { Box, Divider, TextField } from "@mui/material";
 import { AuthApi } from "../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
+import { UserApi } from "../../api/UserApi";
+import { useDispatch } from "react-redux";
 
 const ChangeToTypeFromResponse = (status) => {
   const types = {
@@ -20,17 +22,38 @@ const ChangeToTypeFromResponse = (status) => {
   };
   return types[status] || types["default"];
 };
+
 export const LoginForm = () => {
+  const dispatch = useDispatch()
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
-
+  useEffect(()=>{
+    localStorage.clear()
+  },[])
   const handleChangePassword = (e) => {
     setPasswordText(e.target.value);
   };
   const handleChangeUsername = (e) => {
     setUsernameText(e.target.value);
   };
-
+  
+  const SaveUserDetail = async(id)=>{
+    await UserApi.DetailUser(id)
+    .then((res)=>{
+      localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
+      toast("Đăng nhập thành công", {
+        type: "success",
+        autoClose: 2000,
+        onClose: setTimeout(() => window.location.replace("/"), 2000),
+      });
+    })
+    .catch((error)=>{
+          toast("Lỗi lưu thông tin", {
+            type: "error",
+            autoClose: 2000,
+          });
+    })
+  }
   const Login = async (body) => {
     await AuthApi.LoginUser(body)
       .then((response) => {
@@ -52,11 +75,7 @@ export const LoginForm = () => {
             response.data.data.Token.refresh_token_expiry
           );
           localStorage.setItem("UserID", response.data.data.UserID);
-          toast("Đăng nhập thành công", {
-            type: ChangeToTypeFromResponse(response.status),
-            autoClose: 2000,
-            onClose: setTimeout(() => window.location.replace("/"), 2000),
-          });
+          SaveUserDetail(localStorage.getItem("UserID"))
         }
       })
       .catch((err) => {
@@ -69,8 +88,7 @@ export const LoginForm = () => {
         }
       });
   };
-
-  const handleLoginButton = async () => {
+  const handleLoginButton = async (event) => {
     const body = new LoginFormReq({
       username: usernameText,
       password: passwordText,

@@ -4,7 +4,8 @@ import AccountDetail from "../../components/Account/AccountDetail/AccountDetail"
 import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 import { useParams } from "react-router-dom";
 const AccountDetailPage = () =>{
-    const id = useParams()
+    const {id} = useParams()
+    console.log(id)
         return (
             <div className="font-['Josefin_Sans']">
                 <div className="flex flex-col w-full">

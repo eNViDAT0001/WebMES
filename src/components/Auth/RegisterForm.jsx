@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { AuthApi } from "../../api/AuthApi";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,6 +11,7 @@ import "react-toastify/ReactToastify.min.css";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { RegisterFormReq } from "../../models/AuthForm/RegisterFormReq";
+import { UserApi } from "../../api/UserApi";
 
 
 const ChangeToTypeFromResponse = (status) => {
@@ -26,7 +27,9 @@ const ChangeToTypeFromResponse = (status) => {
 };
 
 export const RegisterForm = () => {
-
+  useEffect(()=>{
+    localStorage.clear()
+  },[])
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -68,7 +71,24 @@ export const RegisterForm = () => {
     if (gender === "1") return true;
     else return false;
   };
-
+  
+  const SaveUserDetail = async(id)=>{
+    await UserApi.DetailUser(id)
+    .then((res)=>{
+      localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
+      toast("Đăng ký thành công", {
+        type: "success",
+        autoClose: 2000,
+        onClose: setTimeout(() => window.location.replace("/"), 2000),
+      });
+    })
+    .catch((error)=>{
+          toast("Lỗi lưu thông tin", {
+            type: "error",
+            autoClose: 2000,
+          });
+    })
+  }
   const Register = async (body) => {
     await AuthApi.RegisterUser(body)
     .then((response) => {
@@ -78,6 +98,7 @@ export const RegisterForm = () => {
         localStorage.setItem("RefreshToken",response.data.data.Token.refresh_token);
         localStorage.setItem("RefreshTokenExpiry",response.data.data.Token.refresh_token_expiry);
         localStorage.setItem("UserID", response.data.data.UserID);
+        SaveUserDetail(localStorage.getItem("UserID"))
         toast("Đăng ký thành công", {
           type: ChangeToTypeFromResponse(response.status),
           autoClose: 2000,

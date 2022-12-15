@@ -32,9 +32,8 @@ const Header = (props) => {
       };
       UseRefreshToken(body);
     }
-    else{
-      localStorage.clear()
-    }
+    else localStorage.clear()
+    
   });
   return (
     <div>

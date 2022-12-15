@@ -7,18 +7,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 import { useEffect } from "react";
 import { GetListAddress } from "../../../store/slices/AddressSlice";
 import { Button, IconButton } from "@mui/material";
+import { AddressApi } from "../../../api/AddressApi";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#FB2E86",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -36,30 +37,70 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(fullname, street, province, district, ward) {
-  return { fullname, street, province, district, ward };
-}
-
 export const TableAddress = (props) => {
   const dispatch = useDispatch();
   const addressSave = useSelector((state) => state.address.UserAddress);
 
   useEffect(() => {
     dispatch(GetListAddress(props.id));
+    localStorage.removeItem("SaveAddressFix")
   }, [dispatch, props.id]);
-  const handleCreateNewAddress = (e) =>{
-    window.location.replace('/address-create')
-  }
+  const handleCreateNewAddress = (e) => {
+    window.location.replace("/address-create");
+  };
+
+  const DeleteAddressSelect = async (id, body) => {
+    await AddressApi.DeleteAddress(id, body)
+      .then((res) => {
+        toast("Delete address successful", {
+          type: "success",
+          autoClose: 2000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${props.id}`),
+            2000
+          ),
+        });
+      })
+      .catch((error) => {
+        toast("Delete address failed", {
+          type: "error",
+          autoClose: 2000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${props.id}`),
+            2000
+          ),
+        });
+      });
+  };
+  const handleButtonDelete = (e) => {
+    const body = [];
+    body.push(parseInt(e.currentTarget.id));
+
+    DeleteAddressSelect(props.id, body);
+  };
+
+  const SaveAddressFix = async (addressID, userID) => {
+    await AddressApi.DetailByUserID(addressID, userID).then((res) => {
+      console.log(res.data.data)
+      localStorage.setItem("SaveAddressFix", JSON.stringify(res.data.data));
+      window.location.replace(`/address-fix/${addressID}`)
+    });
+  };
+  const handleButtonFix = (e) => {
+    SaveAddressFix(e.currentTarget.id, props.id);
+  };
   return (
     <div>
+      <ToastContainer position="top-right" newestOnTop />
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell align="right">Full name</StyledTableCell>
+              <StyledTableCell>Full name</StyledTableCell>
               <StyledTableCell align="right">Address</StyledTableCell>
-              <StyledTableCell align="right">Postcode</StyledTableCell>
+              <StyledTableCell align="right">Province</StyledTableCell>
+              <StyledTableCell align="right">District</StyledTableCell>
               <StyledTableCell align="right">Phone number</StyledTableCell>
               <StyledTableCell align="right">Action</StyledTableCell>
             </TableRow>
@@ -68,17 +109,27 @@ export const TableAddress = (props) => {
             {addressSave.map((row) => (
               <StyledTableRow key={row.ID}>
                 <StyledTableCell component="th" scope="row">
-                  {row.ID}
+                  {row.Name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.Name}</StyledTableCell>
                 <StyledTableCell align="right">{row.Street}</StyledTableCell>
                 <StyledTableCell align="right">{row.Province}</StyledTableCell>
+                <StyledTableCell align="right">{row.District}</StyledTableCell>
                 <StyledTableCell align="right">{row.Phone}</StyledTableCell>
                 <StyledTableCell align="right">
-                  <IconButton aria-label="fix" size="small">
+                  <IconButton
+                    id={row.ID}
+                    aria-label="fix"
+                    size="small"
+                    onClick={handleButtonFix}
+                  >
                     <SettingsRoundedIcon fontSize="inherit" />
                   </IconButton>
-                  <IconButton aria-label="delete" size="small">
+                  <IconButton
+                    id={row.ID}
+                    aria-label="delete"
+                    size="small "
+                    onClick={handleButtonDelete}
+                  >
                     <DeleteIcon fontSize="inherit" />
                   </IconButton>
                 </StyledTableCell>
@@ -88,7 +139,11 @@ export const TableAddress = (props) => {
         </Table>
       </TableContainer>
       <div className="flex flex-row-reverse mt-5">
-        <Button variant="contained" size="large" onClick={handleCreateNewAddress}>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={handleCreateNewAddress}
+        >
           + Add new address
         </Button>
       </div>

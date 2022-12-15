@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { AddressApi } from '../../api/AddressApi'
 const initialState = {
-    CurrentAddress:[],
     UserAddress:[],
     Province:[],
     Ward:[],
@@ -25,9 +24,6 @@ const AddressSlice = createSlice({
         },
         setDistrict: (state,action) =>{
             state.District = action.payload
-        },
-        setCurrentAddress: (state,action) =>{
-            state.CurrentAddress = action.payload
         },
     },
 
@@ -55,14 +51,7 @@ export const fetchDistrictFromProvince = (idProvince) => async (dispatch) => {
     }
 } 
 
-export const GetDetailAddressByUserId = (idAddress,idUser) => async(dispatch) =>{
-    try {
-            const response = await AddressApi.DetailByUserID(idAddress,idUser)
-            dispatch(setDistrict(response.data.data))
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
 export const GetListAddress = (id)=>async(dispatch)=>{
     try {
@@ -91,11 +80,12 @@ export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
         console.log(error)
     }
 } 
+
+
 export const {
     setProvince,
     setDistrict,
     setWard,
-    setCurrentAddress,
     setUserAddress
 } = AddressSlice.actions
 export default AddressSlice.reducer

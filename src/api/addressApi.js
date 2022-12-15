@@ -34,8 +34,15 @@ export const AddressApi = {
     },
     AddSaveAddress: (id,body)=>{
       const url = `/addresses/user/${id}`
-      console.log(body)
-
       return axiosClient.post(url,{...body})
     },
+    UpdateAddress:(idAddress,idUser,body)=>{
+      const url = `/addresses/${idAddress}/user/${idUser}`
+      return axiosClient.patch(url,{...body})
+    },
+    DeleteAddress:(id,body)=>{
+      const url = `/addresses/user/${id}`
+      return axiosClient.delete(url,{...body})
+    }
+
 }

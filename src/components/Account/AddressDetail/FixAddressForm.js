@@ -7,19 +7,33 @@ import {
   fetchAllProvince,
   fetchDistrictFromProvince,
   fetchWardFromDistrict,
+  setDistrict,
 } from "../../../store/slices/AddressSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
-export const CreateAddressForm = () => {
+import { AddressApi } from "../../../api/AddressApi";
+import { DoNotDisturbOnTotalSilenceOutlined } from "@mui/icons-material";
+export const FixAddressForm = (props) => {
   const dispatch = useDispatch();
-  const ID = localStorage.getItem("UserID");
-  const [ProvinceID, setProvinceID] = useState("");
-  const [DistrictID, setDistrictID] = useState("");
-  const [WardID, setWardID] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState(true);
-  const [street, setStreet] = useState("");
+  const userID = props.userID;
+  const addressID = props.addressID.id;
+  useEffect(() => {
+    dispatch(fetchAllProvince());
+  }, [dispatch]);
+
+  const CurrentAddress = JSON.parse(localStorage.getItem("SaveAddressFix"));
+
+  const [ProvinceID, setProvinceID] = useState(CurrentAddress.ProvinceCode);
+  const [DistrictID, setDistrictID] = useState(CurrentAddress.DistrictCode);
+  const [WardID, setWardID] = useState(CurrentAddress.WardCode);
+  const [districtName, setDistrictName] = useState(CurrentAddress.District);
+  const [wardName, setWardName] = useState(CurrentAddress.Ward);
+  const [disableDistrict, setDisableDistrict] = useState(true);
+  const [disableWard, setDisableWard] = useState(true);
+  const [name, setName] = useState(CurrentAddress.Name);
+  const [phone, setPhone] = useState(CurrentAddress.Phone);
+  const [gender, setGender] = useState(CurrentAddress.Gender);
+  const [street, setStreet] = useState(CurrentAddress.Street);
 
   const handleNameText = (e) => {
     setName(e.target.value);
@@ -33,18 +47,22 @@ export const CreateAddressForm = () => {
 
   const onChangeProvince = (e, value) => {
     setProvinceID(value.id);
+    setDisableDistrict(false);
+    setDistrictName("");
+    setWardName("");
+    setDisableWard(true);
   };
 
   const onChangeDistrict = (e, value) => {
+    console.log(value);
     setDistrictID(value.id);
+    setDistrictName(value.label);
+    setDisableWard(false);
   };
   const onChangeWard = (e, value) => {
     setWardID(value.id);
+    setWardName(value.label);
   };
-
-  useEffect(() => {
-    dispatch(fetchAllProvince());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchDistrictFromProvince(ProvinceID));
@@ -52,6 +70,7 @@ export const CreateAddressForm = () => {
   useEffect(() => {
     dispatch(fetchWardFromDistrict(DistrictID));
   }, [dispatch, DistrictID]);
+
   const DataProvince = useSelector((state) => state.address.Province);
   const DataDistrict = useSelector((state) => state.address.District);
   const DataWard = useSelector((state) => state.address.Ward);
@@ -71,26 +90,32 @@ export const CreateAddressForm = () => {
   const onChangeGender = (e, value) => {
     setGender(value.id === 1);
   };
-  const SaveNewAddress = (ID, body) => {
-    dispatch(AddSaveAddress(ID, body))
-    .then((res) => {
-      toast("Add new address successful", {
-        type: "success",
-        autoClose: 5000,
-        Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 5000),
-      });
-    })
-    .catch((err)=>{
+  const UpdateAddress = async (addressID, userID, body) => {
+    await AddressApi.UpdateAddress(addressID, userID, body)
+      .then((res) => {
+        localStorage.removeItem("SaveAddressFix");
+        toast("Update address successful", {
+          type: "success",
+          autoClose: 2000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${userID}`),
+            2000
+          ),
+        });
+      })
+      .catch((err) => {
         toast("Add new address fail", {
-            type: "error",
-            autoClose: 5000,
-            Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 5000),
-          });
-    })
+          type: "error",
+          autoClose: 5000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${userID}`),
+            5000
+          ),
+        });
+      });
   };
   const handleButtonConfirm = (e) => {
     const body = new SaveAddressForm({
-      user_id: ID,
       name: name,
       gender: gender,
       phone: phone,
@@ -100,19 +125,20 @@ export const CreateAddressForm = () => {
       street: street,
     });
 
-    SaveNewAddress(ID, body);
+    UpdateAddress(addressID, userID, body);
   };
   return (
     <div className="mt-10 ml-10 space-y-10  w-[60%] p-10 py-10 mb-32 border shadow-md w-min-[200px]">
       <ToastContainer position="top-right" newestOnTop />
 
       <h1 className="ml-4 text-xl text-[#1D3178] font-semibold">
-        Address Detail
+        Fix Address Detail
       </h1>
       <TextField
         required
         id="outlined-required"
         label="Name"
+        defaultValue={name}
         onChange={handleNameText}
         sx={{ width: 1 }}
       />
@@ -122,11 +148,13 @@ export const CreateAddressForm = () => {
           id="outlined-required"
           onChange={handlePhoneText}
           label="Phone number"
+          defaultValue={phone}
           sx={{ width: 1 }}
         />
         <Autocomplete
           disablePortal
           id="combo-box-demo"
+          defaultValue={gender ? "Male" : "Female"}
           options={[
             { id: 1, label: "Male" },
             { id: 0, label: "Female" },
@@ -142,6 +170,7 @@ export const CreateAddressForm = () => {
         id="outlined-required"
         onChange={handleAddressText}
         label="Address"
+        defaultValue={street}
         sx={{ width: 1 }}
       />
       <div className="flex flex-row space-x-4">
@@ -149,6 +178,7 @@ export const CreateAddressForm = () => {
           disablePortal
           id="combo-box-demo"
           options={newDataProvince}
+          defaultValue={CurrentAddress.Province}
           onChange={onChangeProvince}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}
@@ -157,7 +187,10 @@ export const CreateAddressForm = () => {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
+          disabled={disableDistrict}
           options={newDataDistrict}
+          defaultValue={districtName}
+          value={districtName}
           onChange={onChangeDistrict}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}
@@ -165,8 +198,11 @@ export const CreateAddressForm = () => {
         />
         <Autocomplete
           disablePortal
+          disabled={disableWard}
           id="combo-box-demo"
           onChange={onChangeWard}
+          defaultValue={wardName}
+          value={wardName}
           options={newDataWard}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}

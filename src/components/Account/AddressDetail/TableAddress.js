@@ -106,7 +106,7 @@ export const TableAddress = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {addressSave.map((row) => (
+            {(!addressSave)? (<div></div>) : addressSave.map((row) => (
               <StyledTableRow key={row.ID}>
                 <StyledTableCell component="th" scope="row">
                   {row.Name}

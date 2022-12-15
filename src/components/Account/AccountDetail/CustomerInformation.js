@@ -3,7 +3,13 @@ import User from "./assets/User.png";
 import { TextField } from "@mui/material";
 const CustomerInformation = (props) => {
   const [UserDetail, setUserDetail] = useState(JSON.parse(localStorage.getItem("UserInWeb")));
-  
+  const convertDate = (input) =>{
+    const time = new Date(input)
+    const date = time.getDate()
+    const month = time.getMonth()
+    const year = time.getFullYear()
+    return `${date}/${month}/${year}`
+  }
   const changeGender = (gender) => {
     if (gender) return "Male";
     else return "Female";
@@ -45,7 +51,7 @@ const CustomerInformation = (props) => {
           <TextField
             id="standard-read-only-input"
             label="Birthday"
-            defaultValue={UserDetail.birthday}
+            defaultValue={convertDate(UserDetail.birthday)}
             InputProps={{
               readOnly: true,
             }}
@@ -70,35 +76,7 @@ const CustomerInformation = (props) => {
             variant="standard"
           />
         </div>
-        <div className="flex flex-row justify-start space-x-5 font-['Lato']">
-          <TextField
-            id="standard-read-only-input"
-            label="Province"
-            defaultValue="Province"
-            InputProps={{
-              readOnly: true,
-            }}
-            variant="standard"
-          />
-          <TextField
-            id="standard-read-only-input"
-            label="District"
-            defaultValue="Hello World"
-            InputProps={{
-              readOnly: true,
-            }}
-            variant="standard"
-          />
-          <TextField
-            id="outlined-read-only-input"
-            label="Ward"
-            defaultValue="Hello World"
-            variant="standard"
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-        </div>
+        
       </div>
 
       <button className="w-[20%] h-[35px] bg-[#0B74E5] text-white my-[5%]">

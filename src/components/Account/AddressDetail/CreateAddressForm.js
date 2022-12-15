@@ -76,15 +76,15 @@ export const CreateAddressForm = () => {
     .then((res) => {
       toast("Add new address successful", {
         type: "success",
-        autoClose: 5000,
-        Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 5000),
+        autoClose: 2000,
+        Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 2000),
       });
     })
     .catch((err)=>{
         toast("Add new address fail", {
             type: "error",
-            autoClose: 5000,
-            Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 5000),
+            autoClose: 2000,
+            Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 2000),
           });
     })
   };

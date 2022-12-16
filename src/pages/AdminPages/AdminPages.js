@@ -43,7 +43,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 );
 
 export const AdminPages = () => {
-  const [value, setValue] = React.useState("dashboard");
+  const [value, setValue] = React.useState("user");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -56,7 +56,7 @@ export const AdminPages = () => {
   ) : (
     <div className="flex justify-start">
       <TabContext value={value}>
-        <Box sx={{ width: 0.1, bgcolor: "#363740", height: 1 }}>
+        <Box sx={{ width: 0.1, bgcolor: "#363740" }}>
           <StyledTabs
             orientation="vertical"
             value={value}

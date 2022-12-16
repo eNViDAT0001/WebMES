@@ -150,6 +150,7 @@ export const LoginForm = () => {
               <TextField
                 fullWidth
                 label="Password"
+                type="password"
                 id="outlined-required"
                 size="small"
                 variant="standard"

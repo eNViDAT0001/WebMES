@@ -174,6 +174,7 @@ export const RegisterForm = () => {
           <TextField
             fullWidth
             label="Password"
+            type="password"
             id="outlined-required"
             size="small"
             variant="standard"

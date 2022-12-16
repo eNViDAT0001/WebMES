@@ -53,6 +53,7 @@ export const TableAddress = (props) => {
   };
 
   const DeleteAddressSelect = async (id, body) => {
+    console.log("Đã vô delete")
     await AddressApi.DeleteAddress(id, body)
       .then((res) => {
         toast("Delete address successful", {
@@ -78,10 +79,7 @@ export const TableAddress = (props) => {
   const handleButtonDelete = (e) => {
     const idsTemp = [];
     idsTemp.push(parseInt(e.currentTarget.id));
-    const body={
-      "ids": idsTemp 
-    }
-    DeleteAddressSelect(props.id, body);
+    DeleteAddressSelect(props.id, {"ids":idsTemp});
   };
 
   const SaveAddressFix = async (addressID, userID) => {

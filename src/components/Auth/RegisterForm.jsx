@@ -36,7 +36,7 @@ export const RegisterForm = () => {
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("2001-01-01");
   const [gender, setGender] = useState("1");
-  const [type, setType] = useState("BUYER");
+  const type = "BUYER"
   const [email, setEmail] = useState("");
 
   const handleChangeDataPicker = (event) => {
@@ -46,9 +46,6 @@ export const RegisterForm = () => {
   const handleChangeGender = (event) => {
     setGender(event.target.value);
   };
-
-
-
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
@@ -75,6 +72,8 @@ export const RegisterForm = () => {
   const SaveUserDetail = async(id)=>{
     await UserApi.DetailUser(id)
     .then((res)=>{
+      localStorage.removeItem("UserInWeb")
+
       localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
       toast("Đăng ký thành công", {
         type: "success",
@@ -93,6 +92,12 @@ export const RegisterForm = () => {
     await AuthApi.RegisterUser(body)
     .then((response) => {
       if (response.status === 200) {      
+        localStorage.removeItem("AccessToken")
+        localStorage.removeItem("AccessTokenExpiry")
+        localStorage.removeItem("RefreshToken")
+        localStorage.removeItem("RefreshTokenExpiry")
+
+
         localStorage.setItem("AccessToken", response.data.data.Token.access_token);
         localStorage.setItem("AccessTokenExpiry",response.data.data.Token.access_token_expiry);
         localStorage.setItem("RefreshToken",response.data.data.Token.refresh_token);

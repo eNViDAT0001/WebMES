@@ -41,6 +41,7 @@ export const AddressApi = {
   },
   DeleteAddress: (id, body) => {
     const url = `/addresses/user/${id}`;
+    console.log(body)
     return axiosClient.delete(url, { ...body });
   },
 };

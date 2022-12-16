@@ -42,9 +42,12 @@ export const TableAddress = (props) => {
   const addressSave = useSelector((state) => state.address.UserAddress);
 
   useEffect(() => {
-    dispatch(GetListAddress(props.id));
-    localStorage.removeItem("SaveAddressFix")
-  }, [dispatch, props.id]);
+     const result = async()=>{
+      await dispatch(GetListAddress(props.id));
+     }
+     result()
+  }, [dispatch,props.id]);
+
   const handleCreateNewAddress = (e) => {
     window.location.replace("/address-create");
   };
@@ -64,26 +67,28 @@ export const TableAddress = (props) => {
       .catch((error) => {
         toast("Delete address failed", {
           type: "error",
-          autoClose: 2000,
+          autoClose: 20000,
           Close: setTimeout(
             () => window.location.replace(`/address-detail/${props.id}`),
-            2000
+            20000
           ),
         });
       });
   };
   const handleButtonDelete = (e) => {
-    const body = [];
-    body.push(parseInt(e.currentTarget.id));
-
+    const idsTemp = [];
+    idsTemp.push(parseInt(e.currentTarget.id));
+    const body={
+      "ids": idsTemp 
+    }
     DeleteAddressSelect(props.id, body);
   };
 
   const SaveAddressFix = async (addressID, userID) => {
     await AddressApi.DetailByUserID(addressID, userID).then((res) => {
-      console.log(res.data.data)
+      localStorage.removeItem("SaveAddressFix");
       localStorage.setItem("SaveAddressFix", JSON.stringify(res.data.data));
-      window.location.replace(`/address-fix/${addressID}`)
+      window.location.replace(`/address-fix/${addressID}`);
     });
   };
   const handleButtonFix = (e) => {
@@ -106,35 +111,43 @@ export const TableAddress = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(!addressSave)? (<div></div>) : addressSave.map((row) => (
-              <StyledTableRow key={row.ID}>
-                <StyledTableCell component="th" scope="row">
-                  {row.Name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.Street}</StyledTableCell>
-                <StyledTableCell align="right">{row.Province}</StyledTableCell>
-                <StyledTableCell align="right">{row.District}</StyledTableCell>
-                <StyledTableCell align="right">{row.Phone}</StyledTableCell>
-                <StyledTableCell align="right">
-                  <IconButton
-                    id={row.ID}
-                    aria-label="fix"
-                    size="small"
-                    onClick={handleButtonFix}
-                  >
-                    <SettingsRoundedIcon fontSize="inherit" />
-                  </IconButton>
-                  <IconButton
-                    id={row.ID}
-                    aria-label="delete"
-                    size="small "
-                    onClick={handleButtonDelete}
-                  >
-                    <DeleteIcon fontSize="inherit" />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+            {!addressSave ? (
+              <div></div>
+            ) : (
+              addressSave.map((row) => (
+                <StyledTableRow key={row.ID}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.Name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.Street}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Province}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.District}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.Phone}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <IconButton
+                      id={row.ID}
+                      aria-label="fix"
+                      size="small"
+                      onClick={handleButtonFix}
+                    >
+                      <SettingsRoundedIcon fontSize="inherit" />
+                    </IconButton>
+                    <IconButton
+                      id={row.ID}
+                      aria-label="delete"
+                      size="small "
+                      onClick={handleButtonDelete}
+                    >
+                      <DeleteIcon fontSize="inherit" />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

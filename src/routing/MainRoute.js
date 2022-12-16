@@ -15,14 +15,20 @@ import FAQPage from "../pages/StorePages/FAQPage";
 import NotFoundPage from "../pages/StorePages/NotFoundPage";
 import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
 //test git
+import { AdminLayOut } from "./Layouts";
 import { UserLayout,LoginLayOut } from "./Layouts";
 import { TestingPages } from "../pages/TestingPages";
 import CreateAddressPage from "../pages/AccountPages/CreateAddressPage";
 import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
+import { AdminPages } from "../pages/AdminPages/AdminPages";
 function MainRoute() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<AdminLayOut />}>
+          <Route path="/admin/:id" element={<AdminPages />} />
+        </Route>
+
         <Route element={<LoginLayOut />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

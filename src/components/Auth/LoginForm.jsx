@@ -11,7 +11,7 @@ import { AuthApi } from "../../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { UserApi } from "../../api/UserApi";
-
+import { useNavigate } from "react-router-dom";
 const ChangeToTypeFromResponse = (status) => {
   const types = {
     200: "success",
@@ -23,39 +23,52 @@ const ChangeToTypeFromResponse = (status) => {
 };
 
 export const LoginForm = () => {
+  const navigate = useNavigate()
   const [usernameText, setUsernameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
-  useEffect(()=>{
-    localStorage.clear()
-  },[])
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   const handleChangePassword = (e) => {
     setPasswordText(e.target.value);
   };
   const handleChangeUsername = (e) => {
     setUsernameText(e.target.value);
   };
-  
-  const SaveUserDetail = async(id)=>{
+
+  const SaveUserDetail = async (id) => {
     await UserApi.DetailUser(id)
-    .then((res)=>{
-      localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
-      toast("Đăng nhập thành công", {
-        type: "success",
-        autoClose: 2000,
-        onClose: setTimeout(() => window.location.replace("/"), 2000),
+      .then((res) => {
+        toast("Đăng nhập thành công", {
+          type: "success",
+          autoClose: 2000,
+          onClose: setTimeout(() => {
+            localStorage.removeItem("UserInWeb");
+            localStorage.setItem("UserInWeb", JSON.stringify(res.data.data));
+            localStorage.removeItem("Role")
+            localStorage.setItem("Role",res.data.data.Type)
+            if(localStorage.getItem("Role")==="ADMIN")
+              navigate(`/admin/${localStorage.getItem("UserID")}`)
+            else navigate("/")
+          }, 2000),
+        });
+      })
+      .catch((error) => {
+        toast("Lỗi lưu thông tin", {
+          type: "error",
+          autoClose: 2000,
+          onClose: window.location.reload(),
+        });
       });
-    })
-    .catch((error)=>{
-          toast("Lỗi lưu thông tin", {
-            type: "error",
-            autoClose: 2000,
-          });
-    })
-  }
+  };
   const Login = async (body) => {
     await AuthApi.LoginUser(body)
       .then((response) => {
         if (response.status === 200) {
+          localStorage.removeItem("AccessToken");
+          localStorage.removeItem("AccessTokenExpiry");
+          localStorage.removeItem("RefreshToken");
+          localStorage.removeItem("RefreshTokenExpiry");
           localStorage.setItem(
             "AccessToken",
             response.data.data.Token.access_token
@@ -73,11 +86,11 @@ export const LoginForm = () => {
             response.data.data.Token.refresh_token_expiry
           );
           localStorage.setItem("UserID", response.data.data.UserID);
-          SaveUserDetail(localStorage.getItem("UserID"))
+          SaveUserDetail(localStorage.getItem("UserID"));
         }
       })
       .catch((err) => {
-         if (err.response) {
+        if (err.response) {
           console.log(err.response.data.errors[0].message);
           toast(err.response.data.errors[0].message, {
             type: ChangeToTypeFromResponse(err.response.status),
@@ -95,9 +108,8 @@ export const LoginForm = () => {
   };
 
   const loginWithEnter = async (event) => {
-
     if (event.key === "Enter") {
-      handleLoginButton()
+      handleLoginButton();
     }
   };
   return (

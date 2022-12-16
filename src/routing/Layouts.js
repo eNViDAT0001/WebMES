@@ -25,7 +25,9 @@ export const UserLayout = () => {
 export const AdminLayOut = () => {
     return (
       <div>
-        <Outlet></Outlet>
+        <Header />
+          <Outlet></Outlet>
+        <Footer />
       </div>
     );
   };

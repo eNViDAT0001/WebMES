@@ -3,16 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SaveAddressForm } from "../../../models/SaveAddressForm/SaveAddressForm";
 import {
-  AddSaveAddress,
   fetchAllProvince,
   fetchDistrictFromProvince,
   fetchWardFromDistrict,
-  setDistrict,
 } from "../../../store/slices/AddressSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { AddressApi } from "../../../api/AddressApi";
-import { DoNotDisturbOnTotalSilenceOutlined } from "@mui/icons-material";
 export const FixAddressForm = (props) => {
   const dispatch = useDispatch();
   const userID = props.userID;
@@ -23,6 +20,7 @@ export const FixAddressForm = (props) => {
 
   const CurrentAddress = JSON.parse(localStorage.getItem("SaveAddressFix"));
 
+  console.log(CurrentAddress);
   const [ProvinceID, setProvinceID] = useState(CurrentAddress.ProvinceCode);
   const [DistrictID, setDistrictID] = useState(CurrentAddress.DistrictCode);
   const [WardID, setWardID] = useState(CurrentAddress.WardCode);
@@ -57,6 +55,7 @@ export const FixAddressForm = (props) => {
     console.log(value);
     setDistrictID(value.id);
     setDistrictName(value.label);
+    setWardName("");
     setDisableWard(false);
   };
   const onChangeWard = (e, value) => {
@@ -106,26 +105,33 @@ export const FixAddressForm = (props) => {
       .catch((err) => {
         toast("Add new address fail", {
           type: "error",
-          autoClose: 5000,
+          autoClose: 2000,
           Close: setTimeout(
             () => window.location.replace(`/address-detail/${userID}`),
-            5000
+            2000
           ),
         });
       });
   };
   const handleButtonConfirm = (e) => {
-    const body = new SaveAddressForm({
-      name: name,
-      gender: gender,
-      phone: phone,
-      province_code: ProvinceID,
-      district_code: DistrictID,
-      ward_code: WardID,
-      street: street,
-    });
+    if (districtName === "" || wardName === "") {
+      toast("Need Select District or Ward", {
+        type: "error",
+        autoClose: 5000,
+      });
+    } else {
+      const body = new SaveAddressForm({
+        name: name,
+        gender: gender,
+        phone: phone,
+        province_code: ProvinceID,
+        district_code: DistrictID,
+        ward_code: WardID,
+        street: street,
+      });
 
-    UpdateAddress(addressID, userID, body);
+      UpdateAddress(addressID, userID, body);
+    }
   };
   return (
     <div className="mt-10 ml-10 space-y-10  w-[60%] p-10 py-10 mb-32 border shadow-md w-min-[200px]">

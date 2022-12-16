@@ -9,8 +9,4 @@ export const AuthApi = {
         const url = "app/register"  
         return axiosClient.post(url,{...body})
     },
-    RefreshToken:(body)=>{
-        const url = "token/refresh"
-        return axiosClient.post(url,{...body})
-    }
 }

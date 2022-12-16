@@ -5,9 +5,7 @@ import Order from "../../../assets/Order.png";
 import Address from "../../../assets/Address.png";
 import LogOut from "../../../assets/LogOut.png";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+
 
 
 const SlideBarData = [
@@ -47,6 +45,7 @@ const ChangeBarInformation = (props) => {
   }
   
   const ResetToken = (e) => {
+    localStorage.clear()
     window.location.replace('/login')
   };
   return (

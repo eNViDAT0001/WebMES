@@ -5,6 +5,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const HeaderMain = () => {
   //console.log(localStorage.getItem("AccessToken"))
@@ -14,10 +15,10 @@ export const HeaderMain = () => {
   useEffect(() => {
     setUserDetail(JSON.parse(localStorage.getItem("UserInWeb")));
   }, []);
-    const Name = (UserDetail) ? UserDetail.name : "";
-    const Phone = (UserDetail) ? UserDetail.phone : "";
-    const Email = (UserDetail) ? UserDetail.email : "";
-  
+  const Name = UserDetail ? UserDetail.name : "";
+  const Phone = UserDetail ? UserDetail.phone : "";
+  const Email = UserDetail ? UserDetail.email : "";
+
   return (
     <div className="bg-gray-900 text-white">
       <div className="md:flex md:justify-around md:items-center sm:px-12 px-4 bg-[#ffffff19] py-2">
@@ -56,12 +57,21 @@ export const HeaderMain = () => {
               >
                 {Name}
               </Link>
-              <Link
-                to="/shopping-cart"
-                className="hover:text-teal-400 duration-300"
-              >
-                <AiOutlineShoppingCart />
-              </Link>
+              {localStorage.getItem("Role") === "ADMIN" ? (
+                <Link
+                  to={`/admin/${localStorage.getItem("UserID")}`}
+                  className="hover:text-teal-400 duration-300"
+                >
+                  <AdminPanelSettingsIcon />
+                </Link>
+              ) : (
+                <Link
+                  to="/shopping-cart"
+                  className="hover:text-teal-400 duration-300"
+                >
+                  <AiOutlineShoppingCart />
+                </Link>
+              )}
             </div>
           )}
         </div>

@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import { HeaderMain } from "./HeaderMain";
 import { HeaderUser } from "./HeaderUser";
-import { AuthApi } from "../../api/AuthApi";
 const Header = (props) => {
-  
   return (
     <div>
       <HeaderMain />
-      <HeaderUser />
+      {localStorage.getItem("Role") === "ADMIN" ? <div></div> : <HeaderUser />}
     </div>
   );
 };

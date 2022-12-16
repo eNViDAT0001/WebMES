@@ -15,6 +15,8 @@ export const CreateAddressForm = () => {
   const ID = localStorage.getItem("UserID");
   const [ProvinceID, setProvinceID] = useState("");
   const [DistrictID, setDistrictID] = useState("");
+  const [districtName, setDistrictName] = useState("");
+  const [wardName, setWardName] = useState("");
   const [WardID, setWardID] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -33,13 +35,18 @@ export const CreateAddressForm = () => {
 
   const onChangeProvince = (e, value) => {
     setProvinceID(value.id);
+    setDistrictName("");
+    setWardName("");
   };
 
   const onChangeDistrict = (e, value) => {
     setDistrictID(value.id);
+    setDistrictName(value.label)
+    setWardName("");
   };
   const onChangeWard = (e, value) => {
     setWardID(value.id);
+    setWardName(value.label)
   };
 
   useEffect(() => {
@@ -73,34 +80,47 @@ export const CreateAddressForm = () => {
   };
   const SaveNewAddress = (ID, body) => {
     dispatch(AddSaveAddress(ID, body))
-    .then((res) => {
-      toast("Add new address successful", {
-        type: "success",
-        autoClose: 2000,
-        Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 2000),
-      });
-    })
-    .catch((err)=>{
+      .then((res) => {
+        toast("Add new address successful", {
+          type: "success",
+          autoClose: 2000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${ID}`),
+            2000
+          ),
+        });
+      })
+      .catch((err) => {
         toast("Add new address fail", {
-            type: "error",
-            autoClose: 2000,
-            Close: setTimeout(() => window.location.replace(`/address-detail/${ID}`), 2000),
-          });
-    })
+          type: "error",
+          autoClose: 2000,
+          Close: setTimeout(
+            () => window.location.replace(`/address-detail/${ID}`),
+            2000
+          ),
+        });
+      });
   };
   const handleButtonConfirm = (e) => {
-    const body = new SaveAddressForm({
-      user_id: ID,
-      name: name,
-      gender: gender,
-      phone: phone,
-      province_code: ProvinceID,
-      district_code: DistrictID,
-      ward_code: WardID,
-      street: street,
-    });
+    if (districtName === "" || wardName === "") {
+      toast("Need select District and Ward", {
+        type: "error",
+        autoClose: 2000,
+      });
+    } else {
+      const body = new SaveAddressForm({
+        user_id: ID,
+        name: name,
+        gender: gender,
+        phone: phone,
+        province_code: ProvinceID,
+        district_code: DistrictID,
+        ward_code: WardID,
+        street: street,
+      });
 
-    SaveNewAddress(ID, body);
+      SaveNewAddress(ID, body);
+    }
   };
   return (
     <div className="mt-10 ml-10 space-y-10  w-[60%] p-10 py-10 mb-32 border shadow-md w-min-[200px]">
@@ -158,6 +178,7 @@ export const CreateAddressForm = () => {
           disablePortal
           id="combo-box-demo"
           options={newDataDistrict}
+          value={districtName}
           onChange={onChangeDistrict}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           sx={{ width: 300 }}
@@ -166,6 +187,7 @@ export const CreateAddressForm = () => {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
+          value={wardName}
           onChange={onChangeWard}
           options={newDataWard}
           isOptionEqualToValue={(option, value) => option.id === value.id}

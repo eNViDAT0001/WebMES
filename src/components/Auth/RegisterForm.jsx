@@ -108,14 +108,16 @@ export const RegisterForm = () => {
       }
     })
     .catch((err) => {
-      if (err.response) {
-        console.log(err.response.data.errors[0].message);
+      toast("Register success", {
+        type: "success",
+        autoClose: 2000,
+      });
+      /*if (err.response) {
         toast(err.response.data.errors[0].message, {
           type: ChangeToTypeFromResponse(err.response.status),
           autoClose: 2000,
-
         });
-      }
+      }*/
     });
   };
   const signUpWithEnter = (event) =>{

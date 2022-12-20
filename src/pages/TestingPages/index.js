@@ -1,9 +1,12 @@
 import { useEffect } from "react"
 import React from 'react'
+import { Comment } from "../../components/Comment/Comment"
+
 export const TestingPages = () => {
   
   return (
-    <div>TestingPages
+    <div className="">
+      <Comment />
     </div>
   )
 }

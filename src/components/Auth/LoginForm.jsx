@@ -39,7 +39,7 @@ export const LoginForm = () => {
   const SaveUserDetail = async (id) => {
     await UserApi.DetailUser(id)
       .then((res) => {
-        toast("Đăng nhập thành công", {
+        toast("Login success", {
           type: "success",
           autoClose: 2000,
           onClose: setTimeout(() => {

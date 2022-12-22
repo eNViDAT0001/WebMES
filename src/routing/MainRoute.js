@@ -21,6 +21,8 @@ import { TestingPages } from "../pages/TestingPages";
 import CreateAddressPage from "../pages/AccountPages/CreateAddressPage";
 import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
 import { AdminPages } from "../pages/AdminPages/AdminPages";
+import { BrandPages } from "../pages/BrandPages/Brand";
+
 function MainRoute() {
   return (
     <BrowserRouter>
@@ -50,6 +52,7 @@ function MainRoute() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/notfound" element={<NotFoundPage />} />
           <Route path="/completed" element={<OrderCompletedPage/>}/>
+          <Route path="/brand" element={<BrandPages/>} />
         </Route>
         <Route path="/testing" element={<TestingPages />}/>
 

@@ -9,7 +9,7 @@ export const HeaderUser = () => {
 
   const [orderRoute, setOrderRoute] = useState("/login");
 
-  
+  const userID = localStorage.getItem("UserID")
   useEffect(() => {
     const changeRoute = () => {
       const token = localStorage.getItem("AccessToken");
@@ -56,6 +56,13 @@ export const HeaderUser = () => {
             >
               Contact
             </Link>
+            {!(userID) ? (<div></div>) : 
+            <Link
+            to="/brand"
+            className="text-gray-800 hover:text-[#FB2E86] duration-300"
+          >
+            Brand
+          </Link>}
           </div>
         </div>
 

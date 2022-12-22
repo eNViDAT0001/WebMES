@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import ListIcon from "@mui/icons-material/List";
-import Box from "@mui/material/Box";
-import { DataGridPro } from "@mui/x-data-grid-pro";
-import { useDemoData } from "@mui/x-data-grid-generator";
-import { Button } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { FormAddBrand } from "./FormAddBrand";
+import { ListViewBrand } from "./ListViewBrand";
 const DataBrand = [
   {
     id: 0,
@@ -48,11 +46,10 @@ export const ListBrand = () => {
             )}
           </div>
           {openBrand ? <FormAddBrand /> : <div></div>}
-          {DataBrand.length !== 0 ? (
-            <h1 className="my-5 text-xl uppercase">you don't have a brand</h1>
-          ) : (
-            <div></div>
-          )}
+          <div className="my-10">
+            <Divider />
+          </div>
+          <ListViewBrand />
         </div>
       </div>
     </div>

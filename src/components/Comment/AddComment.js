@@ -23,7 +23,7 @@ export const AddComment = () => {
   },[fileUpload])
   const handleButtonUploadFile = (e) => {
     const file = e.target.files[0];
-    
+    file.preview = URL.createObjectURL(file)
     setFileUpload(file);
   };
   return (
@@ -82,8 +82,11 @@ export const AddComment = () => {
           </IconButton>
         </div>
         {fileUpload ? (
-          <div className="flex justify-center">
-            <img src={fileUpload.preview} alt="anh comment" className=""></img>
+          <div className="flex justify-start space-x-2">
+            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
+            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
+            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
+
           </div>
         ) : (
           <div></div>

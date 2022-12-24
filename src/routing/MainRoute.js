@@ -21,7 +21,8 @@ import { TestingPages } from "../pages/TestingPages";
 import CreateAddressPage from "../pages/AccountPages/CreateAddressPage";
 import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
 import { AdminPages } from "../pages/AdminPages/AdminPages";
-import { BrandPages } from "../pages/BrandPages/Brand";
+import { BrandPages } from "../pages/BrandPages/BrandGeneral";
+import { BrandDetailPages } from "../pages/BrandPages/BrandDetailPages";
 
 function MainRoute() {
   return (
@@ -53,6 +54,8 @@ function MainRoute() {
           <Route path="/notfound" element={<NotFoundPage />} />
           <Route path="/completed" element={<OrderCompletedPage/>}/>
           <Route path="/brand" element={<BrandPages/>} />
+          <Route path="/brand-detail/:id" element={<BrandDetailPages/>} />
+
         </Route>
         <Route path="/testing" element={<TestingPages />}/>
 

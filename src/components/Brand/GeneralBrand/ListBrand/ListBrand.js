@@ -3,23 +3,7 @@ import ListIcon from "@mui/icons-material/List";
 import { Button, Divider } from "@mui/material";
 import { FormAddBrand } from "./FormAddBrand";
 import { ListViewBrand } from "./ListViewBrand";
-const DataBrand = [
-  {
-    id: 0,
-    name: "Nguyễn Văn Đạt",
-    createAt: "2012-12-16",
-  },
-  {
-    id: 1,
-    name: "Brand A",
-    createAt: "2012-12-16",
-  },
-  {
-    id: 2,
-    name: "Brand B",
-    createAt: "2012-12-16",
-  },
-];
+
 export const ListBrand = () => {
   const [openBrand, setOpenAddBrand] = useState(false);
   const handleButtonAdd = (e) => {

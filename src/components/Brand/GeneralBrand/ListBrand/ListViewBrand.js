@@ -1,9 +1,10 @@
 import { Button, Divider } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Pagination } from "@mui/material";
+import FilterIcon from "@mui/icons-material/Filter";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
 import { Link } from "react-router-dom";
+import { FiltersBrand } from "./FiltersBrand";
 const DataBrand = [
   {
     id: 0,
@@ -69,47 +70,69 @@ const DataBrand = [
     name: "Brand B",
     createAt: "2012-12-16",
   },
+  {
+    id: 8,
+    img: "https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
+    totalProduct: 5,
+    revenue: "1M",
+    name: "Brand B",
+    createAt: "2012-12-16",
+  },
 ];
-
+const VARIANT = {
+  contained: "contained",
+  outlined: "outlined",
+};
 export const ListViewBrand = () => {
+  const [variant, setVariant] = useState(VARIANT.contained);
+  const handleButtonFilter = (e) => {
+    if (variant === VARIANT.contained) setVariant(VARIANT.outlined);
+    else setVariant(VARIANT.contained);
+  };
   return (
     <div className="px-5">
-      <h1 className=" text-xl font-bold">List your brand: </h1>
-      <div className="my-10 border flex flex-row bg-gradient-to-r from-[#ffafbd] to-[#ffc3a0] rounded-2xl shadow-lg">
+      <div className="flex flex-row justify-between">
+        <h1 className=" text-xl font-bold">List your brand: </h1>
+        <Button
+          variant={variant}
+          startIcon={<FilterIcon />}
+          onClick={handleButtonFilter}
+        >
+          Filter
+        </Button>
+      </div>
+      {variant === VARIANT.contained ? <div></div> : <FiltersBrand />}
+      <div className="my-10 pl-10 border flex flex-row bg-gradient-to-r from-[#ffafbd] to-[#ffc3a0] rounded-2xl shadow-lg">
         {DataBrand.length === 0 ? (
           <h1 className=" text-xl uppercase">you don't have a brand</h1>
         ) : (
-          <div className="flex flex-row flex-wrap w-full ">
-            {DataBrand.map((data) => (
-              <Link to={`/${data.id}`}
-                className="w-[20%] min-h-[350px] max-h-[400px] border rounded-2xl shadow-xl my-5 mx-5 bg-white hover:scale-105"
-              >
-                <div className="flex justify-center">
-                  <h1 className=" text-base font-bold my-2">{data.name}</h1>
-                </div>
-                <Divider />
-                <div className="flex flex-col">
+          <div className="flex flex-row flex-wrap justify-start w-full">
+              {DataBrand.map((data) => (
+                <Link
+                  to={`/brand-detail/${data.id}`}
+                  className="w-[20%] min-h-[320px] max-h-[400px] border rounded-2xl shadow-xl my-5 mx-5 bg-white hover:scale-105"
+                >
                   <div className="flex justify-center">
-                    <h1 className=" text-base text-[#B1B5B5]">
-                      Create at: {data.createAt}
-                    </h1>
+                    <h1 className=" text-base font-bold my-2">{data.name}</h1>
                   </div>
-                  <img
-                    src={data.img}
-                    alt="Anh brand"
-                    className="w-full max-h-[200px] p-2"
-                  />
-                  <div className="flex items-center flex-col">
-                    <h1>Total product: {data.totalProduct}</h1>
-                    <h1>Revenue: {data.revenue}</h1>
+                  <Divider />
+                  <div className="flex flex-col">
+                    <img
+                      src={data.img}
+                      alt="Anh brand"
+                      className="w-full max-h-[200px] p-2"
+                    />
+                    <div className="mt-4">
+                      <Divider />
+                    </div>
+                    <div className="flex justify-center">
+                      <h1 className=" text-base text-[#B1B5B5] items-center">
+                        Create at: {data.createAt}
+                      </h1>
+                    </div>
                   </div>
-                  <div className="my-2">
-                    <Divider />
-                  </div>
-                 
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
           </div>
         )}
       </div>

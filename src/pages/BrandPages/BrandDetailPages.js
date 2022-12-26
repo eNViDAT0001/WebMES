@@ -8,7 +8,7 @@ export const BrandDetailPages = () => {
   }, [])
   
   return (
-    <div className=" w-screen bg-gradient-to-r from-[#29323c] to-[#485563] p-10 h-screen">
+    <div className=" w-screen bg-gradient-to-r from-[#29323c] to-[#485563] p-10 ">
       <div className="flex flex-col space-y-9">
         <GeneralBrandDetail />
         <ProductInDetailBrand />

@@ -12,7 +12,7 @@ const TitleAndRating = () => {
   }, []);
     return(
         <div>
-            <h1 className=" font-normal text-4xl text-purple-text-name-product-detail ">{product.nameProduct}</h1>
+            <h1 className=" font-normal text-4xl text-purple-text-name-product-detail ">Sản phẩm review thứ nhất</h1>
                 <div className="flex flex-row mt-2">
                     <Rating  
                         emptySymbol={<img src={starNotActive} alt="starDisable" className="w-3 h-3 mr-1" />}

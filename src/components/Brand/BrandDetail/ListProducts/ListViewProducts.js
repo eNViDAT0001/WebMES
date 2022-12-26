@@ -14,7 +14,7 @@ import { Button, IconButton, Paper, TableHead } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#FB2E86",
+    backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -23,15 +23,45 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
   // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
-const addressSave=[]
+const ListProducts = [
+  {
+    id: 0,
+    name: "Son môi size1",
+    image:
+      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
+    category: "Son",
+    isSold: false,
+    createdAt: "2012-11-12",
+    price: 50.0,
+  },
+  {
+    id: 1,
+    name: "Son môi size2",
+    image:
+      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
+    category: "Son",
+    createdAt: "2012-11-12",
+    isSold: true,
+
+    price: 50.0,
+  },
+  {
+    id: 2,
+    image:
+      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
+    category: "Son",
+    isSold: true,
+    createdAt: "2012-11-12",
+    name: "Son môi size3",
+
+    price: 50.0,
+  },
+];
 
 export const ListViewProducts = () => {
   return (
@@ -41,45 +71,52 @@ export const ListViewProducts = () => {
         <ToastContainer position="top-right" newestOnTop />
 
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <Table sx={{ minWidth: 400 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Full name</StyledTableCell>
-                <StyledTableCell align="right">Address</StyledTableCell>
-                <StyledTableCell align="right">Province</StyledTableCell>
-                <StyledTableCell align="right">District</StyledTableCell>
-                <StyledTableCell align="right">Phone number</StyledTableCell>
+                <StyledTableCell>Image</StyledTableCell>
+                <StyledTableCell align="right">Name Product</StyledTableCell>
+                <StyledTableCell align="right">Category</StyledTableCell>
+                <StyledTableCell align="right">Price</StyledTableCell>
+                <StyledTableCell align="right">Create at</StyledTableCell>
+                <StyledTableCell align="right">Is Sold</StyledTableCell>
+
                 <StyledTableCell align="right">Action</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {!addressSave ? (
+              {!ListProducts ? (
                 <div></div>
               ) : (
-                addressSave.map((row) => (
-                  <StyledTableRow key={row.ID}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.Name}
+                ListProducts.map((row) => (
+                  <StyledTableRow key={row.id}>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      sx={{ width: 100, padding: 1 }}
+                    >
+                      <img
+                        src={row.image}
+                        alt="Anh san pham"
+                        className="w-[100px] h-[100px]"
+                      ></img>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.name}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.category}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.price}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.createdAt}{" "}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.Street}
+                      {!row.isSold ? <div>No</div> : <div>Yes</div>}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.Province}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.District}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.Phone}</StyledTableCell>
                     <StyledTableCell align="right">
                       <IconButton id={row.ID} aria-label="fix" size="small">
                         <SettingsRoundedIcon fontSize="inherit" />
                       </IconButton>
-                      <IconButton
-                        id={row.ID}
-                        aria-label="delete"
-                        size="small "
-                      >
+                      <IconButton id={row.ID} aria-label="delete" size="small ">
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
                     </StyledTableCell>
@@ -89,7 +126,6 @@ export const ListViewProducts = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        
       </div>
     </div>
   );

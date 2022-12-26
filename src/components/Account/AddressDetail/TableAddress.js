@@ -14,7 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { useEffect } from "react";
 import { GetListAddress } from "../../../store/slices/AddressSlice";
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Pagination } from "@mui/material";
 import { AddressApi } from "../../../api/AddressApi";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -149,6 +149,10 @@ export const TableAddress = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      
+      <div className="flex justify-center my-8">
+        <Pagination count={10} showFirstButton showLastButton />
+      </div>
       <div className="flex flex-row-reverse mt-5">
         <Button
           variant="contained"

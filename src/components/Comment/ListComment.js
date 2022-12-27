@@ -4,6 +4,10 @@ import Rating from "@mui/material/Rating";
 import { Divider, Pagination } from "@mui/material";
 import { fetchAllComment } from "../../store/slices/CommentSlice";
 import { useDispatch, useSelector } from "react-redux";
+const convertDate = (date)=>{
+  const newDate = new Date(date)
+  return newDate.toISOString().split('T')[0]
+}
 const checkObjectEmpty = (object) => {
   return Object.keys(object).length === 0;
 };
@@ -61,12 +65,13 @@ export const ListComment = () => {
           className="border-2 border-[#FFFFFF] flex flex-row min-h-[120px] rounded-md p-2 shadow-md  items-start justify-between"
         >
           <div className="flex flex-row">
+
             <AccountCircle sx={{ width: 60, height: 60 }} />
             <div className="flex flex-col ml-4 p-1 space-y-2">
               <div className="flex flex-row space-x-1 ">
-                <h1 className=" text-sm font-bold">{data.UserID}</h1>
+                <h1 className=" text-sm font-bold">{data.Name}</h1>
                 <h1 className=" text-sm font-bold text-[#808080]">
-                  - 2 day ago
+                  - {convertDate(data.CreatedAt)}
                 </h1>
               </div>
               <Rating readOnly value={data.Rating} size="small" />

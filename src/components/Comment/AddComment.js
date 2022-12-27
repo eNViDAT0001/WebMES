@@ -16,20 +16,21 @@ const getLabelText = (value) => {
 export const AddComment = () => {
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
-  const [fileUpload, setFileUpload] = useState();
+  const [fileUpload, setFileUpload] = useState([]);
+
   useEffect(()=>{
-      console.log(fileUpload)
-    
+    console.log(fileUpload)
   },[fileUpload])
   const handleButtonUploadFile = (e) => {
     const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file)
-    setFileUpload(file);
+    file.preview = URL.createObjectURL(file);
+    const newFile = fileUpload;
+    newFile.push(file);
+    setFileUpload(newFile);
   };
   return (
     <div className="flex flex-col space-y-5 px-5 w-full min-w-[350px] my-10">
       <h1 className=" text-xl font-bold">Add your comment:</h1>
-
       <div className="border space-y-6 p-4 rounded-md shadow-md">
         <div className="flex flex-row items-center space-x-4 ">
           <h1 className=" text-xl font-bold">Choose Rating:</h1>
@@ -75,22 +76,25 @@ export const AddComment = () => {
             color="primary"
             aria-label="upload picture"
             component="label"
-            onChange={handleButtonUploadFile}
+            onClick={handleButtonUploadFile}
           >
             <input hidden accept="image/*" type="file" />
             <PhotoCamera />
           </IconButton>
         </div>
-        {fileUpload ? (
-          <div className="flex justify-start space-x-2">
-            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
-            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
-            <img src={fileUpload.preview} alt="anh comment" className="w-[150px] h-[150px]"></img>
-
-          </div>
-        ) : (
-          <div></div>
-        )}
+        <div className="flex justify-start space-x-2">
+          {fileUpload.length !== 0 ? (
+            fileUpload.map((data) => (
+              <img
+                src={data.preview}
+                alt="anh comment"
+                className="w-[150px] h-[150px]"
+              ></img>
+            ))
+          ) : (
+            <div></div>
+          )}
+        </div>
         <div className="flex flex-row-reverse">
           <Button variant="contained"> Send</Button>
         </div>

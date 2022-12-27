@@ -17,7 +17,7 @@ export const Comment = (props) => {
     }
   }
   return (
-    <div className="p-20 font-[Satoshi]">
+    <div className="bg-[#FFFFFF] p-5 font-[Satoshi] shadow-lg rounded-2xl">
       <div className="flex flex-row items-center">
 
         <Button

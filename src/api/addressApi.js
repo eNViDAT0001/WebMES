@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 import axiosClient from "./Client";
 
 export const AddressApi = {
@@ -41,6 +42,6 @@ export const AddressApi = {
   },
   DeleteAddress: (id, body) => {
     const url = `/addresses/user/${id}`;
-    return axiosClient.delete(url, {...body});
+    return axiosClient.delete(url, JSON.stringify({ids: [5]}));
   },
 };

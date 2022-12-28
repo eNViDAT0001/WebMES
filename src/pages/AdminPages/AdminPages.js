@@ -4,8 +4,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TabContext, TabPanel } from "@mui/lab";
-import { Dashboard } from "../../components/Admin/Dashboard/Dashboard";
 import { UserList } from "../../components/Admin/UserList/UserList";
+import { AdminOrder } from "../../components/Admin/Order/AdminOrder";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -63,17 +63,19 @@ export const AdminPages = () => {
             onChange={handleChange}
             aria-label="styled tabs example"
           >
-            <StyledTab label="Dashboard" value="dashboard" />
             <StyledTab label="User" value="user" />
+            <StyledTab label="Order" value="order" />
           </StyledTabs>
           <Box sx={{ p: 3 }} />
         </Box>
-        <TabPanel value="dashboard">
-          <Dashboard />
-        </TabPanel>
-        <TabPanel value="user">
-          <UserList />
-        </TabPanel>
+        <div className="w-full">
+          <TabPanel value="user">
+            <UserList />
+          </TabPanel>
+          <TabPanel value="order">
+            <AdminOrder />
+          </TabPanel>
+        </div>
       </TabContext>
     </div>
   );

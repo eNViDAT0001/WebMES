@@ -18,34 +18,35 @@ const getLabelText = (valueRating) => {
 };
 export const AddComment = () => {
   const [disableButton, setDisableButton] = useState(false);
-  const formDataComment=new FormData()
-  const [formDataDisplayImage,setFormDataDisplayImage] = useState(new FormData())
+  const formDataDisplayImage = new FormData();
   const userID = localStorage.getItem("UserID");
   const [valueRating, setValueRating] = useState(0);
   const [hover, setHover] = useState(-1);
-  const [displayUpload,setDisplayUpload] = useState([])
+  const [displayUpload, setDisplayUpload] = useState([]);
+  const [fileUpload, setFileUpload] = useState([]);
   const [textComment, setTextComment] = useState("");
   const handleTextComment = (e) => {
     setTextComment(e.currentTarget.value);
   };
-  useEffect(()=>{},[displayUpload])
-  const UseApiUploadPicture = async(body)=>{
-    await FileApi.UploadNewPicture(body)
-    .then((res)=>{
+  useEffect(() => {}, [displayUpload]);
+  const UseApiUploadPicture = async (body) => {
+    await FileApi.UploadNewPicture(body).then((res) => {
       toast("Up ảnh thành công", {
         type: "success",
         autoClose: 1000,
       });
-      displayUpload.push(res.data.data[0].url)
-    })
-  }
-  const handleButtonUploadFile =(e) => {
-     const file = e.target.files;
-    formDataDisplayImage.append('files',file)
-    UseApiUploadPicture(formDataDisplayImage)
-
+      displayUpload.push(res.data.data[0].url);
+    });
+  };
+  const handleButtonUploadFile = (e) => {
+    const file = e.target.files[0];
+    fileUpload.push(file);
+    formDataDisplayImage.append('files',file);
+    UseApiUploadPicture(formDataDisplayImage);
   };
   const handleButtonSend = (e) => {
+    const formDataComment = new FormData();
+
     if (textComment === "") {
       toast("Thiếu description", {
         type: "warning",
@@ -60,8 +61,12 @@ export const AddComment = () => {
       formDataComment.append("userID", userID);
       formDataComment.append("description", textComment);
       formDataComment.append("rating", valueRating);
-      console.log(formDataDisplayImage.get("files"))
-      console.log(formDataComment.get("files"))
+      if(fileUpload.length!==0) { 
+        fileUpload.map((data)=>{
+          formDataComment.append("files",data)
+
+        })
+      }
       //setDisableButton(true);
       AddComment(1, userID, formDataComment);
     }

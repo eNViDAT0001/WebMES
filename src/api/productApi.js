@@ -6,7 +6,6 @@ export const ProductApi = {
     },
     AddNewComment:(idProduct,idUser,body)=>{
         const url=`/comments/product/${idProduct}/user/${idUser}`
-        console.log(body)
         return axiosClient.post(url,body)
     }
 

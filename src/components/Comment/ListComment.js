@@ -4,27 +4,15 @@ import Rating from "@mui/material/Rating";
 import { Divider, Pagination } from "@mui/material";
 import { fetchAllComment } from "../../store/slices/CommentSlice";
 import { useDispatch, useSelector } from "react-redux";
-const convertDate = (date)=>{
-  const newDate = new Date(date)
-  return newDate.toISOString().split('T')[0]
-}
-const checkObjectEmpty = (object) => {
-  return Object.keys(object).length === 0;
-};
-const transformFilters = (filters) => {
-  var result = Object.keys(filters)
-    .map((key) => {
-      return "" + key + "=" + filters[key]; // line break for wrapping only
-    })
-    .join("&");
-  return result;
-};
+import { checkObjectEmpty, convertDate, transformFilters } from "../../stogare_function/listActions";
+
 export const ListComment = () => {
   const dispatch = useDispatch();
   const Comment = useSelector((state) => state.comment.comment);
   const [filters, setFilters] = useState({
     marker: 1,
     limit: 3,
+    "sorts[]": "id_DESC", 
   });
   useEffect(() => {
     const FetchComment = () => {

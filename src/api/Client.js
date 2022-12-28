@@ -4,6 +4,10 @@ const baseURL = "http://localhost:8082/api/v1";
 
 const axiosClient = axios.create({
   baseURL,
+  headers:{
+    'Content-Type': 'application/json'
+
+  }
 });
 const ResetToken = async () => {
   await axios
@@ -47,7 +51,6 @@ axiosClient.interceptors.request.use(async (config) => {
       console.log("Da het han AccessToken");
       ResetToken();
     }
-
     config.headers.Authorization = "Bearer " + accessToken;
   }
   return config;

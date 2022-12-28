@@ -68,10 +68,10 @@ export const TableAddress = (props) => {
       .catch((error) => {
         toast("Delete address failed", {
           type: "error",
-          autoClose: 20000,
+          autoClose: 200000,
           Close: setTimeout(
             () => window.location.replace(`/address-detail/${props.id}`),
-            20000
+            200000
           ),
         });
       });
@@ -79,7 +79,8 @@ export const TableAddress = (props) => {
   const handleButtonDelete = (e) => {
     const idsTemp = [];
     idsTemp.push(parseInt(e.currentTarget.id));
-    DeleteAddressSelect(props.id, {"ids":idsTemp});
+
+    DeleteAddressSelect(props.id, JSON.stringify({"ids":idsTemp}));
   };
 
   const SaveAddressFix = async (addressID, userID) => {
@@ -151,7 +152,7 @@ export const TableAddress = (props) => {
       </TableContainer>
       
       <div className="flex justify-center my-8">
-        <Pagination count={10} showFirstButton showLastButton />
+        <Pagination count={1} showFirstButton showLastButton />
       </div>
       <div className="flex flex-row-reverse mt-5">
         <Button

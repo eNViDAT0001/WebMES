@@ -18,25 +18,25 @@ export const UserList = () => {
     result();
   }, [dispatch]);
 
-  const DeleteOneUser = async(body)=>{
-    await AdminApi.DeleteUser(body)
-    .then((res)=>{
-      console.log(res)
+  const DeleteOneUser = async (body) => {
+    await AdminApi.DeleteUser(body).then((res) => {
+      console.log(res);
       toast("Delete address successful", {
         type: "success",
         autoClose: 2000,
         Close: setTimeout(
-          () => //window.location.reload(),
-          2000
+          () =>
+            //window.location.reload(),
+            2000
         ),
       });
-    })
-  }
-  const handleDelete = (e)=>{
-    const body = []
-    body.push(e.currentTarget.id)
-    DeleteOneUser(body)
-  }
+    });
+  };
+  const handleDelete = (e) => {
+    const body = [];
+    body.push(e.currentTarget.id);
+    DeleteOneUser(body);
+  };
   return (
     <div className="w-[85vw] h-[100%] p-x-30 flex justify-start ">
       <ToastContainer position="top-right" newestOnTop />
@@ -57,11 +57,19 @@ export const UserList = () => {
                   <h1>{data.username}</h1>
                   <h1>{data.name}</h1>
                 </div>
-                <div className=" top-0 right-0">
-                  <IconButton id={data.ID} aria-label="delete" onClick={handleDelete}>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
+                {data.Type === "ADMIN" ? (
+                  <div></div>
+                ) : (
+                  <div className=" top-0 right-0">
+                    <IconButton
+                      id={data.ID}
+                      aria-label="delete"
+                      onClick={handleDelete}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )}
               </div>
             </div>
           ))}

@@ -1,10 +1,10 @@
 import Account from "../../../assets/Account.png";
-import AvatarBig from "../../../assets/AvatarBig.png";
 import Notification from "../../../assets/Notification.png";
 import Order from "../../../assets/Order.png";
 import Address from "../../../assets/Address.png";
 import LogOut from "../../../assets/LogOut.png";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
@@ -51,7 +51,9 @@ const ChangeBarInformation = (props) => {
   return (
     <div className="flex flex-col w-214px mt-6 font-['Josefin_Sans']">
       <div className="ml-5 w-44 flex flex-row flex-nowrap mb-10">
-        <img src={AvatarBig} alt="avatar" className="w-55px h-55px"></img>
+        {(UserDetail.avatar) ?(<img src={UserDetail.avatar} alt="avatar" className="w-[55px] h-[55px] rounded-full"></img>)
+      :   (<AccountCircleIcon sx={{width: 55, height: 55}}/>)
+      }
         <div className=" ml-2 flex flex-col mt-2 text-left ">
           <h1 className="drop-shadow-2xl">{userInfo.nickName}</h1>
           <h1 className="drop-shadow-2xl">{userInfo.fullName}</h1>

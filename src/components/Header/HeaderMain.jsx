@@ -5,17 +5,18 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const HeaderMain = () => {
   //console.log(localStorage.getItem("AccessToken"))
-  //console.log(localStorage.getItem("UserID"))
+  console.log(localStorage.getItem("UserInWeb"));
 
-  const [UserDetail, setUserDetail] = useState({});
-  useEffect(() => {
-    setUserDetail(JSON.parse(localStorage.getItem("UserInWeb")));
-  }, []);
+  const UserDetail = JSON.parse(localStorage.getItem("UserInWeb"));
+
   const Name = UserDetail ? UserDetail.name : "";
+  const Avatar = UserDetail ? UserDetail.avatar : "";
+
   const Phone = UserDetail ? UserDetail.phone : "";
   const Email = UserDetail ? UserDetail.email : "";
 
@@ -51,12 +52,14 @@ export const HeaderMain = () => {
             </Link>
           ) : (
             <div className="md:flex md:items-center ">
-              <Link
-                to={`/detail/${localStorage.getItem("UserID")}`}
-                className="mx-5 hover:text-teal-400 duration-300"
-              >
-                {Name}
+              <Link to={`/detail/${localStorage.getItem("UserID")}`}>
+                {(Avatar)?(<img
+                  src={Avatar}
+                  alt="avatar"
+                  className="w-[40px] h-[40px] rounded-full mx-2"
+                ></img>) : (<AccountCircleIcon sx={{width:40, height:40}}/>)}
               </Link>
+
               {localStorage.getItem("Role") === "ADMIN" ? (
                 <Link
                   to={`/admin/${localStorage.getItem("UserID")}`}

@@ -53,8 +53,8 @@ export const ListComment = () => {
           className="border-2 border-[#FFFFFF] flex flex-row min-h-[120px] rounded-md p-2 shadow-md  items-start justify-between"
         >
           <div className="flex flex-row">
-
-            <AccountCircle sx={{ width: 60, height: 60 }} />
+            {(data.Avatar)? (<img src={data.Avatar} alt="Avatar" className="w-[60px] h-[60px] rounded-full"></img>):             (<AccountCircle sx={{ width: 60, height: 60 }}/>)
+}
             <div className="flex flex-col ml-4 p-1 space-y-2">
               <div className="flex flex-row space-x-1 ">
                 <h1 className=" text-sm font-bold">{data.Name}</h1>

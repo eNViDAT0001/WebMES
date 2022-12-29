@@ -41,12 +41,12 @@ export const LoginForm = () => {
       .then((res) => {
         toast("Login success", {
           type: "success",
-          autoClose: 2000,
+          autoClose:2000,
           onClose: setTimeout(() => {
             localStorage.removeItem("UserInWeb");
             localStorage.setItem("UserInWeb", JSON.stringify(res.data.data));
             localStorage.removeItem("Role")
-            localStorage.setItem("Role",res.data.data.Type)
+            localStorage.setItem("Role",res.data.data.type)
             if(localStorage.getItem("Role")==="ADMIN")
               navigate(`/admin/${localStorage.getItem("UserID")}`)
             else navigate("/")

@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { TabContext, TabPanel } from "@mui/lab";
 import { UserList } from "../../components/Admin/UserList/UserList";
-import { AdminOrder } from "../../components/Admin/Order/AdminOrder";
+import { AdminOrder } from "../../components/Admin/Order/GeneralOrder/AdminOrder";
 
 const StyledTabs = styled((props) => (
   <Tabs

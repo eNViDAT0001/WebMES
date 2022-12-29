@@ -73,7 +73,6 @@ export const RegisterForm = () => {
     await UserApi.DetailUser(id)
     .then((res)=>{
       localStorage.removeItem("UserInWeb")
-
       localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
       toast("Đăng ký thành công", {
         type: "success",
@@ -91,6 +90,7 @@ export const RegisterForm = () => {
   const Register = async (body) => {
     await AuthApi.RegisterUser(body)
     .then((response) => {
+
       if (response.status === 200) {      
         localStorage.removeItem("AccessToken")
         localStorage.removeItem("AccessTokenExpiry")
@@ -108,16 +108,13 @@ export const RegisterForm = () => {
       }
     })
     .catch((err) => {
-      toast("Register success", {
-        type: "success",
-        autoClose: 2000,
-      });
-      /*if (err.response) {
+     
+      if (err.response) {
         toast(err.response.data.errors[0].message, {
           type: ChangeToTypeFromResponse(err.response.status),
           autoClose: 2000,
         });
-      }*/
+      }
     });
   };
   const signUpWithEnter = (event) =>{

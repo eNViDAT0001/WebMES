@@ -15,6 +15,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 import { useState } from "react";
+import { DetailOrder } from "../DetailOrder/DetailOrder";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -83,11 +84,12 @@ export const AdminOrder = () => {
     window.location.replace(`order-detail/${e.currentTarget.id}`)
   }
   return (
-    <div className="font-[Inter] text-xl font-bold w-full">
-      <h1>Table Order</h1>
+    <div className=" w-full">
+      <h1 className="font-[Inter] text-xl font-bold">Table Order</h1>
       <div className="my-6">
         <Divider />
       </div>
+      <DetailOrder />
       <div>
         <ToastContainer position="top-right" newestOnTop />
 

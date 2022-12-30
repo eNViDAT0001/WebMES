@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import User from "./assets/User.png";
+import React, {  useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { UserApi } from "../../../api/UserApi";
 import { ToastContainer, toast } from "react-toastify";

@@ -55,6 +55,8 @@ function MainRoute() {
           <Route path="/completed" element={<OrderCompletedPage/>}/>
           <Route path="/brand" element={<BrandPages/>} />
           <Route path="/brand-detail/:id" element={<BrandDetailPages/>} />
+          <Route path="/notification/:id" element={<NotFoundPage/>} />
+
 
         </Route>
         <Route path="/testing" element={<TestingPages />}/>

@@ -1,4 +1,3 @@
-import { json } from "react-router-dom";
 import axiosClient from "./Client";
 
 export const AddressApi = {
@@ -23,7 +22,6 @@ export const AddressApi = {
     return axiosClient.get(url);
   },
   DetailByUserID: (idAddress, idUser) => {
-    
     const url = `/addresses/${idAddress}/user/${idUser}`;
     return axiosClient.get(url);
   },

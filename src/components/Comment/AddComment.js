@@ -88,7 +88,6 @@ export const AddComment = () => {
   return (
     <div className="flex flex-col space-y-5 px-5 w-full min-w-[350px] my-10">
       <ToastContainer position="top-right" newestOnTop />
-
       <h1 className=" text-xl font-bold">Add your comment:</h1>
       <div className="border space-y-6 p-4 rounded-md shadow-md">
         <div className="flex flex-row items-center space-x-4 ">

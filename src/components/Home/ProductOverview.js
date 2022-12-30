@@ -63,15 +63,15 @@ const ProductOverview = () =>{
     return(
         <div className="flex justify-center">
             <div className="mt-20 min-w-[80%] w-[80%]">
-                <h1 className=" text-4xl font-['Poppins_Bold'] font-extrabold">PRODUCT OVERVIEW</h1>
+                <h1 className=" text-4xl font-['Poppins_Bold'] font-extrabold text-[#5EBEC4]">PRODUCT OVERVIEW</h1>
 
-                <div className="flex flex-row justify-between flex-wrap mt-[100px] ">
+                <div className="flex flex-row justify-start flex-wrap my-[100px] border bg-white  ">
                     {ListProductOverview.map(data => (
-                        <div key = {data.id} className = "min-w-[200px] w-[21%] h-max-[200px] mb-10 hover:scale-110 ">
+                        <div key = {data.id} className = " w-[20%] h-[300px] my-5 mx-5 mb-10 hover:scale-105 p-2 hover:border hover:shadow-2xl hover:rounded-xl hover:cursor-pointer ">
                             <img 
                                 src = {data.img}
                                 alt="anh san pham"
-                              
+                                className="h-[200px] w-full"
                             />
                             
                             <div className="flex flex-row mt-2">

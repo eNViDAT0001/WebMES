@@ -1,41 +1,46 @@
-import bannerSmall1 from '../../assets/bannerSmall1.webp'
-import bannerSmall2 from '../../assets/bannerSmall2.webp'
-import bannerSmall3 from '../../assets/bannerSmall3.webp'
-
-const ListBannerSmall = [
-    {
-        id: 1,
-        title: "Women",
-        content: "Spring 2018",
-        img: bannerSmall1,
-    },
-    {
-        id: 2,
-        title: "Men",
-        content: "Spring 2018",
-        img: bannerSmall2,
-    },
-    {
-        id: 3,
-        title: "Accessories",
-        content: "New Trend",
-        img: bannerSmall3,
-    },
-]
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import bannerSmall1 from "../../assets/bannerSmall1.webp";
+import bannerSmall2 from "../../assets/bannerSmall2.webp";
+import bannerSmall3 from "../../assets/bannerSmall3.webp";
+import { FetchAllCategory } from "../../store/slices/ProductSlice";
 
 const BannerSmall = () => {
-    return(
-        <div className="flex justify-center mt-20">
-            <div className="w-[80%] h-[250px]  flex flex-row justify-between">
-                {ListBannerSmall.map(data =>(
-                    <div key = {data.id} className = "w-min-[200px] w-[30%] border">
-                        <img src = {data.img} alt= "anh banner nho" / >            
-                    </div>
-                ))}
-            </div>   
+  const dispatch = useDispatch();
+  const DataCategories = useSelector((state) => state.product.Category);
+  useEffect(() => {
+    if (DataCategories.length === 0) {
+      dispatch(FetchAllCategory());
+    }
+  }, [dispatch, DataCategories]);
+  return (
+    <div>
+      <div className="flex justify-center mt-20">
+        <div className="w-[80%] flex flex-col  ">
+          <h1 className=" text-4xl font-['Poppins_Bold'] font-extrabold my-10 uppercase text-[#5EBEC4]">
+            can interest you          
+          </h1>
+          <div className="flex flex-row justify-between">
+            {DataCategories.map((data) => (
+              <div
+                key={data.ID}
+                className="hover:shadow-xl hover:cursor-pointer border w-[375px] flex flex-row justify-between bg-white"
+              >
+                <img
+                  src={data.ImagePath}
+                  alt="anh banner nho"
+                  className="w-[200px] h-[300px]"
+                />
+                <h1 className="mt-6 mr-8 font-[Cursive] font-bold text-2xl">
+                  {data.Name}
+                </h1>
+              </div>
+            ))}
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default BannerSmall
+export default BannerSmall;

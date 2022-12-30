@@ -4,14 +4,10 @@ import starNotActive from '../../../assets/star_not.png'
 import {Link} from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchAllProduct } from "../../../store/slices/CategorySlice";
+const categoryProduct=[]
 const ListOfProducts = () => {
     const dispatch = useDispatch()
-    const getInitalStateCategory = useSelector((state)=> state.category)
-    useEffect(() => {
-        dispatch(fetchAllProduct())
-      },[])
-    const categoryProduct = getInitalStateCategory.product
+    
     return(
         <div className='flex flex-col '>
                     {categoryProduct.map(data =>(

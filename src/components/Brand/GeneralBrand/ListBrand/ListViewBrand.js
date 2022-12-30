@@ -57,7 +57,7 @@ export const ListViewBrand = () => {
                   <img
                     src={data.ImagePath}
                     alt="Anh brand"
-                    className="w-full max-h-[200px] p-2"
+                    className="w-full h-[200px] p-2"
                   />
                   <div className="mt-4">
                     <Divider />

@@ -1,10 +1,11 @@
-//https://api.publicapis.org/entries
 
 import { createSlice } from "@reduxjs/toolkit";
+import { ProductApi } from "../../api/ProductApi";
 const initialState= {
-    ProductDetail:[],
+    ProductDetail:{},
     ProductReview:[],
-    ProductBanner:[],
+    Banners:[],
+    Category:[],
 }
 
 
@@ -21,16 +22,27 @@ const productSlice = createSlice({
         },
         setProductBanner: (state,action) =>{
             state.ProductBanner = action.payload
+        },
+        setCategory: (state,action) =>{
+            state.Category = action.payload
         }
     }
 })
 
 
 
-export const fetchAllProduct = (filters) => async (dispatch) => {
+export const FetchAllProductBanner = () => async (dispatch) => {
     try {
-        const response ={} //await ProductApi.ReadFullProduct(filters)
-        dispatch(setProductDetail(response))
+        const response = await ProductApi.GetBanners()
+        dispatch(setProductBanner(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+} 
+export const FetchAllCategory = () => async (dispatch) => {
+    try {
+        const response = await ProductApi.GetCategories()
+        dispatch(setCategory(response.data.data))
     } catch (error) {
         console.log(error)
     }
@@ -39,5 +51,6 @@ export const {
     setProductDetail,
     setProductPreview,
     setProductBanner,
+    setCategory,
 } = productSlice.actions
 export default productSlice.reducer

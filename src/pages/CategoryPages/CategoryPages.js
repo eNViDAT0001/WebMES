@@ -14,7 +14,7 @@ const CategoryPage = () => {
       <OptionBar />
       <div className="flex justify-center font-['Josefin_Sans'] ">
         <div className="w-[78%]">
-          <div className="flex flex-row justify-start my-[100px] w-full">
+          <div className="flex flex-row justify-start my-[100px] space-x-10 w-full">
             <div className="flex flex-col">
               <ProductBrand />
               <RatingItem />

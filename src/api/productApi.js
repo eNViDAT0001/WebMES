@@ -16,9 +16,25 @@ export const ProductApi = {
         const url=`/banners/${id}/products`
         return axiosClient.get(url)
     },
-    GetCategories:()=>{
+    GetCategoriesRoof:()=>{
         const url=`/categories/roof`
         return axiosClient.get(url)
+    },
+    GetProductPreview:(filters)=>{
+        const url=(filters) ? `/products/preview?${filters}` : `/products/preview`
+        return axiosClient.get(url)
+    },
+    GetDetailProduct:(id)=>{
+        const url=`/products/${id}`
+        return axiosClient.get(url)
+    },
+    GetCategoriesTree:()=>{
+        const url='/categories'
+        return axiosClient.get(url)
+    },
+    GetCategoryChildren:(id)=>{
+        const url=`/categories/children/${id}`
+        return  axiosClient.get(url)
     }
 
 }

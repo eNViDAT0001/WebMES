@@ -1,11 +1,13 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductApi } from "../../api/ProductApi";
+import { transformFilters } from "../../stogare_function/listActions";
 const initialState= {
     ProductDetail:{},
-    ProductReview:[],
+    ProductPreview:[],
     Banners:[],
-    Category:[],
+    CategoryTree:[],
+    CategoryRoof:[],
 }
 
 
@@ -18,14 +20,17 @@ const productSlice = createSlice({
             state.ProductDetail = action.payload
         },
         setProductPreview: (state,action) =>{
-            state.ProductReview = action.payload
+            state.ProductPreview = action.payload
         },
         setProductBanner: (state,action) =>{
             state.ProductBanner = action.payload
         },
-        setCategory: (state,action) =>{
-            state.Category = action.payload
-        }
+        setCategoryTree: (state,action) =>{
+            state.CategoryTree = action.payload
+        },
+        setCategoryRoof: (state,action) =>{
+            state.CategoryRoof = action.payload
+        },
     }
 })
 
@@ -39,10 +44,30 @@ export const FetchAllProductBanner = () => async (dispatch) => {
         console.log(error)
     }
 } 
-export const FetchAllCategory = () => async (dispatch) => {
+export const FetchAllCategoryRoof = () => async (dispatch) => {
     try {
-        const response = await ProductApi.GetCategories()
-        dispatch(setCategory(response.data.data))
+        const response = await ProductApi.GetCategoriesRoof()
+        dispatch(setCategoryRoof(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const FetchAllCategoryTree = () => async (dispatch) => {
+    try {
+        const response = await ProductApi.GetCategoriesTree()
+        dispatch(setCategoryTree(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const FetchProductInHomePage = () => async (dispatch) => {
+    try {
+        const filter={
+            "sorts[]":"id_DESC",
+            "limit" : 20,
+        }
+        const response = await ProductApi.GetProductPreview(transformFilters(filter))
+        dispatch(setProductPreview(response.data.data))
     } catch (error) {
         console.log(error)
     }
@@ -51,6 +76,7 @@ export const {
     setProductDetail,
     setProductPreview,
     setProductBanner,
-    setCategory,
+    setCategoryTree,
+    setCategoryRoof,
 } = productSlice.actions
 export default productSlice.reducer

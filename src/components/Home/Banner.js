@@ -28,14 +28,14 @@ const Banner = () => {
 
   const onNextClickHandler = () => {
     const index = DataBanner.indexOf(banner);
-    if (index === DataBanner.length - 1) {
+    if ((index === DataBanner.length - 1) || (banner===undefined)) {
       setBanner(DataBanner[0]);
     } else setBanner(DataBanner[index + 1]);
   };
   return (
     <div>
       {banner !== undefined ? (
-        <div className="flex justify-center items-center px-[15%] border hover:shadow-md">
+        <div className="flex justify-center items-center px-[15%] border hover:shadow-md ">
           <div className="w-full h-[600px] hover:cursor-pointer">
             <img
               src={banner.Image}

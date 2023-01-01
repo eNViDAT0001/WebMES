@@ -66,7 +66,6 @@ module.exports = {
         'purple-text': '#151875',//purple
         'purple-text-2': '#3F509E',//purple
         'purple-name-product': '#111C85',
-        'purple-type-product-detail': '#0D134E',
         'purple-check-product-brand': '#603EFF',
         'purple-text-relatives' : '#101750',
         'yellow-check-rating-item': '#FFCC2E',

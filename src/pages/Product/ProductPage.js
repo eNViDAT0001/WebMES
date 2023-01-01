@@ -9,14 +9,17 @@ const ProductPage = () => {
   let { id } = useParams();
 
   return (
-      <div>
-        <HeaderBar name1="Home .Products" name2=". Product Name" />
-        <div className="flex justify-center font-['Josefin_Sans']">
+    <div>
+      <HeaderBar name1="Home .Products" name2=". Product Name" />
+      <div className="bg-[#F5F8FE] border">
+        <div className="flex justify-center font-['Josefin_Sans'] ">
           <ProductBasicInformation id={id} />
         </div>
         <DetailInformation id={id} />
-        <Relatives id={id} />
       </div>
+
+      <Relatives id={id} />
+    </div>
   );
 };
 

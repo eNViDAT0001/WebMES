@@ -1,16 +1,14 @@
 import ImageProduct from "./ImageProduct";
 import TitleAndType from "./Title_Type_Price";
 import HandleQuantityAndCart from "./HandleQuantityAndCart";
-import CategoriesAndShare from "./CategoriesAndShare";
 const ProductBasicInformation = (props) => {
   return (
-    <div className="flex justify-center border p-10 my-10 ">
-      <div className="w-full flex flex-row space-x-7">
-        <ImageProduct id={props.id} />
-        <div className="">
+    <div className="flex justify-center border p-5 my-10 max-w-[1000px] bg-white">
+      <div className=" flex flex-row space-x-10">
+          <ImageProduct id={props.id} />
+        <div >
           <TitleAndType id={props.id} />
           <HandleQuantityAndCart id={props.id} />
-          <CategoriesAndShare />
         </div>
       </div>
     </div>

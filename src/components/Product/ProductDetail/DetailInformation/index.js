@@ -49,7 +49,7 @@ const DetailInformation = (props) => {
   };
 
   return (
-    <div className="px-[170px] bg-[#F5F8FE] py-[100px] my-20 ">
+    <div className="px-[170px] bg-[#F5F8FE] py-[50px] my-6 ">
       <div className="border p-10 bg-white">
         <TabContext value={value}>
           <Box sx={{ width: "100%" }}>

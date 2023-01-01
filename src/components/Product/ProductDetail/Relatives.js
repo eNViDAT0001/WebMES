@@ -38,7 +38,7 @@ const Relative = [
 
 const Relatives = () => {
   return (
-    <div className="w-full h-815px flex justify-center">
+    <div className="w-full flex justify-center my-20">
       <div className="flex justify-center">
         <div className=" w-full flex justify-start flex-col">
           <h1 className=" text-3xl text-purple-text-relatives">

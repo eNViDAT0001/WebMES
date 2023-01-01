@@ -1,19 +1,19 @@
-import ImageProduct from "./ImageProduct"
-import TitleAndRating from "./Title"
-import PriceAndType from "./Price"
-import HandleQuantityAndCart from "./HandleQuantityAndCart"
-import CategoriesAndShare from "./CategoriesAndShare"
-const ProductBasicInformation = (props) =>{
-    return(
-       <div className="mt-45px w-1152px h-487px flex flex-row">
-            <ImageProduct id={props.id}/>
-            <div className="ml-11 mt-61px">
-                <TitleAndRating id={props.id}/>
-                <PriceAndType id={props.id}/>
-                <HandleQuantityAndCart id={props.id}/>
-                <CategoriesAndShare />
-            </div>
-       </div>
-    )
-}
-export default ProductBasicInformation
+import ImageProduct from "./ImageProduct";
+import TitleAndType from "./Title_Type_Price";
+import HandleQuantityAndCart from "./HandleQuantityAndCart";
+import CategoriesAndShare from "./CategoriesAndShare";
+const ProductBasicInformation = (props) => {
+  return (
+    <div className="flex justify-center border p-10 my-10 ">
+      <div className="w-full flex flex-row space-x-7">
+        <ImageProduct id={props.id} />
+        <div className="">
+          <TitleAndType id={props.id} />
+          <HandleQuantityAndCart id={props.id} />
+          <CategoriesAndShare />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default ProductBasicInformation;

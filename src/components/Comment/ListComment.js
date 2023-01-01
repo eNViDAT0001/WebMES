@@ -6,7 +6,7 @@ import { fetchAllComment } from "../../store/slices/CommentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { checkObjectEmpty, convertDate, transformFilters } from "../../stogare_function/listActions";
 
-export const ListComment = () => {
+export const ListComment = (props) => {
   const dispatch = useDispatch();
   const Comment = useSelector((state) => state.comment.comment);
   const [filters, setFilters] = useState({
@@ -23,9 +23,9 @@ export const ListComment = () => {
 
   useEffect(() => {
     if (checkObjectEmpty(Comment)) {
-      dispatch(fetchAllComment(1));
+      dispatch(fetchAllComment(props.id));
     }
-  }, [dispatch, Comment]);
+  }, [dispatch, Comment,props.id]);
   const listCommentData = !checkObjectEmpty(Comment) ? Comment.data.data : [];
   const pagingCommentData = !checkObjectEmpty(Comment) ? Comment.data.meta : {};
   const handlePaging = (e) => {

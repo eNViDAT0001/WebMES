@@ -39,7 +39,7 @@ export const Comment = (props) => {
           {textButtonComment}
         </Button>
       </div>
-      {!openComment ? <div></div> : <AddComment />}
+      {!openComment ? <div></div> : <AddComment id={props.id} />}
       <div className="my-5">
         <Divider />
       </div>
@@ -51,7 +51,7 @@ export const Comment = (props) => {
           {textFilter}
         </Button>
         {/*!openFilter?<div></div> : <FiltersComment />*/}
-      <ListComment />
+      <ListComment id={props.id}/>
     </div>
   );
 };

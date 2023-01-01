@@ -16,7 +16,7 @@ const labels = {
 const getLabelText = (valueRating) => {
   return labels[valueRating];
 };
-export const AddComment = () => {
+export const AddComment = (props) => {
   const [disableButton, setDisableButton] = useState(false);
   const formDataDisplayImage = new FormData();
   const userID = localStorage.getItem("UserID");
@@ -68,7 +68,7 @@ export const AddComment = () => {
         })
       }
       //setDisableButton(true);
-      AddComment(1, userID, formDataComment);
+      AddComment(props.id, userID, formDataComment);
     }
   };
   const AddComment = async (productID, userID, body) => {

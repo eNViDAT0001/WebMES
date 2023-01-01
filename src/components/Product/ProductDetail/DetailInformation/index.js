@@ -41,7 +41,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-const DetailInformation = () => {
+const DetailInformation = (props) => {
   const [value, setValue] = React.useState("description");
 
   const handleChange = (e, newValue) => {
@@ -80,7 +80,7 @@ const DetailInformation = () => {
           </div>
         </TabPanel>
         <TabPanel value="review">
-            <Comment />
+            <Comment id={props.id}/>
         </TabPanel>
       </TabContext>
     </div>

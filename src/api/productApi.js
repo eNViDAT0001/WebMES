@@ -35,6 +35,18 @@ export const ProductApi = {
     GetCategoryChildren:(id)=>{
         const url=`/categories/children/${id}`
         return  axiosClient.get(url)
-    }
+    },
+    GetDescriptionFromProduct:(id)=>{
+        const url=`/products/${id}/description`
+        return axiosClient.get(url)
+    },
+    GetSpecification:(id)=>{
+        const url=`/products/${id}/specification`
+        return axiosClient.get(url)
+    },
+    GetMedia:(id)=>{
+        const url=`/products/${id}/media`
+        return axiosClient.get(url) 
+    },
 
 }

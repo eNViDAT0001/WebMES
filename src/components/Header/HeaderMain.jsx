@@ -9,7 +9,6 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const HeaderMain = () => {
-  //console.log(localStorage.getItem("AccessToken"))
   console.log(localStorage.getItem("UserInWeb"));
 
   const UserDetail = JSON.parse(localStorage.getItem("UserInWeb"));

@@ -5,21 +5,22 @@ import DetailInformation from "../../components/Product/ProductDetail/DetailInfo
 import Relatives from "../../components/Product/ProductDetail/Relatives";
 import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {  resetProduct } from "../../store/slices/ProductSlice";
-import { resetComment } from "../../store/slices/CommentSlice";
+import { fetchAllComment, resetComment } from "../../store/slices/CommentSlice";
 
 const ProductPage = () => {
   const dispatch = useDispatch()
   let { id } = useParams();
+  
   useEffect(()=>{
     window.scrollTo(0, 0)
-
   },[])
   useEffect(()=>()=>{
     dispatch(resetProduct())
     dispatch(resetComment())
   },[dispatch])
+
   return (
     <div>
       <HeaderBar name1="Home .Products" name2=". Product Name" />

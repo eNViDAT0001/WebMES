@@ -15,7 +15,6 @@ const CommentSlice = createSlice({
         {
             state.comment = action.payload
         },
-
     }
 })
 
@@ -31,7 +30,6 @@ export const fetchAllComment = (id,filters) => async (dispatch) => {
 
 export const {
     setComment,
-    setFilters,
     resetComment,
 } = CommentSlice.actions
 export default CommentSlice.reducer

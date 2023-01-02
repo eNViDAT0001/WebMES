@@ -5,8 +5,7 @@ import { transformFilters } from "../../stogare_function/listActions";
 const initialState= {
     ProductDetail:{},
     Specification:[],
-    Description:[],
-    Media:[],
+    Description:{},
     ProductPreviewInHomePage:[],
     ProductPreviewInCategory:[],
     Banners:[],
@@ -52,7 +51,6 @@ const productSlice = createSlice({
 })
 
 
-
 export const FetchAllProductBanner = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetBanners()
@@ -69,6 +67,9 @@ export const FetchAllCategoryRoof = () => async (dispatch) => {
         console.log(error)
     }
 }
+
+
+
 export const FetchAllCategoryTree = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetCategoriesTree()
@@ -81,7 +82,7 @@ export const FetchAllCategoryTree = () => async (dispatch) => {
 export const FetchDescriptionFromOneProduct = (id) => async(dispatch) =>{
     try{
         const response = await ProductApi.GetDescriptionFromProduct(id)
-        dispatch(setDescription(response.data.data))
+        dispatch(setDescription(response))
     }catch(err){
         console.log(err)
     }

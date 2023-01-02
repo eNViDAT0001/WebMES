@@ -91,7 +91,6 @@ export const LoginForm = () => {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data.errors[0].message);
           toast(err.response.data.errors[0].message, {
             type: ChangeToTypeFromResponse(err.response.status),
             autoClose: 2000,

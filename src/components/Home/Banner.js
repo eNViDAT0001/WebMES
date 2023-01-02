@@ -8,12 +8,12 @@ const Banner = () => {
   const dispatch = useDispatch();
   const DataBanner = useSelector((state) => state.product.ProductBanner) || [];
   const [banner, setBanner] = useState();
-  console.log(banner)
   useEffect(()=>{
     if(!banner){
         setBanner(DataBanner[0])
     }
   })
+
   useEffect(() => {
     if (DataBanner.length === 0) {
       dispatch(FetchAllProductBanner());

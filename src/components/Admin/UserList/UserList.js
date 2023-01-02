@@ -20,7 +20,6 @@ export const UserList = () => {
 
   const DeleteOneUser = async (body) => {
     await AdminApi.DeleteUser(body).then((res) => {
-      console.log(res);
       toast("Delete address successful", {
         type: "success",
         autoClose: 2000,

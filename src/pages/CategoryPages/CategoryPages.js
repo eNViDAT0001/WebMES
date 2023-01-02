@@ -10,7 +10,6 @@ import ListOfProducts from "../../components/Product/Category/ListOfProducts";
 const CategoryPage = () => {
   const dispatch = useDispatch()
   const ListProducts = useSelector(state=>state.product.ProductPreviewInCategory) || []
-  console.log(ListProducts)
   useEffect(() => {
     if (ListProducts.length === 0) {
       dispatch(FetchProductInCategory());

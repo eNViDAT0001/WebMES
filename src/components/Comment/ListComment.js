@@ -20,7 +20,7 @@ export const ListComment = (props) => {
   });
   useEffect(() => {
     dispatch(fetchAllComment(props.id, transformFilters(filters)));
-  }, [dispatch, filters,props.id]);
+  }, [dispatch, filters, props.id]);
 
   useEffect(() => {
     if (checkObjectEmpty(Comment)) {
@@ -33,66 +33,68 @@ export const ListComment = (props) => {
     const new_obj = { ...filters, marker: parseInt(e.target.textContent) };
     setFilters(new_obj);
   };
-  console.log(Comment);
   return (
     <div className="flex flex-col space-y-5 px-5 w-full min-w-[350px]">
-      <div className="flex justify-center">
-        <Pagination
-          count={
-            !checkObjectEmpty(pagingCommentData)
-              ? pagingCommentData.paging.Pages
-              : 1
-          }
-          showFirstButton
-          showLastButton
-          onChange={handlePaging}
-        />
-      </div>
-      {listCommentData.map((data) => (
-        <div
-          key={data.id}
-          className="border-2 border-[#FFFFFF] flex flex-row min-h-[120px] rounded-md p-2 shadow-md  items-start justify-between"
-        >
-          <div className="flex flex-row">
-            {data.Avatar ? (
-              <img
-                src={data.Avatar}
-                alt="Avatar"
-                className="w-[60px] h-[60px] rounded-full"
-              ></img>
-            ) : (
-              <AccountCircle sx={{ width: 60, height: 60 }} />
-            )}
-            <div className="flex flex-col ml-4 p-1 space-y-2">
-              <div className="flex flex-row space-x-1 ">
-                <h1 className=" text-sm font-bold">{data.Name}</h1>
-                <h1 className=" text-sm font-bold text-[#808080]">
-                  - {convertDate(data.CreatedAt)}
-                </h1>
-              </div>
-              <Rating readOnly value={data.Rating} size="small" />
-              <Divider light />
+      {(Comment.status==="204") ? (<div></div>) :
+      (<div>
+        <div className="flex justify-center">
+          <Pagination
+            count={
+              !checkObjectEmpty(pagingCommentData)
+                ? pagingCommentData.paging.Pages
+                : 1
+            }
+            showFirstButton
+            showLastButton
+            onChange={handlePaging}
+          />
+        </div>
+        {listCommentData.map((data) => (
+          <div
+            key={data.id}
+            className="border-2 border-[#FFFFFF] flex flex-row min-h-[120px] rounded-md p-2 shadow-md  items-start justify-between"
+          >
+            <div className="flex flex-row">
+              {data.Avatar ? (
+                <img
+                  src={data.Avatar}
+                  alt="Avatar"
+                  className="w-[60px] h-[60px] rounded-full"
+                ></img>
+              ) : (
+                <AccountCircle sx={{ width: 60, height: 60 }} />
+              )}
+              <div className="flex flex-col ml-4 p-1 space-y-2">
+                <div className="flex flex-row space-x-1 ">
+                  <h1 className=" text-sm font-bold">{data.Name}</h1>
+                  <h1 className=" text-sm font-bold text-[#808080]">
+                    - {convertDate(data.CreatedAt)}
+                  </h1>
+                </div>
+                <Rating readOnly value={data.Rating} size="small" />
+                <Divider light />
 
-              <h1 className="mt-4 text-[#808080]">"{data.Description}"</h1>
-              <div className="flex flex-row space-x-1">
-                {data.Media !== null ? (
-                  data.Media.map((media) => (
-                    <div>
-                      <img
-                        src={media.mediaPath}
-                        alt="Anh san pham"
-                        className="max-w-[200px] max-h-[200px]"
-                      ></img>
-                    </div>
-                  ))
-                ) : (
-                  <div></div>
-                )}
+                <h1 className="mt-4 text-[#808080]">"{data.Description}"</h1>
+                <div className="flex flex-row space-x-1">
+                  {data.Media !== null ? (
+                    data.Media.map((media) => (
+                      <div>
+                        <img
+                          src={media.mediaPath}
+                          alt="Anh san pham"
+                          className="max-w-[200px] max-h-[200px]"
+                        ></img>
+                      </div>
+                    ))
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>)}
     </div>
   );
 };

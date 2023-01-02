@@ -7,16 +7,27 @@ import {
 } from "../../../../store/slices/ProductSlice";
 import { fetchAllComment } from "../../../../store/slices/CommentSlice";
 import { Divider } from "@mui/material";
+
+const initialOpion = {id:-1, price:0, quantity:0, name:""}
+
 const TitleAndType = (props) => {
   const dispatch = useDispatch();
-  const [priceOption, setPriceOption] = useState(0);
+  const [optionHandle,setOptionHandle] = useState(initialOpion)
   const [quantity, setQuantity] = useState();
+  const [isClickOption,setIsClickOption] = useState(false)
   const product = useSelector((state) => state.product.ProductDetail);
+  const [price,setPrice] = useState(0) 
   const comment = useSelector((state) => state.comment.comment);
+
   const specifications =
     useSelector((state) => state.product.Specification) || [];
+    useEffect(()=>{
+      if(!checkObjectEmpty(product)){
+        if(!isClickOption) setPrice(product.Price)
+      }
+    },[price,product,isClickOption])
   useEffect(() => {
-    if (checkObjectEmpty(product)) {
+    if (checkObjectEmpty(product) || !(product.Name) || !(product.Price)) {
       dispatch(FetchDetailProduct(props.id));
     }
   }, [dispatch, product, props.id]);
@@ -30,6 +41,7 @@ const TitleAndType = (props) => {
       dispatch(FetchSpecificationFromOneProduct(props.id));
     }
   }, [dispatch, specifications, props.id]);
+
   return (
     <div className="flex flex-col space-y-2">
       <h1 className="text-3xl text-[#0D134E] font-bold ">
@@ -38,7 +50,7 @@ const TitleAndType = (props) => {
       <div className="flex flex-row space-x-3">
         <div className=" flex flex-row space-x-2 items-center">
           <h1 className=" underline">
-            {!checkObjectEmpty(comment) ? comment.data.data.length : 0}
+            {(!checkObjectEmpty(comment)) ? ((comment.status!==204) ? comment.data.data.length : 0) : 0}
           </h1>
           <h1 className=" text-[#767676] hover:underline hover:cursor-pointer">
             Reviewed
@@ -49,12 +61,12 @@ const TitleAndType = (props) => {
       <div className="flex flex-row items-center space-x-3">
         <div className="py-5 pl-5 flex flex-row space-x-1 font-[Helvetica] text-[#929292] items-center line-through">
           <h1 className=" text-xs">đ</h1>
-          <h1 className=" text-base ">{currencyFormat(parseInt(product.Price))}</h1>
+          <h1 className=" text-base ">{currencyFormat(parseInt(price))}</h1>
         </div>
         <div className="py-5 flex flex-row space-x-1 font-[Helvetica] text-[#EE4D2D]">
           <h1 className=" text-xl">đ</h1>
           <h1 className=" text-2xl">
-            {currencyFormat((product.Price * (100 - product.Discount)) / 100)}
+            {currencyFormat((price * (100 - product.Discount)) / 100)}
           </h1>
         </div>
         <div className=" px-2 bg-[#EE4D2D] flex flex-row space-x-1 font-[Helvetica] text-[#FFFFFF] items-center ">
@@ -78,12 +90,30 @@ const TitleAndType = (props) => {
                     <div className="flex flex-row flex-wrap items-center">
                       {data.Options.map((option) => (
                         <div
+                          {...option}
                           key={option.id}
-                          onClick={() => {
-                            setPriceOption(option.price);
-                            setQuantity(option.quantity);
+                          onClick={()=>{
+                            if(!isClickOption){
+                              if(optionHandle.id===initialOpion.id){
+                                setOptionHandle(option)
+                                setPrice(parseInt(price)+parseInt(option.price))
+                                setIsClickOption(true)
+                              }
+
+                            }
+                            else{
+                              if(optionHandle.id===option.id){
+                                setIsClickOption(false)
+                                setOptionHandle(initialOpion)
+                                setPrice(product.Price)
+                              }else{
+                                setPrice(parseInt(price)+parseInt(option.price) - parseInt(optionHandle.price))
+                                setOptionHandle(option)
+                              }
+                            }
+                            setQuantity(option.quantity)
                           }}
-                          className="border py-1 px-6 m-1 hover:text-[#EE4D2D] hover:border-[#EE4D2D] hover:cursor-pointer"
+                          className=" border py-1 px-6 m-1 hover:text-[#EE4D2D] hover:border-[#EE4D2D] hover:cursor-pointer "
                         >
                           <h1>{option.name}</h1>
                         </div>

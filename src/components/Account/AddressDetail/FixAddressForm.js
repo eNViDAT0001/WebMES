@@ -20,7 +20,6 @@ export const FixAddressForm = (props) => {
 
   const CurrentAddress = JSON.parse(localStorage.getItem("SaveAddressFix"));
 
-  console.log(CurrentAddress);
   const [ProvinceID, setProvinceID] = useState(CurrentAddress.ProvinceCode);
   const [DistrictID, setDistrictID] = useState(CurrentAddress.DistrictCode);
   const [WardID, setWardID] = useState(CurrentAddress.WardCode);
@@ -52,7 +51,6 @@ export const FixAddressForm = (props) => {
   };
 
   const onChangeDistrict = (e, value) => {
-    console.log(value);
     setDistrictID(value.id);
     setDistrictName(value.label);
     setWardName("");

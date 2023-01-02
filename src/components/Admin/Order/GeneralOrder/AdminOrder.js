@@ -80,7 +80,6 @@ export const AdminOrder = () => {
 
 
   const handleButtonDetail=(e)=>{
-    console.log(e.currentTarget.id)
     window.location.replace(`order-detail/${e.currentTarget.id}`)
   }
   return (

@@ -16,6 +16,8 @@ export const store = configureStore({
     comment: CommentReducer,
     provider: ProviderReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-
+  middleware: getDefaultMiddleware =>
+  getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 })

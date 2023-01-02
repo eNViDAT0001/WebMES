@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import {  useSelector } from "react-redux"
 const ListOfProducts = () => {
     const ListProductPreview = useSelector((state)=>state.product.ProductPreviewInCategory) || []
-    console.log(ListProductPreview)
     return(
         <div className='flex flex-col w-full'>
                     {ListProductPreview.map(data =>(

@@ -53,7 +53,6 @@ export const TableAddress = (props) => {
   };
 
   const DeleteAddressSelect = async (id, body) => {
-    console.log("Đã vô delete")
     await AddressApi.DeleteAddress(id, body)
       .then((res) => {
         toast("Delete address successful", {

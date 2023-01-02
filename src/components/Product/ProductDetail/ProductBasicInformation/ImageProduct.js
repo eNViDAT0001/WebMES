@@ -27,7 +27,7 @@ const ListImage = [
 
 const ImageProduct = () => {
   const [imageBig, setImageBig] = useState(ListImage[0].img);
-
+  
   const handleClickImage = (event) => {
     const id = event.currentTarget.id;
     setImageBig(ListImage[id].img);

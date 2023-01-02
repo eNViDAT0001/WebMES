@@ -2,17 +2,10 @@ import Rating from "react-rating"
 import starActive from '../../../assets/star.png'
 import starNotActive from '../../../assets/star_not.png'
 import {Link} from "react-router-dom";
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { FetchProductInHomePage } from "../../../store/slices/ProductSlice";
+import {  useSelector } from "react-redux"
 const ListOfProducts = () => {
-    const dispatch = useDispatch()
-    const ListProductPreview = useSelector((state)=>state.product.ProductPreview) || []
-    useEffect(()=>{
-        if(ListProductPreview.length===0){
-            dispatch(FetchProductInHomePage())
-        }
-    },[dispatch,ListProductPreview])
+    const ListProductPreview = useSelector((state)=>state.product.ProductPreviewInCategory) || []
+    console.log(ListProductPreview)
     return(
         <div className='flex flex-col w-full'>
                     {ListProductPreview.map(data =>(

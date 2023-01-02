@@ -7,7 +7,8 @@ const initialState= {
     Specification:[],
     Description:[],
     Media:[],
-    ProductPreview:[],
+    ProductPreviewInHomePage:[],
+    ProductPreviewInCategory:[],
     Banners:[],
     CategoryTree:[],
     CategoryRoof:[],
@@ -19,11 +20,15 @@ const productSlice = createSlice({
     initialState,
     reducers:
     {
+        resetProduct:()=>initialState,
         setProductDetail: (state,action) =>{
             state.ProductDetail = action.payload
         },
-        setProductPreview: (state,action) =>{
-            state.ProductPreview = action.payload
+        setProductPreviewInHomePage: (state,action) =>{
+            state.ProductPreviewInHomePage = action.payload
+        },
+        setProductPreviewInCategory: (state,action) =>{
+            state.ProductPreviewInCategory = action.payload
         },
         setProductBanner: (state,action) =>{
             state.ProductBanner = action.payload
@@ -115,19 +120,34 @@ export const FetchProductInHomePage = () => async (dispatch) => {
             "limit" : 20,
         }
         const response = await ProductApi.GetProductPreview(transformFilters(filter))
-        dispatch(setProductPreview(response.data.data))
+        dispatch(setProductPreviewInHomePage(response.data.data))
+    } catch (error) {
+        console.log(error)
+    }
+} 
+
+export const FetchProductInCategory = () => async (dispatch) => {
+    try {
+        const filter={
+            "sorts[]":"id_DESC",
+            "limit" : 20,
+        }
+        const response = await ProductApi.GetProductPreview(transformFilters(filter))
+        dispatch(setProductPreviewInCategory(response.data.data))
     } catch (error) {
         console.log(error)
     }
 } 
 export const {
     setProductDetail,
-    setProductPreview,
+    setProductPreviewInHomePage,
+    setProductPreviewInCategory,
     setProductBanner,
     setCategoryTree,
     setCategoryRoof,
     setDescription,
     setMedia,
     setSpecification,
+    resetProduct,
 } = productSlice.actions
 export default productSlice.reducer

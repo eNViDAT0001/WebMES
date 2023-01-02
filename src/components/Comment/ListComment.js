@@ -4,7 +4,11 @@ import Rating from "@mui/material/Rating";
 import { Divider, Pagination } from "@mui/material";
 import { fetchAllComment } from "../../store/slices/CommentSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { checkObjectEmpty, convertDate, transformFilters } from "../../stogare_function/listActions";
+import {
+  checkObjectEmpty,
+  convertDate,
+  transformFilters,
+} from "../../stogare_function/listActions";
 
 export const ListComment = (props) => {
   const dispatch = useDispatch();
@@ -12,20 +16,17 @@ export const ListComment = (props) => {
   const [filters, setFilters] = useState({
     marker: 1,
     limit: 3,
-    "sorts[]": "id_DESC", 
+    "sorts[]": "id_DESC",
   });
   useEffect(() => {
-    const FetchComment = () => {
-      dispatch(fetchAllComment(1, transformFilters(filters)));
-    };
-    FetchComment();
-  }, [dispatch, filters]);
+    dispatch(fetchAllComment(props.id, transformFilters(filters)));
+  }, [dispatch, filters,props.id]);
 
   useEffect(() => {
     if (checkObjectEmpty(Comment)) {
       dispatch(fetchAllComment(props.id));
     }
-  }, [dispatch, Comment,props.id]);
+  }, [dispatch, Comment, props.id]);
   const listCommentData = !checkObjectEmpty(Comment) ? Comment.data.data : [];
   const pagingCommentData = !checkObjectEmpty(Comment) ? Comment.data.meta : {};
   const handlePaging = (e) => {
@@ -53,8 +54,15 @@ export const ListComment = (props) => {
           className="border-2 border-[#FFFFFF] flex flex-row min-h-[120px] rounded-md p-2 shadow-md  items-start justify-between"
         >
           <div className="flex flex-row">
-            {(data.Avatar)? (<img src={data.Avatar} alt="Avatar" className="w-[60px] h-[60px] rounded-full"></img>):             (<AccountCircle sx={{ width: 60, height: 60 }}/>)
-}
+            {data.Avatar ? (
+              <img
+                src={data.Avatar}
+                alt="Avatar"
+                className="w-[60px] h-[60px] rounded-full"
+              ></img>
+            ) : (
+              <AccountCircle sx={{ width: 60, height: 60 }} />
+            )}
             <div className="flex flex-col ml-4 p-1 space-y-2">
               <div className="flex flex-row space-x-1 ">
                 <h1 className=" text-sm font-bold">{data.Name}</h1>

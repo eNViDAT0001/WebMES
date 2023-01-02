@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FetchProductInHomePage } from "../../store/slices/ProductSlice";
 
 const ProductOverview = () => {
   const dispatch = useDispatch();
   const DataProductHomePage =
-    useSelector((state) => state.product.ProductPreview) || [];
+    useSelector((state) => state.product.ProductPreviewInHomePage) || [];
   useEffect(() => {
     if (DataProductHomePage.length === 0) {
       dispatch(FetchProductInHomePage());
     }
   }, [dispatch, DataProductHomePage]);
 
-  const handleProductDetail = (e) => {
-    console.log(e.target.id);
-  };
+
   return (
     <div>
       {DataProductHomePage.length !== 0 ? (
@@ -26,14 +25,14 @@ const ProductOverview = () => {
 
             <div className="flex flex-row justify-start flex-wrap my-[50px] ">
               {DataProductHomePage.map((data) => (
-                <div
+                <Link
                   id={data.ID}
+                  to={`product/${data.ID}`}
                   className=" w-[20%] h-[300px] my-5 mx-5 mb-10 hover:scale-105 p-2 hover:border hover:shadow-2xl hover:rounded-xl hover:cursor-pointer "
                 >
                   {data.Media ? (
                     <img
                         id={data.ID}
-                        onClick={handleProductDetail}
                         src={data.Media[0].mediaPath}
                         alt="anh san pham"
                         className="h-[200px] w-full"
@@ -58,7 +57,7 @@ const ProductOverview = () => {
                       {(data.Price * (100 - data.Discount)) / 100}
                     </h1>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

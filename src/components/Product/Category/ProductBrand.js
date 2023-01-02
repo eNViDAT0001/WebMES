@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchAllCategoryTree, setProductPreview } from "../../../store/slices/ProductSlice";
+import { FetchAllCategoryTree, setProductPreview, setProductPreviewInCategory } from "../../../store/slices/ProductSlice";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -38,7 +38,7 @@ const ProductBrand = () => {
             const categoryResult = res.data.data;
             if (!categoryResult.CategoryChildren) {
                 const newProductPreview = ListOfProducts.filter(data=>(data.CategoryID===nodes.ID))
-                dispatch(setProductPreview(newProductPreview))
+                dispatch(setProductPreviewInCategory(newProductPreview))
             }
           });
         }

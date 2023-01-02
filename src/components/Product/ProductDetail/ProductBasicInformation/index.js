@@ -6,7 +6,7 @@ const ProductBasicInformation = (props) => {
     <div className="flex justify-center border p-5 my-10 max-w-[1000px] bg-white">
       <div className=" flex flex-row space-x-10">
           <ImageProduct id={props.id} />
-        <div >
+        <div className="min-w-[450px]">
           <TitleAndType id={props.id} />
           <HandleQuantityAndCart id={props.id} />
         </div>

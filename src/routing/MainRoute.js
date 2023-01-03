@@ -22,6 +22,7 @@ import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
 import { AdminPages } from "../pages/AdminPages/AdminPages";
 import { BrandPages } from "../pages/BrandPages/BrandGeneral";
 import { BrandDetailPages } from "../pages/BrandPages/BrandDetailPages";
+import { AddProductInBrand } from "../components/Brand/BrandDetail/AddProductInBrand";
 
 function MainRoute() {
   return (
@@ -37,7 +38,7 @@ function MainRoute() {
         </Route>
         <Route element={<UserLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/shopping-cart" element={<CartPage />} />
@@ -55,7 +56,7 @@ function MainRoute() {
           <Route path="/brand" element={<BrandPages/>} />
           <Route path="/brand-detail/:id" element={<BrandDetailPages/>} />
           <Route path="/notification/:id" element={<NotFoundPage/>} />
-
+          <Route path="/add-product-in-brand/:id" element={<AddProductInBrand />} />
 
         </Route>
 

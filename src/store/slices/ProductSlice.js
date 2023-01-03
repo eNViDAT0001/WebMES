@@ -11,7 +11,8 @@ const initialState= {
     ProductPreviewInCategory:{},
     Banners:{},
     CategoryTree:[],
-    CategoryRoof:[],
+    CategoryRoof:{},
+    CategoryHandle:{},
 }
 
 
@@ -24,7 +25,9 @@ const productSlice = createSlice({
         setProductDetail: (state,action) =>{
             state.ProductDetail = action.payload
         },
- 
+        setCategoryHandle:(state,action)=>{
+            state.CategoryHandle = action.payload
+        },
         setProductPreviewInHomePage: (state,action) =>{
             state.ProductPreviewInHomePage = action.payload
         },
@@ -51,7 +54,14 @@ const productSlice = createSlice({
         }
     }
 })
-
+export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
+    try {
+        const response = await ProductApi.GetProductFromCategorySelected(id)
+        dispatch(setProductPreviewInCategory(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const FetchAllProductBanner = () => async (dispatch) => {
     try {
@@ -64,7 +74,7 @@ export const FetchAllProductBanner = () => async (dispatch) => {
 export const FetchAllCategoryRoof = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetCategoriesRoof()
-        dispatch(setCategoryRoof(response.data.data))
+        dispatch(setCategoryRoof(response))
     } catch (error) {
         console.log(error)
     }
@@ -145,6 +155,7 @@ export const FetchProductInCategory = () => async (dispatch) => {
 } 
 export const {
     setProductDetail,
+    setCategoryHandle,
     setProductPreviewInHomePage,
     setProductPreviewInCategory,
     setBanners,

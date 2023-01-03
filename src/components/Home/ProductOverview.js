@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { checkObjectEmpty, currencyFormat } from "../../stogare_function/listActions";
+import {
+  checkObjectEmpty,
+  currencyFormat,
+} from "../../stogare_function/listActions";
 import { FetchProductInHomePage } from "../../store/slices/ProductSlice";
 
 const ProductOverview = () => {
@@ -9,19 +12,25 @@ const ProductOverview = () => {
   const DataProductHomePage = useSelector(
     (state) => state.product.ProductPreviewInHomePage
   );
-  useEffect(() => {
-    if (
-      DataProductHomePage.status != 200 &&
-      DataProductHomePage.status != 204
-    ) {
-      dispatch(FetchProductInHomePage());
+  
+  const loadProducts = useCallback(async () => {
+    try {
+      await dispatch(FetchProductInHomePage());
+    } catch (err) {
+      console.log(err);
     }
-  }, [dispatch, DataProductHomePage]);
+  });
 
- 
+  useEffect(() => {
+    if ((DataProductHomePage.status != 200) && (DataProductHomePage.status != 204))
+    {
+      loadProducts()
+    }
+  }, [dispatch, DataProductHomePage, loadProducts]);
+  console.log(DataProductHomePage)
   return (
     <div>
-      {!checkObjectEmpty(DataProductHomePage) ? (
+      {((!checkObjectEmpty(DataProductHomePage)) && (DataProductHomePage.status!=204)) ? (
         <div className="flex justify-center my-[100px]">
           <div className="min-w-[80%] w-[80%] border p-10 bg-white rounded-2xl">
             <h1 className=" text-xl font-['Poppins_Bold'] font-extrabold text-[#000000] uppercase">
@@ -65,18 +74,17 @@ const ProductOverview = () => {
                     <div className="py-5 flex flex-row space-x-1 font-[Helvetica] text-[#EE4D2D]">
                       <h1 className=" text-xl">đ</h1>
                       <h1 className=" text-2xl">
-                      {currencyFormat((data.Price * (100 - data.Discount)) / 100)}
-                        
+                        {currencyFormat(
+                          (data.Price * (100 - data.Discount)) / 100
+                        )}
                       </h1>
                     </div>
-
                   </div>
                 </Link>
               ))}
             </div>
           </div>
         </div>
-        
       ) : (
         <div></div>
       )}

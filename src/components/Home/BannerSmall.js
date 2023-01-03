@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FetchAllCategoryRoof } from "../../store/slices/ProductSlice";
 
 const BannerSmall = () => {
   const dispatch = useDispatch();
-  const DataCategories =
-    useSelector((state) => state.product.CategoryRoof) || [];
+  const DataCategories = useSelector((state) => state.product.CategoryRoof);
+
+  const LoadCategoryRoof = useCallback(async()=>{
+    dispatch(FetchAllCategoryRoof());
+
+  })
   useEffect(() => {
-    if (DataCategories.length === 0) {
-      dispatch(FetchAllCategoryRoof());
+    if ((DataCategories.status!=200) && (DataCategories.status!=204)) {
+      LoadCategoryRoof()
     }
-  }, [dispatch, DataCategories]);
+  }, [dispatch, DataCategories,LoadCategoryRoof]);
   return (
     <div>
-      {DataCategories.length === 0 ? (
+      {((DataCategories.status!=200) && (DataCategories.status!=204)) ? (
         <div></div>
       ) : (
         <div className="flex justify-center mt-20 ">
@@ -22,7 +26,7 @@ const BannerSmall = () => {
               can interest you
             </h1>
             <div className="flex flex-row justify-between">
-              {DataCategories.map((data) => (
+              {DataCategories.data.data.map((data) => (
                 <div
                   key={data.ID}
                   className="hover:shadow-xl hover:cursor-pointer border w-[325px] flex flex-row justify-between bg-white"

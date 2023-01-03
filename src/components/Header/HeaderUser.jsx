@@ -35,7 +35,7 @@ export const HeaderUser = () => {
               Home
             </Link>
             <Link
-              to="/category"
+              to="/category/0"
               className="text-gray-800 hover:text-[#FB2E86] duration-300"
             >
               Products

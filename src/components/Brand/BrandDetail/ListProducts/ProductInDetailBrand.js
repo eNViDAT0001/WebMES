@@ -3,8 +3,10 @@ import ListIcon from "@mui/icons-material/List";
 import { Button, Divider } from "@mui/material";
 import { ListViewProducts } from "./ListViewProducts";
 
-export const ProductInDetailBrand = () => {
-  const handleButtonAdd = (e) => {};
+export const ProductInDetailBrand = (props) => {
+  const handleButtonAdd = (e) => {
+    window.location.replace(`/add-product-in-brand/${props.id}`)
+  };
   const handleButtonFilter = (e) => {};
   return (
     <div className="flex justify-center">

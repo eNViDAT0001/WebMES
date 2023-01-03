@@ -1,22 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { checkObjectEmpty, currencyFormat } from "../../stogare_function/listActions";
 import { FetchProductInHomePage } from "../../store/slices/ProductSlice";
 
 const ProductOverview = () => {
   const dispatch = useDispatch();
-  const DataProductHomePage =
-    useSelector((state) => state.product.ProductPreviewInHomePage) || [];
+  const DataProductHomePage = useSelector(
+    (state) => state.product.ProductPreviewInHomePage
+  );
   useEffect(() => {
-    if (DataProductHomePage.length === 0) {
+    if (
+      DataProductHomePage.status != 200 &&
+      DataProductHomePage.status != 204
+    ) {
       dispatch(FetchProductInHomePage());
     }
   }, [dispatch, DataProductHomePage]);
 
-
+ 
   return (
     <div>
-      {DataProductHomePage.length !== 0 ? (
+      {!checkObjectEmpty(DataProductHomePage) ? (
         <div className="flex justify-center my-[100px]">
           <div className="min-w-[80%] w-[80%] border p-10 bg-white rounded-2xl">
             <h1 className=" text-xl font-['Poppins_Bold'] font-extrabold text-[#000000] uppercase">
@@ -24,7 +29,7 @@ const ProductOverview = () => {
             </h1>
 
             <div className="flex flex-row justify-start flex-wrap my-[50px] ">
-              {DataProductHomePage.map((data) => (
+              {DataProductHomePage.data.data.map((data) => (
                 <Link
                   id={data.ID}
                   to={`product/${data.ID}`}
@@ -32,10 +37,10 @@ const ProductOverview = () => {
                 >
                   {data.Media ? (
                     <img
-                        id={data.ID}
-                        src={data.Media[0].mediaPath}
-                        alt="anh san pham"
-                        className="h-[200px] w-full"
+                      id={data.ID}
+                      src={data.Media[0].mediaPath}
+                      alt="anh san pham"
+                      className="h-[200px] w-full"
                     />
                   ) : (
                     <img
@@ -49,19 +54,29 @@ const ProductOverview = () => {
                       {data.Name}
                     </h1>
                   </div>
+
                   <div className="flex flex-row space-x-4">
-                    <h1 className="mt-2 text-sm font-['Poppins_Regular'] line-through text-[#FF2AAA]">
-                      {data.Price}
-                    </h1>
-                    <h1 className="mt-2 text-sm font-['Poppins_Regular']">
-                      {(data.Price * (100 - data.Discount)) / 100}
-                    </h1>
+                    <div className="flex flex-row space-x-1 font-[Helvetica] text-[#929292] items-center line-through">
+                      <h1 className=" text-xs">đ</h1>
+                      <h1 className=" text-sm">
+                        {currencyFormat(parseInt(data.Price))}
+                      </h1>
+                    </div>
+                    <div className="py-5 flex flex-row space-x-1 font-[Helvetica] text-[#EE4D2D]">
+                      <h1 className=" text-xl">đ</h1>
+                      <h1 className=" text-2xl">
+                      {currencyFormat((data.Price * (100 - data.Discount)) / 100)}
+                        
+                      </h1>
+                    </div>
+
                   </div>
                 </Link>
               ))}
             </div>
           </div>
         </div>
+        
       ) : (
         <div></div>
       )}

@@ -3,6 +3,7 @@ import { ProviderApi } from '../../api/ProviderApi'
 
 const initialState = {
     ListBrand:[],
+    ProductInBrand:[],
 }
 
 const ProviderSlice = createSlice({
@@ -14,9 +15,14 @@ const ProviderSlice = createSlice({
         setListBrand: (state,action) =>{
             state.ListBrand = action.payload
         },
+        setProductInBrand: (state,action) =>{
+            state.ProductInBrand = action.payload
+        }
 
     },
 })
+
+
 
 export const FetchGetListBrand = (id,filter) => async(dispatch) =>{
     try{
@@ -28,6 +34,6 @@ export const FetchGetListBrand = (id,filter) => async(dispatch) =>{
 }
 export const {
     setListBrand,
- 
+    setProductInBrand,
 } = ProviderSlice.actions
 export default ProviderSlice.reducer

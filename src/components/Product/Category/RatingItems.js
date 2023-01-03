@@ -18,7 +18,6 @@ const RatingItem = () =>{
                         readonly = {true}
                         initialRating = {rating.star}
                     />
-                    <h1 className=" font-normal text-base text-black ">({rating.amount})</h1> 
             </div>))}
         </div>
     </div>)

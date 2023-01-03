@@ -7,9 +7,9 @@ const initialState= {
     Specification:[],
     Description:{},
     Media:{},
-    ProductPreviewInHomePage:[],
-    ProductPreviewInCategory:[],
-    Banners:[],
+    ProductPreviewInHomePage:{},
+    ProductPreviewInCategory:{},
+    Banners:{},
     CategoryTree:[],
     CategoryRoof:[],
 }
@@ -31,8 +31,8 @@ const productSlice = createSlice({
         setProductPreviewInCategory: (state,action) =>{
             state.ProductPreviewInCategory = action.payload
         },
-        setProductBanner: (state,action) =>{
-            state.ProductBanner = action.payload
+        setBanners: (state,action) =>{
+            state.Banners = action.payload
         },
         setCategoryTree: (state,action) =>{
             state.CategoryTree = action.payload
@@ -56,7 +56,7 @@ const productSlice = createSlice({
 export const FetchAllProductBanner = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetBanners()
-        dispatch(setProductBanner(response.data.data))
+        dispatch(setBanners(response))
     } catch (error) {
         console.log(error)
     }
@@ -93,7 +93,7 @@ export const FetchDescriptionFromOneProduct = (id) => async(dispatch) =>{
 export const FetchDetailProduct=(id)=>async(dispatch)=>{
     try {
         const response = await ProductApi.GetDetailProduct(id)
-        dispatch(setProductDetail(response.data.data))
+        dispatch(setProductDetail(response))
     } catch (error) {
         console.log(error)
     }
@@ -111,7 +111,9 @@ export const FetchMediaFromOneProduct = (id) => async(dispatch) =>{
 export const FetchSpecificationFromOneProduct = (id) => async(dispatch) =>{
     try{
         const response = await ProductApi.GetSpecification(id)
-        dispatch(setSpecification(response.data.data))
+        if (response.data.data) {
+            dispatch(setSpecification(response.data.data))
+        }
     }catch(err){
         console.log(err)
     }
@@ -123,7 +125,7 @@ export const FetchProductInHomePage = () => async (dispatch) => {
             "limit" : 20,
         }
         const response = await ProductApi.GetProductPreview(transformFilters(filter))
-        dispatch(setProductPreviewInHomePage(response.data.data))
+        dispatch(setProductPreviewInHomePage(response))
     } catch (error) {
         console.log(error)
     }
@@ -136,7 +138,7 @@ export const FetchProductInCategory = () => async (dispatch) => {
             "limit" : 20,
         }
         const response = await ProductApi.GetProductPreview(transformFilters(filter))
-        dispatch(setProductPreviewInCategory(response.data.data))
+        dispatch(setProductPreviewInCategory(response))
     } catch (error) {
         console.log(error)
     }
@@ -145,7 +147,7 @@ export const {
     setProductDetail,
     setProductPreviewInHomePage,
     setProductPreviewInCategory,
-    setProductBanner,
+    setBanners,
     setCategoryTree,
     setCategoryRoof,
     setDescription,

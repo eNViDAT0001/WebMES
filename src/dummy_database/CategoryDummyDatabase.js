@@ -68,27 +68,22 @@ const ratingItem = [
     {
         id: 1,
         star: 5,
-        amount: 2341
     },
     {
         id: 2,
         star: 4,
-        amount: 1726
     },
     {
         id: 3,
         star: 3,
-        amount: 258
     },
     {
         id: 4,
         star: 2,
-        amount: 25
     },
     {
         id: 5,
         star: 1,
-        amount: 234
     },
 ]
 

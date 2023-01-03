@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { checkObjectEmpty, currencyFormat } from "../../../../stogare_function/listActions";
 import {
   FetchDetailProduct,
@@ -12,40 +12,62 @@ const initialOpion = {id:-1, price:0, quantity:0, name:""}
 
 const TitleAndType = (props) => {
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.product.ProductDetail);
+  const specifications = useSelector((state) => state.product.Specification);
+  const comment = useSelector((state) => state.comment.comment);
+
   const [optionHandle,setOptionHandle] = useState(initialOpion)
   const [quantity, setQuantity] = useState();
   const [isClickOption,setIsClickOption] = useState(false)
-  const product = useSelector((state) => state.product.ProductDetail);
-  const [price,setPrice] = useState(0) 
-  const comment = useSelector((state) => state.comment.comment);
+  const [price, setPrice] = useState() 
 
-  const specifications =
-    useSelector((state) => state.product.Specification) || [];
-    useEffect(()=>{
-      if(!checkObjectEmpty(product)){
-        if(!isClickOption) setPrice(product.Price)
-      }
-    },[price,product,isClickOption])
-  useEffect(() => {
-    if (checkObjectEmpty(product) || !(product.Name) || !(product.Price)) {
-      dispatch(FetchDetailProduct(props.id));
+
+
+  const loadProducts = useCallback(async () => {
+    try {
+      await dispatch(FetchDetailProduct(props.id));
+    } catch (err) {
+      console.log(err)
     }
-  }, [dispatch, product, props.id]);
-  useEffect(() => {
-    if (checkObjectEmpty(comment)) {
-      dispatch(fetchAllComment(props.id));
+  })
+  const loadComments = useCallback(async () => {
+    try {
+      await dispatch(fetchAllComment(props.id));
+    } catch (err) {
+      console.log(err)
     }
-  }, [dispatch, comment, props.id]);
-  useEffect(() => {
+  })
+  const loadSpecification = useCallback(async () => {
+    try {
+      await dispatch(FetchSpecificationFromOneProduct(props.id));
+    } catch (err) {
+      console.log(err)
+    }
+  })
+
+  useLayoutEffect(() => {
+    if ((product.status!=200) || !(product.data.data)){
+      loadProducts()
+    }
+    if ((comment.status!=200) && (comment.status!=204)) {
+      loadComments()
+    }
     if (specifications.length === 0) {
-      dispatch(FetchSpecificationFromOneProduct(props.id));
+      loadSpecification()
     }
-  }, [dispatch, specifications, props.id]);
+    if(product.status==200){
+      if(!isClickOption) setPrice(product.data.data.Price)
+    }
+  }, [loadComments, loadProducts, loadSpecification,dispatch, props.id, product, comment, specifications, isClickOption]);
+
+
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div>
+      {checkObjectEmpty(product) ? (<div></div>) :
+(<div className="flex flex-col space-y-2">
       <h1 className="text-3xl text-[#0D134E] font-bold ">
-        {product.Name}
+        {product.data.data.Name}
       </h1>
       <div className="flex flex-row space-x-3">
         <div className=" flex flex-row space-x-2 items-center">
@@ -66,11 +88,11 @@ const TitleAndType = (props) => {
         <div className="py-5 flex flex-row space-x-1 font-[Helvetica] text-[#EE4D2D]">
           <h1 className=" text-xl">đ</h1>
           <h1 className=" text-2xl">
-            {currencyFormat((price * (100 - product.Discount)) / 100)}
+            {currencyFormat((price * (100 - product.data.data.Discount)) / 100)}
           </h1>
         </div>
         <div className=" px-2 bg-[#EE4D2D] flex flex-row space-x-1 font-[Helvetica] text-[#FFFFFF] items-center ">
-          <h1 className=" text-sm ">- {product.Discount}%</h1>
+          <h1 className=" text-sm ">- {product.data.data.Discount}%</h1>
         </div>
       </div>
       <div>
@@ -127,7 +149,9 @@ const TitleAndType = (props) => {
           </div>
         )}
       </div>
+    </div>)}
     </div>
+    
   );
 };
 export default TitleAndType;

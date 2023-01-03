@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
@@ -11,6 +11,9 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { Button, IconButton, Paper, TableHead } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { FetchProductInHomePage } from "../../../../store/slices/ProductSlice";
+import { useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,42 +31,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const ListProducts = [
-  {
-    id: 0,
-    name: "Son môi size1",
-    image:
-      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
-    category: "Son",
-    isSold: false,
-    createdAt: "2012-11-12",
-    price: 50.0,
-  },
-  {
-    id: 1,
-    name: "Son môi size2",
-    image:
-      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
-    category: "Son",
-    createdAt: "2012-11-12",
-    isSold: true,
 
-    price: 50.0,
-  },
-  {
-    id: 2,
-    image:
-      "https://img.freepik.com/free-photo/collection-beauty-products-with-copy-space_23-2148620110.jpg?w=2000",
-    category: "Son",
-    isSold: true,
-    createdAt: "2012-11-12",
-    name: "Son môi size3",
-
-    price: 50.0,
-  },
-];
 
 export const ListViewProducts = () => {
+  const dispatch = useDispatch();
+  let { id } = useParams();
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const ListProduct = useSelector(
+    (state) => state.product.ProductPreviewInHomePage
+  );
+  const [listProductInProvider, setListProductInProvider] = useState([]);
+  useEffect(() => {
+    if (ListProduct.status != 200 && ListProduct.status != 204) {
+      dispatch(FetchProductInHomePage());
+    }
+  }, [dispatch, ListProduct]);
+  useEffect(() => {
+    if (ListProduct.status == 200) {
+      if (isFirstRender) {
+        setIsFirstRender(false);
+        const ResultProduct = ListProduct.data.data.filter(
+          (data) => data.ProviderID === id
+        );
+        if (ResultProduct.length === 0) setListProductInProvider(ResultProduct);
+      }
+    }
+  }, [isFirstRender, ListProduct, listProductInProvider, id]);
+  console.log(listProductInProvider);
+  console.log(ListProduct);
   return (
     <div className="space-y-3">
       <h1 className="font-bold text-xl">Table product:</h1>
@@ -85,10 +80,10 @@ export const ListViewProducts = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {!ListProducts ? (
+              {listProductInProvider.length===0 ? (
                 <div></div>
               ) : (
-                ListProducts.map((row) => (
+                listProductInProvider.map((row) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell
                       component="th"

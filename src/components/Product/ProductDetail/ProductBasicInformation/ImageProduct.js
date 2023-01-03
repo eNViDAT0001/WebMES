@@ -15,8 +15,6 @@ const ImageProduct = (props) => {
     if ((listMedia.status != 200) && (listMedia.status != 204)) {
       dispatch(FetchMediaFromOneProduct(props.id));
     }
-  }, [dispatch, listMedia, props.id]);
-  useEffect(() => {
     const obj = JSON.parse(JSON.stringify(listMedia)).data;
     if (obj) {
       setArrayMedia(obj.data)
@@ -25,7 +23,8 @@ const ImageProduct = (props) => {
         setImageBig(obj.data[0].MediaPath)
       }
     }
-  }, [listMedia, imageBig,firstRender]);
+  }, [dispatch, listMedia, props.id,imageBig,firstRender]);
+ 
   const handleClickImage = (event) => {
     const id = event.currentTarget.id;
     const GetMediaFromId = getArrayMedia.filter((data) => data.ID == id);

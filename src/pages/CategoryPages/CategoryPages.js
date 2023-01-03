@@ -9,12 +9,13 @@ import ListOfProducts from "../../components/Product/Category/ListOfProducts";
 
 const CategoryPage = () => {
   const dispatch = useDispatch()
-  const ListProducts = useSelector(state=>state.product.ProductPreviewInCategory) || []
+  const ListProducts = useSelector(state=>state.product.ProductPreviewInCategory) 
   useEffect(() => {
-    if (ListProducts.length === 0) {
+    if ((ListProducts.status!=200) && (ListProducts.status!=204)) {
       dispatch(FetchProductInCategory());
     }
   }, [dispatch, ListProducts]);
+  console.log(ListProducts)
   return (
     <div>
       <HeaderBar

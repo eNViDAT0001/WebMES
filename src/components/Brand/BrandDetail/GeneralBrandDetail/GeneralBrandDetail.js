@@ -6,6 +6,7 @@ import { TotalProduct } from "./TotalProductIsSold";
 import { TotalRevenue } from "./TotalRevenue";
 
 export const GeneralBrandDetail = () => {
+  
   return (
     <div className="flex justify-center">
       <div className="w-[80%] min-h-[200px] bg-white shadow-lg rounded-2xl p-5 font-[Inter]">

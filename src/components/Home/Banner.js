@@ -4,33 +4,40 @@ import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { FetchAllProductBanner } from "../../store/slices/ProductSlice";
 
+
+const imgNotFound="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
 const Banner = () => {
   const dispatch = useDispatch();
-  const DataBanner = useSelector((state) => state.product.ProductBanner) || [];
+  const DataBanner = useSelector((state) => state.product.Banners);
   const [banner, setBanner] = useState();
+  const [isFirstRender,setIsFirseRender] = useState(true)
   useEffect(()=>{
-    if(!banner){
-        setBanner(DataBanner[0])
-    }
-  })
+    if(DataBanner.status==200){
+      if(isFirstRender){
+        setBanner(DataBanner.data.data[0])
+        setIsFirseRender(false)
 
+      }
+    }
+  },[DataBanner,banner,isFirstRender])
   useEffect(() => {
-    if (DataBanner.length === 0) {
+    if ((DataBanner.status!=200) && (DataBanner.status!=204)) {
       dispatch(FetchAllProductBanner());
     }
   }, [dispatch, DataBanner,banner]);
+
   const onPrevClickHandler = () => {
-    const index = DataBanner.indexOf(banner);
+    const index = DataBanner.data.data.indexOf(banner);
     if ((index === 0) || (banner===undefined)) {
-      setBanner(DataBanner[DataBanner.length - 1]);
-    } else setBanner(DataBanner[index - 1]);
+      setBanner(DataBanner.data.data[DataBanner.data.data.length - 1]);
+    } else setBanner(DataBanner.data.data[index - 1]);
   };
 
   const onNextClickHandler = () => {
-    const index = DataBanner.indexOf(banner);
-    if ((index === DataBanner.length - 1) || (banner===undefined)) {
-      setBanner(DataBanner[0]);
-    } else setBanner(DataBanner[index + 1]);
+    const index = DataBanner.data.data.indexOf(banner);
+    if ((index === DataBanner.data.data.length - 1) || (banner===undefined)) {
+      setBanner(DataBanner.data.data[0]);
+    } else setBanner(DataBanner.data.data[index + 1]);
   };
   return (
     <div>

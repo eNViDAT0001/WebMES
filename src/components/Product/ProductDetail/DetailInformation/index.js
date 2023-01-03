@@ -4,11 +4,11 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import TabContext from "@mui/lab/TabContext";
 import TabPanel from "@mui/lab/TabPanel";
-import { Comment } from "../../../Comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { FetchDescriptionFromOneProduct } from "../../../../store/slices/ProductSlice";
 import { checkObjectEmpty } from "../../../../stogare_function/listActions";
+import { Comment } from "./Comment/Comment";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -48,40 +48,19 @@ const DetailInformation = (props) => {
   const [value, setValue] = useState("review");
   const dispatch = useDispatch();
   const getDescription = useSelector((state) => state.product.Description);
+  const [listDescription,setListDescription] = useState([])
   useEffect(() => {
-    if (getDescription.status !== 200) {
+    if ((getDescription.status != 200) && (getDescription.status !=204)) {
       dispatch(FetchDescriptionFromOneProduct(props.id));
+      if(getDescription.status==200){
+        setListDescription(getDescription.data.data)
+      }
     }
   }, [getDescription, dispatch, props.id]);
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
-  const TabPanelDescription = () => {
-    if (!checkObjectEmpty(getDescription)) return{}
-    getDescription.data.data.map((description) => (
-      <TabPanel value={description.Name}>
-        <div className=" h-87px mt-9 text-gray-content-product-detail">
-          <h1>
-            Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor
-            ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris
-            varius ac est bibendum. Scelerisque a, risus ac ante. Velit
-            consectetur neque, elit, aliquet. Non varius proin sed urna, egestas
-            consequat laoreet diam tincidunt. Magna eget faucibus cras justo,
-            tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla
-            lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui,
-            massa viverr .
-          </h1>
-        </div>
-      </TabPanel>
-    ));
-  };
-
-  const TabValueDescription = () => {
-    if (!checkObjectEmpty(getDescription)) return;
-    getDescription.data.data.map((description) => (
-      <StyledTab label={description.Name} value={description.Name} />
-    ));
-  };
+  console.log(getDescription)
   return (
     <div className="px-[170px] bg-[#F5F8FE] py-[50px] my-6 ">
       <div className="border p-10 bg-white">
@@ -94,12 +73,10 @@ const DetailInformation = (props) => {
                 aria-label="styled tabs example"
               >
                 <StyledTab label="Review" value="review" />
-                {TabValueDescription}
               </StyledTabs>
               <Box sx={{ p: 3 }} />
             </Box>
           </Box>
-          {TabPanelDescription}
 
           <TabPanel value="review">
             <Comment id={props.id} />

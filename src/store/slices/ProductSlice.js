@@ -6,6 +6,7 @@ const initialState= {
     ProductDetail:{},
     Specification:[],
     Description:{},
+    Media:{},
     ProductPreviewInHomePage:[],
     ProductPreviewInCategory:[],
     Banners:[],
@@ -23,6 +24,7 @@ const productSlice = createSlice({
         setProductDetail: (state,action) =>{
             state.ProductDetail = action.payload
         },
+ 
         setProductPreviewInHomePage: (state,action) =>{
             state.ProductPreviewInHomePage = action.payload
         },
@@ -100,7 +102,7 @@ export const FetchDetailProduct=(id)=>async(dispatch)=>{
 export const FetchMediaFromOneProduct = (id) => async(dispatch) =>{
     try{
         const response = await ProductApi.GetMedia(id)
-        dispatch(setMedia(response.data.data))
+        dispatch(setMedia(response))
     }catch(err){
         console.log(err)
     }

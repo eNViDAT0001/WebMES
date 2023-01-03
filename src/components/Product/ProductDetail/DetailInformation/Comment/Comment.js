@@ -1,7 +1,6 @@
 import { Button, Divider } from "@mui/material";
 import React, { useState } from "react";
 import { AddComment } from "./AddComment";
-import { FiltersComment } from "./FiltersComment";
 import { ListComment } from "./ListComment";
 
 export const Comment = (props) => {

@@ -1,46 +1,48 @@
 import { useEffect, useState } from "react";
-
-import { ProductApi } from "../../../../api/ProductApi";
+import { useDispatch, useSelector } from "react-redux";
+import { checkObjectEmpty } from "../../../../stogare_function/listActions";
+import { FetchMediaFromOneProduct } from "../../../../store/slices/ProductSlice";
 const imgNotFound =
   "https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg";
 
 const ImageProduct = (props) => {
-  const [listMedia, setListMedia] = useState([]);
-  const [statusImage, setStatusImage] = useState(400);
+  const dispatch = useDispatch();
   const [imageBig, setImageBig] = useState(imgNotFound);
-
+  const listMedia = useSelector((state) => state.product.Media);
+  const [getArrayMedia,setArrayMedia] = useState([])
+  const [firstRender,setFirstRender] = useState(true)
   useEffect(() => {
-    const fetchData = async () => {
-      if(listMedia.length === 0){
-        if(statusImage!==200){
-          await ProductApi.GetMedia(props.id).then((res) => {
-            setStatusImage(res.status);
-            setListMedia(res.data.data);
-            if(listMedia.length!==0){
-              setImageBig(res.data.data[0].MediaPath);
-
-            }
-
-          });
-        
-        }
+    if ((listMedia.status != 200) && (listMedia.status != 204)) {
+      dispatch(FetchMediaFromOneProduct(props.id));
+    }
+  }, [dispatch, listMedia, props.id]);
+  useEffect(() => {
+    const obj = JSON.parse(JSON.stringify(listMedia)).data;
+    if (obj) {
+      setArrayMedia(obj.data)
+      if(firstRender){
+        setFirstRender(false)
+        setImageBig(obj.data[0].MediaPath)
       }
-      
-    };
-    fetchData();
-  }, [listMedia, props.id, statusImage]);
+    }
+  }, [listMedia, imageBig,firstRender]);
   const handleClickImage = (event) => {
     const id = event.currentTarget.id;
-    const GetMediaFromId= listMedia.filter(data=>(data.ID==id))
+    const GetMediaFromId = getArrayMedia.filter((data) => data.ID == id);
     setImageBig(GetMediaFromId[0].MediaPath);
   };
+
   return (
     <div className="w-full flex flex-col space-y-4 p-2">
-      {listMedia.length !== 0 ? (
+      {!checkObjectEmpty(listMedia) ? (
         <div>
-          <img src={imageBig} alt="Anh san pham" className="w-full h-[450px]"></img>
+          <img
+            src={imageBig}
+            alt="Anh san pham"
+            className="w-full h-[450px]"
+          ></img>
           <div className="flex flex-row w-full flex-wrap">
-            {listMedia.map((data) => (
+            {getArrayMedia.map((data) => (
               <img
                 src={data.MediaPath}
                 id={data.ID}
@@ -49,11 +51,15 @@ const ImageProduct = (props) => {
                 onClick={handleClickImage}
               ></img>
             ))}
-          </div>
+          </div>{" "}
         </div>
       ) : (
         <div>
-          <img src={imgNotFound} alt="Anh loi" className="w-full max-h-[450px]"></img>
+          <img
+            src={imgNotFound}
+            alt="Anh loi"
+            className="w-full max-h-[450px]"
+          ></img>
         </div>
       )}
     </div>

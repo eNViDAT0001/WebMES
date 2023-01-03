@@ -4,8 +4,8 @@ import { Box, Button, IconButton, TextField } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
-import { ProductApi } from "../../api/ProductApi";
-import { FileApi } from "../../api/FileApi";
+import { ProductApi } from "../../../../../api/ProductApi";
+import { FileApi } from "../../../../../api/FileApi";
 const labels = {
   1: "Very bad",
   2: "Bad",

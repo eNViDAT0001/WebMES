@@ -17,7 +17,6 @@ import OrderCompletedPage from "../pages/StorePages/OrderCompletedPage";
 //test git
 import { AdminLayOut } from "./Layouts";
 import { UserLayout,LoginLayOut } from "./Layouts";
-import { TestingPages } from "../pages/TestingPages";
 import CreateAddressPage from "../pages/AccountPages/CreateAddressPage";
 import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
 import { AdminPages } from "../pages/AdminPages/AdminPages";
@@ -59,7 +58,6 @@ function MainRoute() {
 
 
         </Route>
-        <Route path="/testing" element={<TestingPages />}/>
 
       </Routes>
     </BrowserRouter>

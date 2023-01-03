@@ -4,11 +4,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import TabContext from "@mui/lab/TabContext";
 import TabPanel from "@mui/lab/TabPanel";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { FetchDescriptionFromOneProduct } from "../../../../store/slices/ProductSlice";
-import { checkObjectEmpty } from "../../../../stogare_function/listActions";
-import { Comment } from "./Comment/Comment";
+import { Comment } from "./Comment";
+import { useState } from "react";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -44,23 +41,11 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-const DetailInformation = (props) => {
+const TabComment = (props) => {
   const [value, setValue] = useState("review");
-  const dispatch = useDispatch();
-  const getDescription = useSelector((state) => state.product.Description);
-  const [listDescription,setListDescription] = useState([])
-  useEffect(() => {
-    if ((getDescription.status != 200) && (getDescription.status !=204)) {
-      dispatch(FetchDescriptionFromOneProduct(props.id));
-      if(getDescription.status==200){
-        setListDescription(getDescription.data.data)
-      }
-    }
-  }, [getDescription, dispatch, props.id]);
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
-  console.log(getDescription)
   return (
     <div className="px-[170px] bg-[#F5F8FE] py-[50px] my-6 ">
       <div className="border p-10 bg-white">
@@ -86,4 +71,4 @@ const DetailInformation = (props) => {
     </div>
   );
 };
-export default DetailInformation;
+export default TabComment;

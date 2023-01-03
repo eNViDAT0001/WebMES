@@ -35,8 +35,6 @@ export const ListComment = (props) => {
       setListComment(Comment.data.data)
       setMeta(Comment.data.meta)
     }
-    console.log(listComment)
-
   },[Comment,listComment,meta])
   const handlePaging = (e) => {
     const new_obj = { ...filters, marker: parseInt(e.target.textContent) };

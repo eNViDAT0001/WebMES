@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 
 import ProductBasicInformation from "../../components/Product/ProductDetail/ProductBasicInformation";
-import DetailInformation from "../../components/Product/ProductDetail/DetailInformation";
 import Relatives from "../../components/Product/ProductDetail/Relatives";
 import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {  resetProduct } from "../../store/slices/ProductSlice";
 import { fetchAllComment, resetComment } from "../../store/slices/CommentSlice";
+import TabComment from "../../components/Product/ProductDetail/DetailInformation/Comment/TabComment";
+import { TabDescription } from "../../components/Product/ProductDetail/DetailInformation/Description/TabDescription";
 
 const ProductPage = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,9 @@ const ProductPage = () => {
         <div className="flex justify-center font-['Josefin_Sans'] ">
           <ProductBasicInformation id={id} />
         </div>
-        <DetailInformation id={id} />
+        <TabDescription id={id}/>
+
+        <TabComment id={id} />
       </div>
 
       <Relatives id={id} />

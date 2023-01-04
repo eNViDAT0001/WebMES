@@ -5,7 +5,7 @@ import Relatives from "../../components/Product/ProductDetail/Relatives";
 import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  resetProduct } from "../../store/slices/ProductSlice";
+import {  resetProduct, setMedia, setProductDetail } from "../../store/slices/ProductSlice";
 import { fetchAllComment, resetComment } from "../../store/slices/CommentSlice";
 import TabComment from "../../components/Product/ProductDetail/DetailInformation/Comment/TabComment";
 import { TabDescription } from "../../components/Product/ProductDetail/DetailInformation/Description/TabDescription";

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkObjectEmpty } from "../../../../stogare_function/listActions";
 import { FetchMediaFromOneProduct } from "../../../../store/slices/ProductSlice";
@@ -11,18 +11,23 @@ const ImageProduct = (props) => {
   const listMedia = useSelector((state) => state.product.Media);
   const [getArrayMedia,setArrayMedia] = useState([])
   const [firstRender,setFirstRender] = useState(true)
+
+  const loadMedia = useCallback(async()=>{
+    await dispatch(FetchMediaFromOneProduct(props.id));
+
+  })
   useEffect(() => {
     if ((listMedia.status != 200) && (listMedia.status != 204)) {
-      dispatch(FetchMediaFromOneProduct(props.id));
+      loadMedia()
     }
-    const obj = JSON.parse(JSON.stringify(listMedia)).data;
-    if (obj) {
-      setArrayMedia(obj.data)
+    if(listMedia.status==200){
+      setArrayMedia(listMedia.data.data)
       if(firstRender){
         setFirstRender(false)
-        setImageBig(obj.data[0].MediaPath)
+        setImageBig(listMedia.data.data[0].MediaPath)
       }
     }
+  
   }, [dispatch, listMedia, props.id,imageBig,firstRender]);
  
   const handleClickImage = (event) => {

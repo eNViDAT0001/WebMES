@@ -27,7 +27,7 @@ const ListOfProducts = (props) => {
     }
   }, [dispatch,loadFullProductInCategory,loadProductInCategorySelected,ListProductPreview,id])
   
-  
+
   const emptyListProductPreview = () =>{
     if(checkObjectEmpty(ListProductPreview)) return true
     else if(ListProductPreview.status==200) return false

@@ -18,25 +18,36 @@ export const ListComment = (props) => {
   const Comment = useSelector((state) => state.comment.commentPaging);
   const filters = useSelector((state) => state.comment.filters);
 
+  const [meta, setMeta] = useState({});
+  const [listComment, setListComment] = useState([]);
+  const productDetail = useSelector((state) => state.product.ProductDetail);
 
-  const [meta,setMeta] = useState({})
-  const [listComment,setListComment] = useState([])
-
-  const loadComment = useCallback(async()=>{
-     await dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
-  })
+  const loadComment = useCallback(async () => {
+    await dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
+  });
+  
   useEffect(() => {
-    if ((Comment.status != "200") && (Comment.status != "204")) {
-      loadComment()    
+    if (!checkObjectEmpty(productDetail)) {
+      if (Comment.status != "200" && Comment.status != "204") {
+        loadComment();
+      }
     }
-    if(Comment.status==200){
-      setListComment(Comment.data.data)
-      setMeta(Comment.data.meta)
+    if (Comment.status == 200) {
+      setListComment(Comment.data.data);
+      setMeta(Comment.data.meta);
     }
-  }, [loadComment,dispatch, Comment, props.id,meta,listComment]);
+  }, [
+    productDetail,
+    loadComment,
+    dispatch,
+    Comment,
+    props.id,
+    meta,
+    listComment,
+  ]);
 
   useEffect(() => {
-      dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
+    dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
   }, [dispatch, props.id, filters]);
 
   const handlePaging = (e) => {
@@ -45,20 +56,22 @@ export const ListComment = (props) => {
   };
   return (
     <div className="flex flex-col space-y-5 px-5 w-full min-w-[350px]">
-      {((Comment.status === "204") || (!Comment)) ? (
+      {Comment.status === "204" || !Comment ? (
         <div></div>
       ) : (
         <div>
-          {(!checkObjectEmpty(meta)) ? (
-          <div className="flex justify-center">
-            <Pagination
-              count={meta.paging.Pages}
-              showFirstButton
-              showLastButton
-              onChange={handlePaging}
-            />
-          </div>
-          ) : (<div></div>)}
+          {!checkObjectEmpty(meta) ? (
+            <div className="flex justify-center">
+              <Pagination
+                count={meta.paging.Pages}
+                showFirstButton
+                showLastButton
+                onChange={handlePaging}
+              />
+            </div>
+          ) : (
+            <div></div>
+          )}
           {listComment.map((data) => (
             <div
               key={data.id}
@@ -86,7 +99,7 @@ export const ListComment = (props) => {
 
                   <h1 className="mt-4 text-[#808080]">"{data.Description}"</h1>
                   <div className="flex flex-row space-x-1">
-                    {(data.Media) ? (
+                    {data.Media ? (
                       data.Media.map((media) => (
                         <div>
                           <img

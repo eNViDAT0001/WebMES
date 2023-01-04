@@ -1,6 +1,6 @@
 import HeaderBar from "../../components/StoreOtherComponent/HeaderBar";
 import OptionBar from "../../components/Product/Category/OptionBar";
-import ProductBrand from "../../components/Product/Category/ProductBrand";
+import TreeCategory from "../../components/Product/Category/TreeCategory";
 import RatingItem from "../../components/Product/Category/RatingItems";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useLayoutEffect } from "react";
@@ -9,6 +9,7 @@ import {
   FetchFullProductInCategory,
   FetchProductFromSelectCategory,
   setCategoryHandle,
+  setProductPreviewInCategory,
 } from "../../store/slices/ProductSlice";
 import ListOfProducts from "../../components/Product/Category/ListOfProducts";
 import { useParams } from "react-router-dom";
@@ -40,6 +41,9 @@ const CategoryPage = () => {
     localStorage.setItem("IDReloadCategory",id)
   },[id])
 
+  useEffect(()=>{
+    dispatch(setProductPreviewInCategory({}))
+  },[id,dispatch])
   useLayoutEffect(() => {
     if((CategoryTree.status != 204) && (CategoryTree.status != 200)){
       loadCategoryTree();
@@ -78,7 +82,7 @@ const CategoryPage = () => {
         <div className="w-[78%]">
           <div className="flex flex-row justify-start my-[100px] space-x-10 w-full">
             <div className="flex flex-col">
-              <ProductBrand id={id}/>
+              <TreeCategory id={id}/>
               <RatingItem id={id}/>
             </div>
             <ListOfProducts id={id}/>

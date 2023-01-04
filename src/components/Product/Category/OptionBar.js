@@ -9,24 +9,26 @@ const OptionBar = () => {
     (state) => state.product.ProductPreviewInCategory
   );
   const handleCategory = useSelector((state) => state.product.CategoryHandle);
-  const getLengFromList=()=>{
-    if(checkObjectEmpty(ListProductPreview)) return 0
-    else if (ListProductPreview.status!=200) return 0
-    else if (ListProductPreview.status==204) return 0
-    else return ListProductPreview.data.data.length
-  }
+  const getLengFromList = () => {
+    if (checkObjectEmpty(ListProductPreview)) return 0;
+    else if (ListProductPreview.status != 200) return 0;
+    else if (ListProductPreview.status == 204) return 0;
+    else return ListProductPreview.data.data.length;
+  };
   return (
     <div className="flex justify-center flex-row">
-      <div className="w-1171px h-11 mt-6 flex justify-start flex-nowrap whitespace-nowrap">
+      <div className="w-1171px h-11 mt-6 flex justify-between flex-nowrap whitespace-nowrap">
         <div className="flex flex-col">
-          <h1 className=" font-normal text-2xl text-purple-text">
-            {checkObjectEmpty(handleCategory)
-              ? "All"
-              : `${handleCategory.Name}`}{" "}
-          </h1>
-          <h1 className="font-normal text-xs self-start mt-2">
-            About {getLengFromList()} results
-          </h1>
+          <div>
+            <h1 className=" font-normal text-2xl text-purple-text">
+              {checkObjectEmpty(handleCategory)
+                ? "All"
+                : `${handleCategory.Name}`}{" "}
+            </h1>
+            <h1 className="font-normal text-xs self-start mt-2">
+              About {getLengFromList()} results
+            </h1>
+          </div>
         </div>
         <div className="ml-200px pt-2 flex items-center">
           <h1 className="font-normal text-purple-text-2 mr-2 ">Perpage:</h1>
@@ -35,8 +37,6 @@ const OptionBar = () => {
           <select className=" w-24 h-7 ml-2 border text-center text-xs text-gray-text-in-select">
             <option value="0">Best match</option>
           </select>
-          <h1 className="font-normal text-purple-text-2 pl-6">View:</h1>
-          <input type="text" className=" ml-60px w-40 border"></input>
         </div>
       </div>
     </div>

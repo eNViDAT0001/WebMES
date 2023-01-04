@@ -75,7 +75,7 @@ export const AddComment = (props) => {
     await ProductApi.AddNewComment(productID, userID, body).then((res) => {
       if (res.status === 200) {
         setDisableButton(false);
-        toast("Bạn đánh giá thành công", {
+        toast("Add Comment Successful", {
           type: "success",
           autoClose: 1000,
           onClose: setTimeout(() => {

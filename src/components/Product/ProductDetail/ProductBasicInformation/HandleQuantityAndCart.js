@@ -49,7 +49,6 @@ const HandleQuantityAndCart = (props) => {
       })
     })
   }
-  console.log(props.id)
   const handleAddToCart = (e) =>{
     if(idOptionSelected==-1){
       toast("You have not selected the option", {
@@ -82,7 +81,6 @@ const HandleQuantityAndCart = (props) => {
             >
               -
             </button>
-
             <Paper variant="outlined" sx={{ width: 40, textAlign: "center" }}>
               {quantity}
             </Paper>

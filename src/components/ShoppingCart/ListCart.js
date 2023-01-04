@@ -1,7 +1,10 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { checkObjectEmpty } from "../../stogare_function/listActions";
+import {
+  checkObjectEmpty,
+  currencyFormat,
+} from "../../stogare_function/listActions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FetchAllCartShopping,
@@ -62,6 +65,7 @@ const ListCart = () => {
   const handleChangeComboBox = (e, value) => {
     dispatch(setSelectedCart(value));
   };
+  
   return (
     <div>
       <div className=" w-[65%]">
@@ -81,18 +85,27 @@ const ListCart = () => {
           <div className="space-y-3">
             <h1 className="font-bold text-xl">Your select:</h1>
             <div>
+              <div className="h-[100px] border flex justify-between items-center px-[10%] shadow-xl ">
+                <input
+                  type="text"
+                  className="w-[25%] h-[45px] min-w-[50px] border rounded-3xl text-center"
+                  placeholder="Coupon code"
+                ></input>
+                <button className="w-[25%] min-w-[50px] border h-[45px] rounded-2xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
+                  APPLY COUPON
+                </button>
+              </div>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 400 }} aria-label="customized table">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Image</StyledTableCell>
-                      <StyledTableCell align="right">Name </StyledTableCell>
-                      <StyledTableCell align="right">Price</StyledTableCell>
-                      <StyledTableCell align="right">Quantity</StyledTableCell>
-                      <StyledTableCell align="right">Discount</StyledTableCell>
-                      <StyledTableCell align="right">Option</StyledTableCell>
-
-                      <StyledTableCell align="right">Total</StyledTableCell>
+                      <StyledTableCell align="center">Name </StyledTableCell>
+                      <StyledTableCell align="center">Price</StyledTableCell>
+                      <StyledTableCell align="center">Quantity</StyledTableCell>
+                      <StyledTableCell align="center">Discount</StyledTableCell>
+                      <StyledTableCell align="center">Option</StyledTableCell>
+                      <StyledTableCell align="center">Total</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -112,25 +125,31 @@ const ListCart = () => {
                               className="w-[100px] h-[100px]"
                             ></img>
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {row.name}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {row.price}
+                          <StyledTableCell align="center">
+                            {currencyFormat(row.price)}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {row.quantity}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {row.discount}{" "}
+                          <StyledTableCell align="center">
+                            <div className="px-3 py-1 border border-[#D80001] text-[#D80001]">
+                              -{row.discount}%
+                            </div>
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {row.option_name}{" "}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {(row.quantity*row.price)*(100-row.discount)/100}{" "}
+                          <StyledTableCell align="center">
+                            {currencyFormat(
+                              (row.quantity *
+                                row.price *
+                                (100 - row.discount)) /
+                                100
+                            )}{" "}
                           </StyledTableCell>
-
                         </StyledTableRow>
                       ))
                     )}

@@ -23,7 +23,7 @@ const ProductBrand = () => {
     if (DataCategoriesTree.length !== 0) {
       setNewTree({
         ID: 0,
-        Name: "Category",
+        Name: "All",
         CategoryChildren: DataCategoriesTree,
       });
     }
@@ -40,6 +40,7 @@ const ProductBrand = () => {
     
     }
       key={nodes.ID}
+      
       nodeId={nodes.ID}
       label={nodes.Name}
     >

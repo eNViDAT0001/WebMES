@@ -6,6 +6,7 @@ import AddressReducer from './slices/AddressSlice'
 import AdminReducer from './slices/AdminSlice'
 import CommentReducer from './slices/CommentSlice'
 import ProviderReducer from './slices/ProviderSlice'
+import CartReducer from './slices/CartSlice'
 export const store = configureStore({
   reducer: {
     test: TestApiReducer,
@@ -14,7 +15,8 @@ export const store = configureStore({
     address: AddressReducer,
     admin: AdminReducer,
     comment: CommentReducer,
-    provider: ProviderReducer
+    provider: ProviderReducer,
+    cart: CartReducer,
   },
   middleware: getDefaultMiddleware =>
   getDefaultMiddleware({

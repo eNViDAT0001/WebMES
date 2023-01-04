@@ -4,6 +4,7 @@ import { ProductApi } from "../../api/ProductApi";
 import { transformFilters } from "../../stogare_function/listActions";
 const initialState= {
     ProductDetail:{},
+    ProductInBanner:{},
     Specification:[],
     Description:{},
     Media:{},
@@ -13,6 +14,8 @@ const initialState= {
     CategoryTree:[],
     CategoryRoof:{},
     CategoryHandle:{},
+    Quantity: 1,
+    OptionIdSelected: -1,
 }
 
 
@@ -22,8 +25,17 @@ const productSlice = createSlice({
     reducers:
     {
         resetProduct:()=>initialState,
+        setOptionIdSelected:(state,action)=>{
+            state.OptionIdSelected = action.payload          
+        },
         setProductDetail: (state,action) =>{
             state.ProductDetail = action.payload
+        },
+        setQuantity:(state,action)=>{
+            state.Quantity = action.payload
+        },
+        setProductInBanner:(state,action)=>{
+            state.ProductInBanner = action.payload
         },
         setCategoryHandle:(state,action)=>{
             state.CategoryHandle = action.payload
@@ -54,6 +66,17 @@ const productSlice = createSlice({
         }
     }
 })
+
+
+export const FetchProductInBanner = (id) => async(dispatch) =>{
+    try {
+        const response = await ProductApi.GetDetailBanner(id)
+        dispatch(setProductInBanner(response))
+    } catch (error) {
+        
+    }
+}
+
 export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
     try {
         const response = await ProductApi.GetProductFromCategorySelected(id)
@@ -164,6 +187,9 @@ export const {
     setDescription,
     setMedia,
     setSpecification,
+    setProductInBanner,
     resetProduct,
+    setOptionIdSelected,
+    setQuantity,
 } = productSlice.actions
 export default productSlice.reducer

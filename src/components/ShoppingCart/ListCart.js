@@ -1,54 +1,150 @@
-import symbolIncrease from '../../assets/+.png'
-import symbolDecrease from '../../assets/-.png'
-import { CART_DUMMY_DATABASE } from '../../dummy_database/CartDummyDatabase'
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { checkObjectEmpty } from "../../stogare_function/listActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  FetchAllCartShopping,
+  setSelectedCart,
+} from "../../store/slices/CartSlice";
+import TableRow from "@mui/material/TableRow";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import { Button, IconButton, Paper, TableHead } from "@mui/material";
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const ListCart = () => {
-    return(<div className=" w-[65%]">  
-                <div>
+  const dispatch = useDispatch();
+  const listCart = useSelector((state) => state.cart.listCart);
+  const selectedCart = useSelector((state) => state.cart.selectedCart);
 
-                {CART_DUMMY_DATABASE.map(data=>(
-                    <div key={data.id} className="mb-8 shadow-lg">
-                        <h1 className= "text-[#101075] text-3xl  mb-4 font-['Josefin_Sans']">ShopName: {data.providerName}</h1>
-                        <div className="flex flex-row justify-between items-center h-[52px] px-[10%] font-['Poppins_Bold'] text-sm font-bold border" >
-                            <h1>PRODUCT</h1>
-                            <h1 className=" ml-[180px]">PRICE</h1>
-                            <h1 className="ml-4">QUANTITY</h1>
-                            <h1 className="mr-[-10px]">TOTAL</h1>
-                        </div>
-                        {data.cartItems.map(item=>(
-                            <div key = {item.id} className="flex flex-row justify-between items-center h-[185px] px-[10%] border">
-                            <img src={item.images} alt="anh san pham" className="h-[60px] w-[80px] "></img>
-                            <h1>{item.name}</h1>
-                            <price>{item.price}$</price>
-                        <div className="flex justify-start">
-                            <button className="flex justify-center items-center w-[45px] h-[45px] border ">
-                                <img src={symbolDecrease} alt="Dau -"></img>
-                            </button>
-                            <input className="w-[45px] h-[45px] bg-[#f7f7f7] flex justify-start items-center 
-                                        text-xs text-center pointer-events-none" type="text" value="1" ></input>
-                            <button className="flex justify-center items-center w-[45px] h-[45px]  border">
-                                <img src={symbolIncrease} alt="Dau +"></img>
-                            </button>
-                        </div>
-                        <h1>{item.price}$</h1>
-                    </div>
-                    
-                    ))}
-                    <div className='h-[100px] border flex justify-between items-center px-[10%] '>
-                        <input type="text" className='w-[35%] h-[55px] min-w-[100px] border rounded-3xl text-center' placeholder='Coupon code'></input>
-                        <button className="w-[25%] min-w-[100px] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
-                            APPLY COUPON
-                        </button>
-                        <button className="w-[25%] min-w-[100px] border h-[45px] rounded-3xl bg-[#e6e6e6] hover:bg-[#717fe0] hover:text-white">
-                            UPDATE CART
-                        </button>
-                        </div>
-                    </div>
-                ))}    
+  const [optionListCart, setOptionListCart] = useState([]);
+  const [isFirstRender, setIsFirseRender] = useState(true);
+
+  const loadCart = useCallback(async () => {
+    await dispatch(FetchAllCartShopping(localStorage.getItem("UserID")));
+  });
+  useLayoutEffect(() => {
+    if (listCart.status != 200 && listCart.status != 204) {
+      loadCart();
+    }
+    if (listCart.status == 200) {
+      if (isFirstRender) {
+        setIsFirseRender(false);
+        const result = listCart.data.data.map(({ Name: label, ...rest }) => ({
+          label,
+          ...rest,
+        }));
+        setOptionListCart(result);
+      }
+    }
+  }, [loadCart, listCart, isFirstRender, setOptionListCart]);
+
+  const handleChangeComboBox = (e, value) => {
+    dispatch(setSelectedCart(value));
+  };
+  return (
+    <div>
+      <div className=" w-[65%]">
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={optionListCart}
+          onChange={handleChangeComboBox}
+          sx={{ width: 300 }}
+          renderInput={(params) => (
+            <TextField {...params} label="Select your Provider" />
+          )}
+        />
+      </div>
+      <div>
+        {!checkObjectEmpty(selectedCart) ? (
+          <div className="space-y-3">
+            <h1 className="font-bold text-xl">Your select:</h1>
+            <div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 400 }} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>Image</StyledTableCell>
+                      <StyledTableCell align="right">Name </StyledTableCell>
+                      <StyledTableCell align="right">Price</StyledTableCell>
+                      <StyledTableCell align="right">Quantity</StyledTableCell>
+                      <StyledTableCell align="right">Discount</StyledTableCell>
+                      <StyledTableCell align="right">Option</StyledTableCell>
+
+                      <StyledTableCell align="right">Total</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {selectedCart.Items.length === 0 ? (
+                      <div></div>
+                    ) : (
+                      selectedCart.Items.map((row) => (
+                        <StyledTableRow key={row.id}>
+                          <StyledTableCell
+                            component="th"
+                            scope="row"
+                            sx={{ width: 100, padding: 1 }}
+                          >
+                            <img
+                              src={row.media_path}
+                              alt="Anh san pham"
+                              className="w-[100px] h-[100px]"
+                            ></img>
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.price}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.quantity}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.discount}{" "}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.option_name}{" "}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {(row.quantity*row.price)*(100-row.discount)/100}{" "}
+                          </StyledTableCell>
+
+                        </StyledTableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
-                
-    </div>)
-}
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default ListCart
+export default ListCart;

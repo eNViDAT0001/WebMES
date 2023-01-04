@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const ORDER = {
   LOGIN_ROUTE: "/login",
   ORDER_ROUTE: "/order",
 };
 export const HeaderUser = () => {
+  const navigate = useNavigate()
 
   const [orderRoute, setOrderRoute] = useState("/login");
 
@@ -19,7 +20,10 @@ export const HeaderUser = () => {
     };
      changeRoute()
   }, []);
-
+  const goToCategory = (e)=>{
+    localStorage.removeItem("CategorySave")
+    navigate('/category/0')
+  }
   return (
     <div className="bg-white shadow-sm ">
       <div className="md:flex md:justify-around md:items-center sm:px-12 px-4 bg-white py-2">
@@ -34,12 +38,12 @@ export const HeaderUser = () => {
             >
               Home
             </Link>
-            <Link
-              to="/category/0"
+            <div
+              onClick={goToCategory}
               className="text-gray-800 hover:text-[#FB2E86] duration-300"
             >
               Products
-            </Link>
+            </div>
             <div>
               <Link
                 to={orderRoute}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FetchAllProductBanner } from "../../store/slices/ProductSlice";
 
 
@@ -28,7 +29,7 @@ const Banner = () => {
       }
     }
    
-  },[DataBanner,banner,isFirstRender,dispatch])
+  },[DataBanner,banner,isFirstRender,dispatch,loadBanner])
 
   const onPrevClickHandler = () => {
     const index = DataBanner.data.data.indexOf(banner);
@@ -43,17 +44,20 @@ const Banner = () => {
       setBanner(DataBanner.data.data[0]);
     } else setBanner(DataBanner.data.data[index + 1]);
   };
+  
   return (
     <div>
       {banner !== undefined ? (
         <div className="flex justify-center items-center px-[15%] border hover:shadow-md ">
-          <div className="w-full h-[600px] hover:cursor-pointer">
+          <Link className="w-full h-[600px] hover:cursor-pointer"
+            to={`/banner-detail/${banner.ID}`}
+          >
             <img
               src={banner.Image}
               alt="Anh banner"
               className="w-full h-full skew-y-3 md:transform-none"
             ></img>
-          </div>
+          </Link>
           <div className="w-full h-auto flex items-center justify-between absolute  px-5 ">
             <button onClick={onPrevClickHandler}>
               <AiOutlineVerticalRight

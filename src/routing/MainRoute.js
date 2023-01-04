@@ -23,6 +23,7 @@ import { AdminPages } from "../pages/AdminPages/AdminPages";
 import { BrandPages } from "../pages/BrandPages/BrandGeneral";
 import { BrandDetailPages } from "../pages/BrandPages/BrandDetailPages";
 import { AddProductInBrand } from "../components/Brand/BrandDetail/AddProductInBrand";
+import { BannerDetailPage } from "../pages/HomePages/BannerDetailPage";
 
 function MainRoute() {
   return (
@@ -57,7 +58,7 @@ function MainRoute() {
           <Route path="/brand-detail/:id" element={<BrandDetailPages/>} />
           <Route path="/notification/:id" element={<NotFoundPage/>} />
           <Route path="/add-product-in-brand/:id" element={<AddProductInBrand />} />
-
+          <Route path={`banner-detail/:id`} element={<BannerDetailPage />} />
         </Route>
 
       </Routes>

@@ -7,6 +7,7 @@ import {
 import {
   FetchDetailProduct,
   FetchSpecificationFromOneProduct,
+  setOptionIdSelected,
 } from "../../../../store/slices/ProductSlice";
 import { fetchAllComment } from "../../../../store/slices/CommentSlice";
 import { Divider } from "@mui/material";
@@ -144,11 +145,13 @@ const TitleAndType = (props) => {
                                     setPrice(
                                       parseInt(price) + parseInt(option.price)
                                     );
+                                    dispatch(setOptionIdSelected(option.id))
                                     setIsClickOption(true);
                                   }
                                 } else {
                                   if (optionHandle.id === option.id) {
                                     setIsClickOption(false);
+                                    dispatch(setOptionIdSelected(-1))
                                     setOptionHandle(initialOpion);
                                     setPrice(product.Price);
                                   } else {

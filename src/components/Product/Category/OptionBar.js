@@ -5,18 +5,27 @@ import { FetchProductInCategory } from "../../../store/slices/ProductSlice";
 
 const OptionBar = () => {
   const dispatch = useDispatch();
-  const ListProductPreview = useSelector((state) => state.product.ProductPreviewInCategory);
-  const handleCategory = useSelector(state=>state.product.CategoryHandle)
- 
+  const ListProductPreview = useSelector(
+    (state) => state.product.ProductPreviewInCategory
+  );
+  const handleCategory = useSelector((state) => state.product.CategoryHandle);
+  const getLengFromList=()=>{
+    if(checkObjectEmpty(ListProductPreview)) return 0
+    else if (ListProductPreview.status!=200) return 0
+    else if (ListProductPreview.status==204) return 0
+    else return ListProductPreview.data.data.length
+  }
   return (
     <div className="flex justify-center flex-row">
       <div className="w-1171px h-11 mt-6 flex justify-start flex-nowrap whitespace-nowrap">
         <div className="flex flex-col">
           <h1 className=" font-normal text-2xl text-purple-text">
-          {checkObjectEmpty(handleCategory) ? "Category" : `${handleCategory.Name}` }          </h1>
+            {checkObjectEmpty(handleCategory)
+              ? "All"
+              : `${handleCategory.Name}`}{" "}
+          </h1>
           <h1 className="font-normal text-xs self-start mt-2">
-            {" "}
-            About {checkObjectEmpty(ListProductPreview) ? 0 : ListProductPreview.data.data.length} results{" "}
+            About {getLengFromList()} results
           </h1>
         </div>
         <div className="ml-200px pt-2 flex items-center">

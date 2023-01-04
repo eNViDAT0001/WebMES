@@ -5,7 +5,11 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import Paper from "@mui/material/Paper";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setQuantity } from "../../../../store/slices/ProductSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
+import { CartShoppingApi } from "../../../../api/CartShopping";
 const AddToCartButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#D0011B"),
   backgroundColor: "#D0011B",
@@ -13,10 +17,57 @@ const AddToCartButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#D0011B",
   },
 }));
+/*
+toast("Bạn đánh giá thành công", {
+  type: "success",
+  autoClose: 1000,
+  onClose: setTimeout(() => {
+    window.location.reload();
+  }, 1000),
+});*/
 
-const HandleQuantityAndCart = () => {
-  const [quantity, setQuantity] = useState(1);
+const HandleQuantityAndCart = (props) => {
+  const dispatch = useDispatch()
 
+  const quantity = useSelector(state=>state.product.Quantity)
+  const idOptionSelected = useSelector(state=>state.product.OptionIdSelected)
+  const product = useSelector(state=>state.product.ProductDetail)
+
+  console.log(product)
+
+
+
+  const AddToCart = async(productID,providerID,userID,body) =>{
+    await CartShoppingApi.AddNewCartShopping(productID,providerID,userID,body)
+    .then(res=>{
+      toast("Add to Cart Success", {
+        type: "success",
+        autoClose: 2000,
+        onClose: setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+      })
+    })
+  }
+  console.log(props.id)
+  const handleAddToCart = (e) =>{
+    if(idOptionSelected==-1){
+      toast("You have not selected the option", {
+        type: "warning",
+        autoClose: 1000,
+      })
+    }else{
+      const productID = props.id 
+      const providerID = product.data.data.ProviderID
+      const userID = localStorage.getItem("UserID")
+
+      const body={
+        "product_option_id": idOptionSelected,
+        "quantity" : quantity
+      }
+      AddToCart(productID,providerID,userID,body)
+    }
+  }
   return (
     <div>
       <div className="flex flex-col space-y-6 mt-10">
@@ -26,7 +77,7 @@ const HandleQuantityAndCart = () => {
             <button
               className="px-2 border"
               onClick={() => {
-                setQuantity(Math.max(quantity - 1, 0));
+                dispatch(setQuantity(Math.max(quantity - 1, 1)));
               }}
             >
               -
@@ -39,7 +90,7 @@ const HandleQuantityAndCart = () => {
             <button
               className="border px-2"
               onClick={() => {
-                setQuantity(quantity + 1);
+                dispatch(setQuantity(quantity + 1));
               }}
             >
               +
@@ -50,6 +101,7 @@ const HandleQuantityAndCart = () => {
             <AddToCartButton
               variant="outlined"
               startIcon={<ShoppingCartIcon />}
+              onClick={handleAddToCart}
             >
               Add to cart
             </AddToCartButton>

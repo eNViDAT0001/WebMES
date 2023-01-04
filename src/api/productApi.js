@@ -49,7 +49,7 @@ export const ProductApi = {
         return axiosClient.get(url) 
     },
     GetProductFromCategorySelected:(id)=>{
-        const url=`/products/${id}/preview`
+        const url=`/products/category/${id}/preview`
         return axiosClient.get(url)
     }
 

@@ -8,10 +8,15 @@ const ListOfProducts = () => {
   const ListProductPreview = useSelector(
     (state) => state.product.ProductPreviewInCategory
   );
+  const emptyListProductPreview = () =>{
+    if(checkObjectEmpty(ListProductPreview)) return true
+    else if(ListProductPreview.status==200) return false
+    else if(ListProductPreview.status==204) return true
+  }
 
   return (
     <div className="w-full">
-      {checkObjectEmpty(ListProductPreview) ? (
+      {(emptyListProductPreview()) ? (
         <div></div>
       ) : (
         <div className="flex flex-col w-full">

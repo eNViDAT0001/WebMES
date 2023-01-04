@@ -33,7 +33,7 @@ export const ListComment = (props) => {
       setListComment(Comment.data.data)
       setMeta(Comment.data.meta)
     }
-  }, [loadComment,dispatch, Comment, props.id, filters,meta,listComment]);
+  }, [loadComment,dispatch, Comment, props.id,meta,listComment]);
 
   useEffect(() => {
       dispatch(fetchCommentPaging(props.id, transformFilters(filters)));

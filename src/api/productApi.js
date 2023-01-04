@@ -13,7 +13,7 @@ export const ProductApi = {
         return axiosClient.get(url)
     },
     GetDetailBanner:(id)=>{
-        const url=`/banners/${id}/products`
+        const url=`/banners/${id}/product/preview`
         return axiosClient.get(url)
     },
     GetCategoriesRoof:()=>{

@@ -3,10 +3,12 @@ import OptionBar from "../../components/Product/Category/OptionBar";
 import ProductBrand from "../../components/Product/Category/ProductBrand";
 import RatingItem from "../../components/Product/Category/RatingItems";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import {
+  FetchAllCategoryTree,
+  FetchFullProductInCategory,
   FetchProductFromSelectCategory,
-  FetchProductInCategory,
+  setCategoryHandle,
 } from "../../store/slices/ProductSlice";
 import ListOfProducts from "../../components/Product/Category/ListOfProducts";
 import { useParams } from "react-router-dom";
@@ -15,45 +17,71 @@ import { checkObjectEmpty } from "../../stogare_function/listActions";
 const CategoryPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const selectorData= useSelector((state) => state.product.CategoryHandle)
-  const ListProducts = useSelector(
-    (state) => state.product.ProductPreviewInCategory
-  );
 
-    
+  const CategoryTree = useSelector((state) => state.product.CategoryTree);
+  const ProductInCategory = useSelector((state) => state.product.ProductPreviewInCategory);
+  const CategoryHandle = useSelector((state) => state.product.CategoryHandle);
 
-  useEffect(() => {
-    if (id == 0) {
-       dispatch(FetchProductInCategory());
-    } else {
-      dispatch(FetchProductFromSelectCategory(id));
-    }
-  }, [dispatch, id]);
+  const loadCategoryTree = useCallback(async () => {
+    await dispatch(FetchAllCategoryTree());
+  });
+
+  const loadFullProductInCategory = useCallback(async () => {
+    await dispatch(FetchFullProductInCategory());
+  });
+
+  const loadProductInCategorySelected = useCallback(async () => {
+    await dispatch(FetchProductFromSelectCategory(id));
+  });
+
 
   useEffect(()=>()=>{
-    localStorage.removeItem("CategorySave")
-    localStorage.setItem("CategorySave",JSON.stringify(selectorData))
-  },[])
+    localStorage.removeItem("IDReloadCategory")
+    localStorage.setItem("IDReloadCategory",id)
+  },[id])
 
+  useLayoutEffect(() => {
+    if((CategoryTree.status != 204) && (CategoryTree.status != 200)){
+      loadCategoryTree();
+    }
+    if((ProductInCategory.status!=204) && (ProductInCategory.status!=200)){
+      if (id == 0) {
+        loadFullProductInCategory();
+      } else {
+        loadProductInCategorySelected(id);
+      }
+    }
+    if (CategoryTree.status == 200) {
+      const result = {CategoryChildren: CategoryTree.data.data}
+      //thuat toan tim kiem cay dua theo de quy
+      const searchNodeFromTree = (result)=>{
+        if(result.CategoryChildren) result.CategoryChildren.map(data=>{
+          if(data.ID==id){
+            dispatch(setCategoryHandle(data))
+          }
+          else searchNodeFromTree(data)
+        })
+      }
+      searchNodeFromTree(result)
+    }
+  }, [dispatch, CategoryHandle, ProductInCategory,id,loadCategoryTree,CategoryTree,loadFullProductInCategory,loadProductInCategorySelected]);
+
+  
   return (
     <div>
       <HeaderBar
         name1="Home .Products ."
-        name2= 
-        {checkObjectEmpty(selectorData)
-          ? "All"
-          : `${selectorData.Name}`}
-        
+        name2={checkObjectEmpty(CategoryHandle) ? "All" : `${CategoryHandle.Name}`}
       />
       <OptionBar />
       <div className="flex justify-center font-['Josefin_Sans'] ">
         <div className="w-[78%]">
           <div className="flex flex-row justify-start my-[100px] space-x-10 w-full">
             <div className="flex flex-col">
-              <ProductBrand />
-              <RatingItem />
+              <ProductBrand id={id}/>
+              <RatingItem id={id}/>
             </div>
-            <ListOfProducts />
+            <ListOfProducts id={id}/>
           </div>
         </div>
       </div>

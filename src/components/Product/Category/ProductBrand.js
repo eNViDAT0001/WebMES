@@ -50,11 +50,16 @@ const ProductBrand = () => {
     </TreeItem>
   );
 
+  const handleSelect=(e,value)=>{
+    console.log(value)
+  }
   return (
     <div>
       <TreeView
         aria-label="rich object"
         defaultCollapseIcon={<ExpandMoreIcon />}
+        onNodeSelect={handleSelect}
+
         defaultExpanded={["root"]}
         defaultExpandIcon={<ChevronRightIcon />}
         sx={{ flexGrow: 1, maxWidth: 400, overflowY: "auto" }}

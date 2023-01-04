@@ -22,7 +22,9 @@ export const HeaderUser = () => {
   }, []);
   const goToCategory = (e)=>{
     localStorage.removeItem("CategorySave")
-    navigate('/category/0')
+    console.log(localStorage.getItem("IDReloadCategory"))
+    if(localStorage.getItem("IDReloadCategory")==0) navigate('/category/0')
+    else navigate(`/category/${localStorage.getItem("IDReloadCategory")}`)
   }
   return (
     <div className="bg-white shadow-sm ">

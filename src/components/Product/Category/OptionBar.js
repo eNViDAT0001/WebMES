@@ -5,10 +5,12 @@ import { FetchProductInCategory } from "../../../store/slices/ProductSlice";
 
 const OptionBar = () => {
   const dispatch = useDispatch();
-  const ListProductPreview = useSelector(
-    (state) => state.product.ProductPreviewInCategory
-  );
+  
+  const ListProductPreview = useSelector((state) => state.product.ProductPreviewInCategory);
   const handleCategory = useSelector((state) => state.product.CategoryHandle);
+  
+  
+  
   const getLengFromList = () => {
     if (checkObjectEmpty(ListProductPreview)) return 0;
     else if (ListProductPreview.status != 200) return 0;

@@ -2,12 +2,32 @@ import Rating from "react-rating";
 import starActive from "../../../assets/star.png";
 import starNotActive from "../../../assets/star_not.png";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkObjectEmpty } from "../../../stogare_function/listActions";
-const ListOfProducts = () => {
-  const ListProductPreview = useSelector(
-    (state) => state.product.ProductPreviewInCategory
-  );
+import { useCallback, useEffect } from "react";
+import { FetchFullProductInCategory, FetchProductFromSelectCategory } from "../../../store/slices/ProductSlice";
+import { useLayoutEffect } from "react";
+const ListOfProducts = (props) => {
+  const id = props.id
+  const dispatch = useDispatch()
+  const ListProductPreview = useSelector((state) => state.product.ProductPreviewInCategory);
+
+
+  const loadFullProductInCategory = useCallback(async () => {
+    await dispatch(FetchFullProductInCategory());
+  });
+
+  const loadProductInCategorySelected = useCallback(async () => {
+    await dispatch(FetchProductFromSelectCategory(id));
+  });
+  useLayoutEffect(() => {
+    if((ListProductPreview.status!=200) && (ListProductPreview.status!=204)){
+      if(id==0) loadFullProductInCategory()
+      else loadProductInCategorySelected()
+    }
+  }, [dispatch,loadFullProductInCategory,loadProductInCategorySelected,ListProductPreview,id])
+  
+  
   const emptyListProductPreview = () =>{
     if(checkObjectEmpty(ListProductPreview)) return true
     else if(ListProductPreview.status==200) return false

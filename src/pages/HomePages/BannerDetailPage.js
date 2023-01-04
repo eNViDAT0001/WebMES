@@ -9,6 +9,7 @@ import {
   FetchAllProductBanner,
   FetchProductInBanner,
   resetProduct,
+  setProductInBanner,
 } from "../../store/slices/ProductSlice";
 
 export const BannerDetailPage = () => {
@@ -29,6 +30,10 @@ export const BannerDetailPage = () => {
   const loadBanner = useCallback(async () => {
     dispatch(FetchAllProductBanner());
   });
+
+  useEffect(()=>{
+    dispatch(setProductInBanner({}))
+  },[dispatch])
   useEffect(() => {
     if (listBanner.status != 200 && listBanner.status != 204) {
       loadBanner();
@@ -39,7 +44,7 @@ export const BannerDetailPage = () => {
         const result = listBanner.data.data.filter((data) => data.ID == id);
         setOneBanner(result[0]);
       }
-      if (productInBanner.status != 200 && productInBanner.status != 204) {
+      if ((productInBanner.status != 200) && (productInBanner.status != 204)) {
         loadProductInBanner();
       }
     }

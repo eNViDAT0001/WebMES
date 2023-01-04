@@ -11,7 +11,7 @@ const initialState= {
     ProductPreviewInHomePage:{},
     ProductPreviewInCategory:{},
     Banners:{},
-    CategoryTree:[],
+    CategoryTree:{},
     CategoryRoof:{},
     CategoryHandle:{},
     Quantity: 1,
@@ -86,6 +86,18 @@ export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
     }
 }
 
+export const FetchFullProductInCategory = () => async (dispatch) => {
+    try {
+        const filter={
+            "sorts[]":"id_DESC",
+            "limit" : 20,
+        }
+        const response = await ProductApi.GetProductPreview(transformFilters(filter))
+        dispatch(setProductPreviewInCategory(response))
+    } catch (error) {
+        console.log(error)
+    }
+} 
 export const FetchAllProductBanner = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetBanners()
@@ -108,7 +120,7 @@ export const FetchAllCategoryRoof = () => async (dispatch) => {
 export const FetchAllCategoryTree = () => async (dispatch) => {
     try {
         const response = await ProductApi.GetCategoriesTree()
-        dispatch(setCategoryTree(response.data.data))
+        dispatch(setCategoryTree(response))
     } catch (error) {
         console.log(error)
     }
@@ -164,18 +176,7 @@ export const FetchProductInHomePage = () => async (dispatch) => {
     }
 } 
 
-export const FetchProductInCategory = () => async (dispatch) => {
-    try {
-        const filter={
-            "sorts[]":"id_DESC",
-            "limit" : 20,
-        }
-        const response = await ProductApi.GetProductPreview(transformFilters(filter))
-        dispatch(setProductPreviewInCategory(response))
-    } catch (error) {
-        console.log(error)
-    }
-} 
+
 export const {
     setProductDetail,
     setCategoryHandle,

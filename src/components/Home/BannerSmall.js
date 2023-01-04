@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FetchAllCategoryRoof } from "../../store/slices/ProductSlice";
 
 const BannerSmall = () => {
   const dispatch = useDispatch();
   const DataCategories = useSelector((state) => state.product.CategoryRoof);
-
+  
+  
   const LoadCategoryRoof = useCallback(async()=>{
     dispatch(FetchAllCategoryRoof());
 
@@ -15,6 +17,12 @@ const BannerSmall = () => {
       LoadCategoryRoof()
     }
   }, [dispatch, DataCategories,LoadCategoryRoof]);
+
+
+
+  const handleClickCategory=(e)=>{
+    window.location.replace(`/category/${e.currentTarget.id}`)
+  }
   return (
     <div>
       {((DataCategories.status!=200) && (DataCategories.status!=204)) ? (
@@ -28,7 +36,8 @@ const BannerSmall = () => {
             <div className="flex flex-row justify-between">
               {DataCategories.data.data.map((data) => (
                 <div
-                  key={data.ID}
+                  onClick={handleClickCategory}
+                  id={data.ID}
                   className="hover:shadow-xl hover:cursor-pointer border w-[325px] flex flex-row justify-between bg-white"
                 >
                   <img

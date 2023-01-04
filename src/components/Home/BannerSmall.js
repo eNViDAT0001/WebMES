@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FetchAllCategoryRoof } from "../../store/slices/ProductSlice";
 
@@ -10,7 +10,7 @@ const BannerSmall = () => {
     dispatch(FetchAllCategoryRoof());
 
   })
-  useEffect(() => {
+  useLayoutEffect(() => {
     if ((DataCategories.status!=200) && (DataCategories.status!=204)) {
       LoadCategoryRoof()
     }

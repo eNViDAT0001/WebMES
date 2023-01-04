@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,20 +11,24 @@ const Banner = () => {
   const DataBanner = useSelector((state) => state.product.Banners);
   const [banner, setBanner] = useState();
   const [isFirstRender,setIsFirseRender] = useState(true)
-  useEffect(()=>{
+
+  const loadBanner = useCallback(async()=>{
+    await dispatch(FetchAllProductBanner());
+
+  })
+
+  useLayoutEffect(()=>{
+    if ((DataBanner.status!=200) && (DataBanner.status!=204)) {
+      loadBanner()
+    }
     if(DataBanner.status==200){
       if(isFirstRender){
         setBanner(DataBanner.data.data[0])
         setIsFirseRender(false)
-
       }
     }
-  },[DataBanner,banner,isFirstRender])
-  useEffect(() => {
-    if ((DataBanner.status!=200) && (DataBanner.status!=204)) {
-      dispatch(FetchAllProductBanner());
-    }
-  }, [dispatch, DataBanner,banner]);
+   
+  },[DataBanner,banner,isFirstRender,dispatch])
 
   const onPrevClickHandler = () => {
     const index = DataBanner.data.data.indexOf(banner);

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import TabContext from "@mui/lab/TabContext";
 import TabPanel from "@mui/lab/TabPanel";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FetchDescriptionFromOneProduct } from "../../../../../store/slices/ProductSlice";
 import { checkObjectEmpty } from "../../../../../stogare_function/listActions";
 import { Description } from "./Description";
@@ -44,21 +44,25 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 export const TabDescription = (props) => {
+  const dispatch = useDispatch();
+
+  const getDescription = useSelector((state) => state.product.Description);
+
   const [value, setValue] = useState();
   const [isFirstRender,setIsFirstRender] = useState(true)
-  const handleChange = (e, newValue) => {
-    setValue(newValue);
-  };
-  const dispatch = useDispatch();
-  const getDescription = useSelector((state) => state.product.Description);
+
+
+  
   const [listDescription, setListDescription] = useState([]);
+
+  const loadDescription =  useCallback(async()=>{
+    await dispatch(FetchDescriptionFromOneProduct(props.id));
+
+  })
   useEffect(() => {
     if (getDescription.status != 200 && getDescription.status != 204) {
-      dispatch(FetchDescriptionFromOneProduct(props.id));
+      loadDescription()
     }
-  }, [getDescription, dispatch, props.id]);
-
-  useEffect(() => {
     if (getDescription.status == 200) {
       setListDescription(getDescription.data.data);   
       if(isFirstRender){
@@ -66,8 +70,12 @@ export const TabDescription = (props) => {
         setIsFirstRender(false)
       }   
     }
-  }, [listDescription, getDescription,isFirstRender]);
+  }, [getDescription, dispatch, props.id,listDescription,isFirstRender, loadDescription]);
 
+
+  const handleChange = (e, newValue) => {
+    setValue(newValue);
+  };
   console.log(value)
   return (
     <div>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -21,13 +21,13 @@ const ProductOverview = () => {
     }
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if ((DataProductHomePage.status != 200) && (DataProductHomePage.status != 204))
     {
       loadProducts()
     }
   }, [dispatch, DataProductHomePage, loadProducts]);
-  console.log(DataProductHomePage)
+  
   return (
     <div>
       {((!checkObjectEmpty(DataProductHomePage)) && (DataProductHomePage.status!=204)) ? (

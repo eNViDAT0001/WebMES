@@ -1,5 +1,5 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Divider, Pagination } from "@mui/material";
 import {
@@ -17,25 +17,28 @@ export const ListComment = (props) => {
   const dispatch = useDispatch();
   const Comment = useSelector((state) => state.comment.commentPaging);
   const filters = useSelector((state) => state.comment.filters);
+
+
   const [meta,setMeta] = useState({})
   const [listComment,setListComment] = useState([])
+
+  const loadComment = useCallback(async()=>{
+     await dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
+  })
   useEffect(() => {
     if ((Comment.status != "200") && (Comment.status != "204")) {
-      dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
+      loadComment()    
     }
-  }, [dispatch, Comment, props.id, filters]);
+    if(Comment.status==200){
+      setListComment(Comment.data.data)
+      setMeta(Comment.data.meta)
+    }
+  }, [loadComment,dispatch, Comment, props.id, filters,meta,listComment]);
 
   useEffect(() => {
       dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
   }, [dispatch, props.id, filters]);
 
-
-  useEffect(()=>{
-    if(Comment.status==200){
-      setListComment(Comment.data.data)
-      setMeta(Comment.data.meta)
-    }
-  },[Comment,listComment,meta])
   const handlePaging = (e) => {
     const new_obj = { ...filters, marker: parseInt(e.target.textContent) };
     dispatch(setFilter(new_obj));

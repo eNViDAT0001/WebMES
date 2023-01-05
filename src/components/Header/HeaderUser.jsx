@@ -1,3 +1,4 @@
+import { WindowRounded } from "@mui/icons-material";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,11 +27,15 @@ export const HeaderUser = () => {
     if(localStorage.getItem("IDReloadCategory")==0) navigate('/category/0')
     else navigate(`/category/${localStorage.getItem("IDReloadCategory")}`)
   }
+
+  const handleClickBrand = (e)=>{
+    window.location.replace("/brand")
+  }
   return (
-    <div className="bg-white shadow-sm ">
-      <div className="md:flex md:justify-around md  :items-center  bg-white py-2">
+    <div className="bg-white shadow-sm px-[10%] ">
+      <div className="md:flex md:justify-start md  :items-center  bg-white py-2">
         <div className="md:flex justify-start md:items-center">
-          <Link to="/" className="text-gray-800 border text-4xl font-semibold mr-10 ">
+          <Link to="/" className="text-gray-800 text-4xl font-semibold mr-10 ">
             CES
           </Link>
           <div className="flex flex-row text-2xl space-x-10">
@@ -62,25 +67,17 @@ export const HeaderUser = () => {
               Contact
             </Link>
             {!(userID) ? (<div></div>) : 
-            <Link
-            to="/brand"
+            <div
+            onClick={handleClickBrand}
             className="text-gray-800 hover:text-[#FB2E86] duration-300"
           >
             Brand
-          </Link>}
+          </div>}
           </div>
         </div>
 
-        <div className="md:items-center ">
-          <input
-            type="text"
-            placeholder="Enter..."
-            className="text-gray-800 sm:w-72 w-full sm:mr-5 mr-1 lg:mb-0 mb-4 py-2.5 border rounded px-2 focus:outline-none"
-          ></input>
-          <button className="bg-slate-600 hover:bg-slate-700 duration-300 px-5 py-2.5 rounded-md text-white">
-            Search
-          </button>
-        </div>
+      
+     
       </div>
     </div>
   );

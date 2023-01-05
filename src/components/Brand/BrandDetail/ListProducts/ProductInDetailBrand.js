@@ -7,7 +7,6 @@ export const ProductInDetailBrand = (props) => {
   const handleButtonAdd = (e) => {
     window.location.replace(`/add-product-in-brand/${props.id}`)
   };
-  const handleButtonFilter = (e) => {};
   return (
     <div className="flex justify-center">
       <div className="w-[80%] min-h-[200px] bg-white shadow-lg rounded-2xl p-5 font-[Inter]">
@@ -22,12 +21,6 @@ export const ProductInDetailBrand = (props) => {
         </div>
         <Divider />
         <div className="flex flex-col my-5">
-          <div className="w-[30%] my-4">
-            <Button variant="contained" onClick={handleButtonFilter}>
-              Filter
-            </Button>
-          </div>
-
           <ListViewProducts />
         </div>
         <Divider />

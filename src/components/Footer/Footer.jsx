@@ -11,14 +11,6 @@ const Footer = () => {
           <span className="text-teal-400">CES</span> always with you
         </h1>
         <div>
-          <input
-            type="text"
-            placeholder="Enter..."
-            className="text-gray-800 sm:w-72 w-full sm:mr-5 mr-1 lg:mb-0 mb-4 py-2.5 rounded px-2 focus:outline-none"
-          ></input>
-          <button className="bg-teal-400 hover:bg-teal-500 duration-300 px-5 py-2.5 rounded-md text-white">
-            Register News
-          </button>
         </div>
       </div>
       <div className="md:flex sm:px-12 px-4 bg-[#ffffff19] py-2">

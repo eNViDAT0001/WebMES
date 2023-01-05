@@ -2,7 +2,7 @@
 import ShoppingCart from "../../components/ShoppingCart";
 const CartPage = () =>{
     return(
-        <div>
+        <div className="mb-20">
             <ShoppingCart/>
         </div>
     )

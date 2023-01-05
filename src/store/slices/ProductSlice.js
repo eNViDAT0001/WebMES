@@ -86,13 +86,10 @@ export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
     }
 }
 
-export const FetchFullProductInCategory = () => async (dispatch) => {
+export const FetchFullProductInCategory = (filters) => async (dispatch) => {
     try {
-        const filter={
-            "sorts[]":"id_DESC",
-            "limit" : 20,
-        }
-        const response = await ProductApi.GetProductPreview(transformFilters(filter))
+
+        const response = await ProductApi.GetProductPreview(transformFilters(filters))
         dispatch(setProductPreviewInCategory(response))
     } catch (error) {
         console.log(error)
@@ -163,13 +160,9 @@ export const FetchSpecificationFromOneProduct = (id) => async(dispatch) =>{
         console.log(err)
     }
 }
-export const FetchProductInHomePage = () => async (dispatch) => {
+export const FetchProductInHomePage = (filters) => async (dispatch) => {
     try {
-        const filter={
-            "sorts[]":"id_DESC",
-            "limit" : 20,
-        }
-        const response = await ProductApi.GetProductPreview(transformFilters(filter))
+        const response = await ProductApi.GetProductPreview(transformFilters(filters))
         dispatch(setProductPreviewInHomePage(response))
     } catch (error) {
         console.log(error)

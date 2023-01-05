@@ -46,7 +46,7 @@ const ProductOverview = () => {
                 <div
                   id={data.ID}
                   onClick = {goToProductDetail}
-                  className=" w-[20%] h-[300px] my-5 mx-5 mb-10 hover:scale-105 p-2 hover:border hover:shadow-2xl hover:rounded-xl hover:cursor-pointer "
+                  className=" w-[20%] h-[300px] my-5 mx-5 mb-10 hover:scale-105 p-2 hover:border hover:shadow-2xl hover:rounded-xl hover:cursor-pointer  "
                 >
                   {data.Media ? (
                     <img

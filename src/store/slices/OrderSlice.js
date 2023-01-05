@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { useSelector } from 'react-redux'
 import { OrderApi } from '../../api/OrderApi'
 
 const initialState = {
     OrderAccount:{},
     nameSearch:"",
-    ListOrderInAdmin:{},
-    ListOrderDetailInAdmin:{}
+    ListOrderInProvider:{},
+    OrderDetail:{}
 
 }
 
@@ -16,22 +15,25 @@ const OrderSlice = createSlice({
     initialState,
     reducers:
     {
-        resetOrder:()=>initialState,
         setNameSearch:(state,action)=>{
             state.nameSearch=action.payload
         },
-        setListOrderInAdmin:(state,action)=>{
-            state.ListOrderDetailInAdmin = action.payload
+        setListOrderInProvider:(state,action)=>{
+            state.ListOrderInProvider = action.payload
         },
         setOrderInAccount: (state,action) =>{
             state.OrderAccount = action.payload
         },
-        setListOrderDetailInAdmin: (state,action)=>{
-            state.ListOrderDetailInAdmin = action.payload
+        setListOrderDetail: (state,action)=>{
+            state.OrderDetail = action.payload
         }
     }
 })
-
+export const resetOrder=()=>(dispatch)=>{
+    dispatch(setListOrderDetail({}))
+    dispatch(setListOrderInProvider({}))
+    dispatch(setOrderInAccount({}))
+}
 
 export const FetchOrderInUser = (id,filter) => async(dispatch) =>{
     try {
@@ -42,18 +44,20 @@ export const FetchOrderInUser = (id,filter) => async(dispatch) =>{
     }
 }
 
-export const FetchOrderInAdmin = () => async (dispatch) => {
-    try {
-    
-    } catch (error) {
-        console.log(error)
+export const FetchOrderInProvider = (id,filter) => async(dispatch)=>{
+    try{
+        const response = await OrderApi.GetOrderFromProvider(id,filter)
+        dispatch(setListOrderInProvider(response))
+    }catch(err){
+        console.log(err)
     }
-} 
+}
+
+
 export const {
-    setListOrderDetailInAdmin,
-    setListOrderInAdmin,
+    setListOrderDetail,
     setOrderInAccount,
-    resetOrder,
+    setListOrderInProvider,
     setNameSearch,
 } = OrderSlice.actions
 export default OrderSlice.reducer

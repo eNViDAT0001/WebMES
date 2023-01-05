@@ -62,6 +62,7 @@ const OrderTab = (props) => {
           >
             <Tab value="ALL" label="All order" />
             <Tab value="WAITING" label="Waiting" />
+            <Tab value="CONFIRMED" label="Confirmed" />
             <Tab value="DELIVERING" label="DELIVERING" />
             <Tab value="DELIVERED" label="DELIVERED" />
             <Tab value="CANCEL" label="Cancel" />
@@ -73,13 +74,16 @@ const OrderTab = (props) => {
         <TabPanel value="WAITING" index={1}>
           <OrderTable status="WAITING" />
         </TabPanel>
-        <TabPanel value="DELIVERING" index={2}>
+        <TabPanel value="CONFIRMED" index={2}>
+          <OrderTable status="CONFIRMED" />
+        </TabPanel>
+        <TabPanel value="DELIVERING" index={3}>
           <OrderTable status="DELIVERING" />
         </TabPanel>
-        <TabPanel value="DELIVERED" index={0}>
+        <TabPanel value="DELIVERED" index={4}>
           <OrderTable status="DELIVERED" />
         </TabPanel>
-        <TabPanel value="CANCEL" index={0}>
+        <TabPanel value="CANCEL" index={5}>
           <OrderTable status="CANCEL" />
         </TabPanel>
       </TabContext>

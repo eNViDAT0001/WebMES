@@ -14,7 +14,7 @@ export const TotalOrder = () => {
   const user = JSON.parse(localStorage.getItem("UserInWeb"));
     const bill = JSON.parse(localStorage.getItem("SaveCart"))
 
-    console.log(bill)
+    //console.log(bill)
 const navigate = useNavigate()
   const nameInForm = useSelector((state) => state.address.NameInFormCreate);
   const phoneInForm = useSelector((state) => state.address.PhoneInFormCreate);
@@ -46,7 +46,7 @@ const navigate = useNavigate()
   const addToList = (bill,listSave) =>{
     if((Array.isArray(listSave)) && (bill)){
         bill.Items.map(data=>{
-            const body={...data,"provider_id": bill.ProviderID,"category_id": 1}
+            const body={...data,"provider_id": bill.ProviderID,"product_option_id": data.option_id}
             listSave.push(body)
         })
     }
@@ -59,11 +59,11 @@ const navigate = useNavigate()
         if(res.status==200){
         toast("You add order success", {
             type: "success",
-            autoClose: 3000,
+            autoClose: 1000,
             onClose:setTimeout(()=>{
                 window.location.reload()
                 localStorage.removeItem("SaveCart")
-            },3000)
+            },1500)
           });
         }
     })
@@ -72,9 +72,9 @@ const navigate = useNavigate()
   const CreateOrderFromInputForm = () => {
     const body = {
         "user_id" : user.ID,
-        "name" : user.name,
+        "name" : nameInForm,
         "gender" : user.gender,
-        "phone" : user.phone,
+        "phone" : phoneInForm,
         "province" : provinceInForm,
         "district" : districtInForm,
         "ward" : wardInForm,
@@ -82,16 +82,16 @@ const navigate = useNavigate()
         "card_item_ids": [parseInt(bill.ID)],
         "quantity": parseInt(localStorage.getItem("TotalQuantity")),
         "total" : parseInt(localStorage.getItem("TotalPrice")),
-        "Items": addToList(bill,[])
+        "items": addToList(bill,[])
     };
     AddNewOrder(body)
   };
   const CreateOrderFromSelectAddress = () =>{
     const body = {
         "user_id" : user.ID,
-        "name" : user.name,
+        "name" : formAddressSelected.Name,
         "gender" : user.gender,
-        "phone" : user.phone,
+        "phone" : formAddressSelected.Phone,
         "province" : formAddressSelected.Province,
         "district" : formAddressSelected.District,
         "ward" : formAddressSelected.Ward,
@@ -99,7 +99,7 @@ const navigate = useNavigate()
         "card_item_ids": [parseInt(bill.ID)],
         "quantity": parseInt(localStorage.getItem("TotalQuantity")),
         "total" : parseInt(localStorage.getItem("TotalPrice")),
-        "Items": addToList(bill,[])
+        "items": addToList(bill,[])
     };
     AddNewOrder(body)
   };
@@ -121,6 +121,7 @@ const navigate = useNavigate()
       CreateOrderFromSelectAddress();
     }
   };
+
 
   return (
     <div className=" bg-[#F4F4FC] p-6 space-y-10">

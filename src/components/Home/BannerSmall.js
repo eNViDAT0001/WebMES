@@ -33,7 +33,7 @@ const BannerSmall = () => {
             <h1 className=" text-xl font-['Poppins_Bold'] font-extrabold uppercase text-[#000000]">
               can interest you
             </h1>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between flex-wrap">
               {DataCategories.data.data.map((data) => (
                 <div
                   onClick={handleClickCategory}

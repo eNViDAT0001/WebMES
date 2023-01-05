@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux'
 import { OrderApi } from '../../api/OrderApi'
 
 const initialState = {
     OrderAccount:{},
-    filterOrderAccount:{},
+    nameSearch:"",
     ListOrderInAdmin:{},
     ListOrderDetailInAdmin:{}
 
@@ -15,6 +16,10 @@ const OrderSlice = createSlice({
     initialState,
     reducers:
     {
+        resetOrder:()=>initialState,
+        setNameSearch:(state,action)=>{
+            state.nameSearch=action.payload
+        },
         setListOrderInAdmin:(state,action)=>{
             state.ListOrderDetailInAdmin = action.payload
         },
@@ -28,9 +33,9 @@ const OrderSlice = createSlice({
 })
 
 
-export const FetchOrderInUser = (id) => async(dispatch) =>{
+export const FetchOrderInUser = (id,filter) => async(dispatch) =>{
     try {
-        const response = await OrderApi.GetOrderFromUser(id)
+        const response = await OrderApi.GetOrderFromUser(id,filter)
         dispatch(setOrderInAccount(response))
     } catch (error) {
         console.log(error)
@@ -48,5 +53,7 @@ export const {
     setListOrderDetailInAdmin,
     setListOrderInAdmin,
     setOrderInAccount,
+    resetOrder,
+    setNameSearch,
 } = OrderSlice.actions
 export default OrderSlice.reducer

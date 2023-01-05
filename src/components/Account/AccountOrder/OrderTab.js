@@ -9,13 +9,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import { TabPanel } from "@mui/lab";
 import { TabContext } from "@mui/lab";
 import { OrderTable } from "./OrderTable";
+import { useDispatch } from "react-redux";
+import { setNameSearch } from "../../../store/slices/OrderSlice";
 
 const OrderTab = (props) => {
   const [value, setValue] = React.useState("ALL");
-
+  const dispatch = useDispatch()
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleChangeText=(e)=>{
+    dispatch(setNameSearch(e.target.value))
+  }
+
 
   return (
     <div className="p-10 w-full space-y-5">
@@ -30,12 +36,15 @@ const OrderTab = (props) => {
             width: "100%",
           }}
         >
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <IconButton 
+          type="button" sx={{ p: "10px" }} aria-label="search">
             <SearchIcon />
           </IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search"
+            onChange={handleChangeText}
+
             inputProps={{ "aria-label": "search" }}
           />
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />

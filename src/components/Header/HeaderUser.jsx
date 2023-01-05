@@ -28,12 +28,12 @@ export const HeaderUser = () => {
   }
   return (
     <div className="bg-white shadow-sm ">
-      <div className="md:flex md:justify-around md:items-center sm:px-12 px-4 bg-white py-2">
-        <div className="md:flex md:items-center">
-          <Link to="/" className="text-gray-800 text-4xl font-semibold ">
+      <div className="md:flex md:justify-around md  :items-center  bg-white py-2">
+        <div className="md:flex justify-start md:items-center">
+          <Link to="/" className="text-gray-800 border text-4xl font-semibold mr-10 ">
             CES
           </Link>
-          <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-5 gap-10 md:items-center text-gray-900 text-2xl ml-10">
+          <div className="flex flex-row text-2xl space-x-10">
             <Link
               to="/"
               className="text-gray-800 hover:text-[#FB2E86] duration-300"

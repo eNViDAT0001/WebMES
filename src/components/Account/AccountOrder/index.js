@@ -7,7 +7,7 @@ const AccountOrder = (props) =>{
         <div>
             <HeaderBar name1="Home .Account" name2=" . Orders"/>
             <div className="flex justify-center">
-                <div className=" w-[85%] h-full flex flex-row ">
+                <div className=" w-[85%] h-full flex flex-row mb-[500px]">
                     <ChangeBarInformation id={props.id} />
                     <OrderTab />
                 </div>

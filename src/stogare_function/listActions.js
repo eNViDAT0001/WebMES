@@ -6,6 +6,7 @@ export const checkObjectEmpty = (object) => {
     return Object.keys(object).length === 0;
   };
 export const transformFilters = (filters) => {
+    if(filters==undefined) return ""
     var result = Object.keys(filters)
       .map((key) => {
         return "" + key + "=" + filters[key]; // line break for wrapping only

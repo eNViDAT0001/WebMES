@@ -5,6 +5,14 @@ const initialState = {
     Province:[],
     Ward:[],
     District:[],
+    //phục vu cho address trong shopping order
+    NameInFormCreate:"",
+    PhoneInFormCreate:"",
+    ProvinceInFormCreate:"",
+    DistrictInFormCreate:"",
+    WardInFormCreate:"",
+    StreetInFormCreate:"",
+    FormAddressSelected:{},
 }
 
 const AddressSlice = createSlice({
@@ -13,6 +21,27 @@ const AddressSlice = createSlice({
 
     reducers:
     {
+        setFormAddressSelected: (state,action)=>{
+            state.FormAddressSelected = action.payload
+        },
+        setNameInFormCreate:(state,action)=>{
+            state.NameInFormCreate = action.payload
+        },
+        setPhoneInFormCreate:(state,action)=>{
+            state.PhoneInFormCreate = action.payload
+        },
+        setProvinceInFormCreate:(state,action)=>{
+            state.ProvinceInFormCreate = action.payload
+        },
+        setDistrictInFormCreate:(state,action)=>{
+            state.DistrictInFormCreate = action.payload
+        },
+        setWardInFormCreate:(state,action)=>{
+            state.WardInFormCreate = action.payload
+        },
+        setStreetInFormCreate:(state,action)=>{
+            state.StreetInFormCreate = action.payload
+        },
         setUserAddress: (state,action) =>{
             state.UserAddress = action.payload
         },
@@ -28,7 +57,17 @@ const AddressSlice = createSlice({
     },
 
 })
-
+export const resetForm = () => (dispatch) =>{
+    dispatch(setNameInFormCreate(""))
+    dispatch(setPhoneInFormCreate(""))
+    dispatch(setProvinceInFormCreate(""))
+    dispatch(setDistrictInFormCreate(""))
+    dispatch(setWardInFormCreate(""))
+    dispatch(setStreetInFormCreate(""))
+}
+export const resetAddressSelected = () => (dispatch)=>{
+    dispatch(setFormAddressSelected({}))
+}
 export const fetchAllProvince = () => async(dispatch) =>{
     try{
         const response = await AddressApi.ReadAllProvince()
@@ -83,6 +122,13 @@ export const fetchWardFromDistrict = (idDistrict) => async (dispatch) => {
 
 
 export const {
+    setFormAddressSelected,
+    setNameInFormCreate,
+    setPhoneInFormCreate,
+    setProvinceInFormCreate,
+    setDistrictInFormCreate,
+    setWardInFormCreate,
+    setStreetInFormCreate,
     setProvince,
     setDistrict,
     setWard,

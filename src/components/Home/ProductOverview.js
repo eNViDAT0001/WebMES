@@ -28,6 +28,10 @@ const ProductOverview = () => {
     }
   }, [dispatch, DataProductHomePage, loadProducts]);
   
+  const goToProductDetail = (e) =>{
+    window.location.replace(`product/${e.currentTarget.id}`)
+  }
+
   return (
     <div>
       {((!checkObjectEmpty(DataProductHomePage)) && (DataProductHomePage.status!=204)) ? (
@@ -39,9 +43,9 @@ const ProductOverview = () => {
 
             <div className="flex flex-row justify-start flex-wrap my-[50px] ">
               {DataProductHomePage.data.data.map((data) => (
-                <Link
+                <div
                   id={data.ID}
-                  to={`product/${data.ID}`}
+                  onClick = {goToProductDetail}
                   className=" w-[20%] h-[300px] my-5 mx-5 mb-10 hover:scale-105 p-2 hover:border hover:shadow-2xl hover:rounded-xl hover:cursor-pointer "
                 >
                   {data.Media ? (
@@ -80,7 +84,7 @@ const ProductOverview = () => {
                       </h1>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

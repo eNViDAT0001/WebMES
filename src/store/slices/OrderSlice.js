@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { OrderList } from '../../dummy_database/OrderDummyDatabase' 
+import { OrderApi } from '../../api/OrderApi'
 
 const initialState = {
-    OrderAccount:[],
-    Cart: [],
+    OrderAccount:{},
+    filterOrderAccount:{},
+    ListOrderInAdmin:{},
+    ListOrderDetailInAdmin:{}
+
 }
 
 
@@ -12,21 +15,38 @@ const OrderSlice = createSlice({
     initialState,
     reducers:
     {
+        setListOrderInAdmin:(state,action)=>{
+            state.ListOrderDetailInAdmin = action.payload
+        },
         setOrderInAccount: (state,action) =>{
             state.OrderAccount = action.payload
+        },
+        setListOrderDetailInAdmin: (state,action)=>{
+            state.ListOrderDetailInAdmin = action.payload
         }
     }
 })
 
-export const fetchOrderIn = (id) => async (dispatch) => {
+
+export const FetchOrderInUser = (id) => async(dispatch) =>{
     try {
-        const response = await OrderList
+        const response = await OrderApi.GetOrderFromUser(id)
         dispatch(setOrderInAccount(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const FetchOrderInAdmin = () => async (dispatch) => {
+    try {
+    
     } catch (error) {
         console.log(error)
     }
 } 
 export const {
+    setListOrderDetailInAdmin,
+    setListOrderInAdmin,
     setOrderInAccount,
 } = OrderSlice.actions
 export default OrderSlice.reducer

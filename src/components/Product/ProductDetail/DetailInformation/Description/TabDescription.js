@@ -76,7 +76,6 @@ export const TabDescription = (props) => {
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
-  console.log(value)
   return (
     <div>
         {listDescription.length===0 ? (<div></div>) :

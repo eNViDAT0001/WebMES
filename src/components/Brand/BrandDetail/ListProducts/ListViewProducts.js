@@ -57,8 +57,7 @@ export const ListViewProducts = () => {
       }
     }
   }, [isFirstRender, ListProduct, listProductInProvider, id]);
-  console.log(listProductInProvider);
-  console.log(ListProduct);
+
   return (
     <div className="space-y-3">
       <h1 className="font-bold text-xl">Table product:</h1>

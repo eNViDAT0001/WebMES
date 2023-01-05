@@ -41,7 +41,7 @@ export const LoginForm = () => {
       .then((res) => {
         toast("Login success", {
           type: "success",
-          autoClose:2000,
+          autoClose:1000,
           onClose: setTimeout(() => {
             localStorage.removeItem("UserInWeb");
             localStorage.setItem("UserInWeb", JSON.stringify(res.data.data));
@@ -50,7 +50,7 @@ export const LoginForm = () => {
             if(localStorage.getItem("Role")==="ADMIN")
               navigate(`/admin/${localStorage.getItem("UserID")}`)
             else navigate("/")
-          }, 2000),
+          }, 1000),
         });
       })
       .catch((error) => {
@@ -93,7 +93,7 @@ export const LoginForm = () => {
         if (err.response) {
           toast(err.response.data.errors[0].message, {
             type: ChangeToTypeFromResponse(err.response.status),
-            autoClose: 2000,
+            autoClose: 1000,
           });
         }
       });

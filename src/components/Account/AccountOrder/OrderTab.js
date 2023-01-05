@@ -8,9 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { TabPanel } from "@mui/lab";
 import { TabContext } from "@mui/lab";
+import { OrderTable } from "./OrderTable";
 
 const OrderTab = (props) => {
-
   const [value, setValue] = React.useState("ALL");
 
   const handleChange = (event, newValue) => {
@@ -57,23 +57,22 @@ const OrderTab = (props) => {
             <Tab value="DELIVERED" label="DELIVERED" />
             <Tab value="CANCEL" label="Cancel" />
           </Tabs>
-          
         </Box>
         <TabPanel value="ALL" index={0}>
-            Item One
-          </TabPanel>
-          <TabPanel value="WAITING" index={1}>
-            Item Two
-          </TabPanel>
-          <TabPanel value="DELIVERING" index={2}>
-            Item Three
-          </TabPanel>
-          <TabPanel value="DELIVERED" index={0}>
-            Item One
-          </TabPanel>
-          <TabPanel value="CANCEL" index={0}>
-            Item One
-          </TabPanel>
+          <OrderTable status="ALL" />
+        </TabPanel>
+        <TabPanel value="WAITING" index={1}>
+          <OrderTable status="WAITING" />
+        </TabPanel>
+        <TabPanel value="DELIVERING" index={2}>
+          <OrderTable status="DELIVERING" />
+        </TabPanel>
+        <TabPanel value="DELIVERED" index={0}>
+          <OrderTable status="DELIVERED" />
+        </TabPanel>
+        <TabPanel value="CANCEL" index={0}>
+          <OrderTable status="CANCEL" />
+        </TabPanel>
       </TabContext>
     </div>
   );

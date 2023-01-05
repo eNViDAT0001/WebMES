@@ -52,10 +52,10 @@ export const FormAddBrand = () => {
     await ProviderApi.AddNewBrand(id, body).then((res) => {
       toast("Add brand success", {
         type: "success",
-        autoClose: 2000,
+        autoClose: 1000,
         onClose: setTimeout(() => {
           window.location.reload();
-        }, 2000),
+        }, 1000),
       });
     });
   };

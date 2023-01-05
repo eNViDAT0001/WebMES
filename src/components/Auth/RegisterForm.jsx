@@ -76,14 +76,14 @@ export const RegisterForm = () => {
       localStorage.setItem("UserInWeb",JSON.stringify(res.data.data))
       toast("Đăng ký thành công", {
         type: "success",
-        autoClose: 2000,
-        onClose: setTimeout(() => window.location.replace("/"), 2000),
+        autoClose: 1000,
+        onClose: setTimeout(() => window.location.replace("/"), 1000),
       });
     })
     .catch((error)=>{
           toast("Lỗi lưu thông tin", {
             type: "error",
-            autoClose: 2000,
+            autoClose: 1000,
           });
     })
   }
@@ -112,7 +112,7 @@ export const RegisterForm = () => {
       if (err.response) {
         toast(err.response.data.errors[0].message, {
           type: ChangeToTypeFromResponse(err.response.status),
-          autoClose: 2000,
+          autoClose: 1000,
         });
       }
     });

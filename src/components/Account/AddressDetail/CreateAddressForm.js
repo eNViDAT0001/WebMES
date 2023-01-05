@@ -83,20 +83,20 @@ export const CreateAddressForm = () => {
       .then((res) => {
         toast("Add new address successful", {
           type: "success",
-          autoClose: 2000,
+          autoClose: 1000,
           Close: setTimeout(
             () => window.location.replace(`/address-detail/${ID}`),
-            2000
+            1000
           ),
         });
       })
       .catch((err) => {
         toast("Add new address fail", {
           type: "error",
-          autoClose: 2000,
+          autoClose: 1000,
           Close: setTimeout(
             () => window.location.replace(`/address-detail/${ID}`),
-            2000
+            1000
           ),
         });
       });
@@ -105,7 +105,7 @@ export const CreateAddressForm = () => {
     if (districtName === "" || wardName === "") {
       toast("Need select District and Ward", {
         type: "error",
-        autoClose: 2000,
+        autoClose: 1000,
       });
     } else {
       const body = new SaveAddressForm({

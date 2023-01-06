@@ -46,7 +46,7 @@ export const ListViewOrders = (props) => {
   const loadProductInProvider = useCallback(async () => {
     await dispatch(FetchOrderInProvider(id));
   });
-  const ListStatus = ["WAITING", "CONFIRMED", "DELIVERING", "DELIVERED"];
+  const ListStatus = ["WAITING", "CONFIRMED", "DELIVERING", "DELIVERED","CANCEL"];
   useLayoutEffect(() => {
     if (
       ListOrderInProvider.status != 200 &&
@@ -63,7 +63,7 @@ export const ListViewOrders = (props) => {
   };
 
   const handleButtonDetail = (e) => {
-
+    window.location.replace(`/order/detail/${e.currentTarget.id}`)
   };
 
   const UpdateStatus = async(idHandle,body)=>{
@@ -73,7 +73,9 @@ export const ListViewOrders = (props) => {
         toast("Update order success", {
             type: "success",
             autoClose: 1000,
-
+            onClose:setTimeout(()=>{
+              window.location.reload()
+            },1000)
           });
         }
       })
@@ -158,7 +160,8 @@ export const ListViewOrders = (props) => {
                         renderInput={(params) => (
                           <TextField {...params} label="Status" />
                         )}
-                      />{" "}                    </StyledTableCell>
+                      />{" "}                    
+                      </StyledTableCell>
                     <StyledTableCell align="left">
                       <div className="px-4 py-1 border bg-[#C40201] text-white">
                         {`${row.Discount}%`}

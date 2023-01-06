@@ -22,6 +22,9 @@ export const OrderApi = {
     const url = `/orders/${id}`
     console.log(body)
     return axiosClient.patch(url,body)
+  },
+  GetOrderItems:(id)=>{
+    const url = `/orders/${id}/items`
+    return axiosClient.get(url)
   }
-
 };

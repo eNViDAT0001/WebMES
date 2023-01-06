@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { ProviderApi } from '../../api/ProviderApi'
 
 const initialState = {
-    ListBrand:[],
+    ListBrand:{},
     ProductInBrand:[],
 }
 
@@ -27,7 +27,7 @@ const ProviderSlice = createSlice({
 export const FetchGetListBrand = (id,filter) => async(dispatch) =>{
     try{
         const response = await ProviderApi.GetListBrand(id,filter)
-        dispatch(setListBrand(response.data.data))
+        dispatch(setListBrand(response))
     }catch(err){
         console.log(err)
     }

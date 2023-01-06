@@ -13,8 +13,6 @@ import TableContainer from "@mui/material/TableContainer";
 
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/ReactToastify.min.css";
 import {
   Divider,
   IconButton,
@@ -22,14 +20,16 @@ import {
   Paper,
   TableHead,
 } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FetchOrderInUser,
   resetOrder,
-  setOrderInAccount,
 } from "../../../store/slices/OrderSlice";
+import { OrderApi } from "../../../api/OrderApi";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,40 +51,68 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const ListStatus = ["WAITING","CANCEL"];
+
 export const OrderTable = (props) => {
   const id = localStorage.getItem("UserID");
   const dispatch = useDispatch();
   const listOrders = useSelector((state) => state.order.OrderAccount);
-    const nameSearch = useSelector((state)=>state.order.nameSearch)
-    const [filter,setFilter] = useState(
-        {
-            "search[]": (nameSearch=="") ? "" : `name_${nameSearch}`,
-            "fields[]": (props.status==="ALL") ? "" : `status_${props.status}`,
-        }
-    )
+  const nameSearch = useSelector((state) => state.order.nameSearch);
+  const [filter, setFilter] = useState({
+    "search[]": nameSearch == "" ? "" : `name_${nameSearch}`,
+    "fields[]": props.status === "ALL" ? "" : `status_${props.status}`,
+  });
 
   const loadOrder = useCallback(async () => {
     await dispatch(FetchOrderInUser(id, filter));
   });
 
-  useEffect(()=>()=>{
-    dispatch(resetOrder())
-  },[dispatch])
+  useEffect(
+    () => () => {
+      dispatch(resetOrder());
+    },
+    [dispatch]
+  );
 
   useLayoutEffect(() => {
-    if ((listOrders.status != 200) && (listOrders.status != 204)) {
+    if (listOrders.status != 200 && listOrders.status != 204) {
       loadOrder();
     }
   }, [loadOrder, dispatch, listOrders]);
   const handleButtonDetail = (e) => {
-    window.location.replace(`order-detail/${e.currentTarget.id}`);
+    window.location.replace(`/order/detail/${e.currentTarget.id}`);
   };
   const orderEmpty = () => {
     return listOrders.status == 204 || listOrders.status != 200;
   };
 
+
+  const UpdateStatus = async(idHandle,body)=>{
+    await OrderApi.UpdateStatus(idHandle,body)
+    .then(res=>{
+      if(res.status==200){
+        toast("Update order success", {
+            type: "success",
+            autoClose: 1000,
+            onClose:setTimeout(()=>{
+              window.location.reload()
+            },1000)
+          });
+        }
+      })
+  }
+
+  const handleChangeStatus = (e) =>{
+    const idHandle = e.currentTarget.id.split("-")[0]
+    const body={
+      status: e.currentTarget.textContent
+    }
+    UpdateStatus(idHandle,body)
+  }
   return (
     <div>
+                <ToastContainer position="top-right" newestOnTop />
+
       {orderEmpty() ? (
         <div>
           <h1>Order not availale</h1>
@@ -140,11 +168,29 @@ export const OrderTable = (props) => {
                     {row.Quantity}{" "}
                   </StyledTableCell>
                   <StyledTableCell align="left">{row.Total} </StyledTableCell>
-                  <StyledTableCell align="right">{row.Status} </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.Status === "WAITING" ? (
+                      <div>
+                        <Autocomplete
+                        id={row.ID}
+                        options={ListStatus}
+                        size="small"
+                        defaultValue={row.Status}
+                        getOptionDisabled={(option) => option === row.Status}
+                        sx={{ width: 150 }}
+                        onChange={handleChangeStatus}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Status" />
+                        )}
+                      />
+                      </div>
+                    ) : (
+                      <div>{row.Status}</div>
+                    )}
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <div className="px-3 py-1 border border-[#C40201] text-[#C40201]">
-                    {`-${row.Discount}%`}
-
+                      {`-${row.Discount}%`}
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>

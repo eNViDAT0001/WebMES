@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   checkObjectEmpty,
@@ -8,14 +8,11 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { OrderApi } from "../../api/OrderApi";
-import { useNavigate } from "react-router-dom";
 
 export const TotalOrder = () => {
   const user = JSON.parse(localStorage.getItem("UserInWeb"));
     const bill = JSON.parse(localStorage.getItem("SaveCart"))
 
-    //console.log(bill)
-const navigate = useNavigate()
   const nameInForm = useSelector((state) => state.address.NameInFormCreate);
   const phoneInForm = useSelector((state) => state.address.PhoneInFormCreate);
   const provinceInForm = useSelector(
@@ -24,7 +21,7 @@ const navigate = useNavigate()
   const districtInForm = useSelector(
     (state) => state.address.DistrictInFormCreate
   );
-
+    console.log(bill)
   const wardInForm = useSelector((state) => state.address.WardInFormCreate);
   const streetInForm = useSelector((state) => state.address.StreetInFormCreate);
   const formAddressSelected = useSelector(
@@ -46,7 +43,7 @@ const navigate = useNavigate()
   const addToList = (bill,listSave) =>{
     if((Array.isArray(listSave)) && (bill)){
         bill.Items.map(data=>{
-            const body={...data,"provider_id": bill.ProviderID,"product_option_id": data.option_id}
+            const body={...data,"provider_id": bill.ProviderID,"product_option_id": data.option_id,"option": data.option_name}
             listSave.push(body)
         })
     }
@@ -61,8 +58,9 @@ const navigate = useNavigate()
             type: "success",
             autoClose: 1000,
             onClose:setTimeout(()=>{
-                window.location.reload()
-                localStorage.removeItem("SaveCart")
+              localStorage.removeItem("SaveCart")
+
+                window.location.replace("/completed")
             },1500)
           });
         }

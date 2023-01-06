@@ -52,7 +52,14 @@ export const FetchOrderInProvider = (id,filter) => async(dispatch)=>{
         console.log(err)
     }
 }
-
+export const FetchOrderDetail = (id)=>async(dispatch)=>{
+    try {
+        const response = await OrderApi.GetOrderItems(id)
+        dispatch(setListOrderDetail(response))
+    } catch (error) {
+        
+    }
+}
 
 export const {
     setListOrderDetail,

@@ -6,8 +6,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.min.css";
 import { Button, IconButton, Paper, TableHead } from "@mui/material";

@@ -21,13 +21,12 @@ export const ListComment = (props) => {
   const [meta, setMeta] = useState({});
   const [listComment, setListComment] = useState([]);
   const productDetail = useSelector((state) => state.product.ProductDetail);
-
   const loadComment = useCallback(async () => {
     await dispatch(fetchCommentPaging(props.id, transformFilters(filters)));
   });
   
   useEffect(() => {
-    if (!checkObjectEmpty(productDetail)) {
+    if ((productDetail.status==200)) {
       if (Comment.status != "200" && Comment.status != "204") {
         loadComment();
       }

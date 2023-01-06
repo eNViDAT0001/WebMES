@@ -51,12 +51,16 @@ const TitleAndType = (props) => {
     if (product.status != 200 || !product.data.data) {
       loadProducts();
     }
-    if (comment.status != 200 && comment.status != 204) {
-      loadComments();
+    //load xong product =>load comment va specification
+    if (product.status == 200) {
+      if (comment.status != 200 && comment.status != 204) {
+        loadComments();
+      }
+      if (specifications.length === 0) {
+        loadSpecification();
+      }
     }
-    if (specifications.length === 0) {
-      loadSpecification();
-    }
+    //load thanh cong => dat setState price
     if (product.status == 200) {
       if (!isClickOption) setPrice(product.data.data.Price);
     }
@@ -94,11 +98,15 @@ const TitleAndType = (props) => {
                 Reviewed
               </h1>
             </div>
-            <Divider orientation="vertical" flexItem  />
+            <Divider orientation="vertical" flexItem />
             <div>
-              {(optionHandle.id===-1) ? (<div></div>) : (<div className="px-3 py-1 border text-[#EE4D2D] border-[#EE4D2D]">
-                {optionHandle.name}
-              </div>)}
+              {optionHandle.id === -1 ? (
+                <div></div>
+              ) : (
+                <div className="px-3 py-1 border text-[#EE4D2D] border-[#EE4D2D]">
+                  {optionHandle.name}
+                </div>
+              )}
             </div>
           </div>
 
@@ -145,13 +153,13 @@ const TitleAndType = (props) => {
                                     setPrice(
                                       parseInt(price) + parseInt(option.price)
                                     );
-                                    dispatch(setOptionIdSelected(option.id))
+                                    dispatch(setOptionIdSelected(option.id));
                                     setIsClickOption(true);
                                   }
                                 } else {
                                   if (optionHandle.id === option.id) {
                                     setIsClickOption(false);
-                                    dispatch(setOptionIdSelected(-1))
+                                    dispatch(setOptionIdSelected(-1));
                                     setOptionHandle(initialOpion);
                                     setPrice(product.Price);
                                   } else {

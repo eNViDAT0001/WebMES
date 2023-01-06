@@ -1,11 +1,11 @@
 import React from "react";
 import { Divider } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import { TotalBrand } from "./TotalProducts";
-import { TotalProduct } from "./TotalProductIsSold";
+import {  TotalProductInBrand } from "./TotalProducts";
 import { TotalRevenue } from "./TotalRevenue";
+import { TotalOrder } from "./TotalOrder";
 
-export const GeneralBrandDetail = () => {
+export const GeneralBrandDetail = (props) => {
   
   return (
     <div className="flex justify-center">
@@ -18,9 +18,9 @@ export const GeneralBrandDetail = () => {
           <Divider />
         </div>
         <div className="flex flex-row justify-around flex-wrap">
-          <TotalBrand />
-          <TotalProduct />
-          <TotalRevenue />
+          <TotalProductInBrand id={props.id}/>
+          <TotalOrder id={props.id}/>
+          <TotalRevenue id={props.id}/>
         </div>
         <div className="my-5">
           <Divider />

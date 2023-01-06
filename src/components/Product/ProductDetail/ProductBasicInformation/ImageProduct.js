@@ -9,6 +9,7 @@ const ImageProduct = (props) => {
   const dispatch = useDispatch();
   const [imageBig, setImageBig] = useState(imgNotFound);
   const listMedia = useSelector((state) => state.product.Media);
+  const productDetail = useSelector((state)=>state.product.ProductDetail)
   const [getArrayMedia,setArrayMedia] = useState([])
   const [firstRender,setFirstRender] = useState(true)
 
@@ -16,7 +17,8 @@ const ImageProduct = (props) => {
     await dispatch(FetchMediaFromOneProduct(props.id));
 
   })
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if(productDetail.status==200){
     if ((listMedia.status != 200) && (listMedia.status != 204)) {
       loadMedia()
     }
@@ -27,8 +29,8 @@ const ImageProduct = (props) => {
         setImageBig(listMedia.data.data[0].MediaPath)
       }
     }
-  
-  }, [dispatch, listMedia, props.id,imageBig,firstRender]);
+    }
+  }, [productDetail,dispatch, listMedia, props.id,imageBig,firstRender,loadMedia]);
  
   const handleClickImage = (event) => {
     const id = event.currentTarget.id;

@@ -24,6 +24,7 @@ import { BrandPages } from "../pages/BrandPages/BrandGeneral";
 import { BrandDetailPages } from "../pages/BrandPages/BrandDetailPages";
 import { AddProductInBrand } from "../components/Brand/BrandDetail/AddProductInBrand";
 import { BannerDetailPage } from "../pages/HomePages/BannerDetailPage";
+import { OrderDetailPages } from "../pages/OrderPages/OrderDetailPages";
 
 function MainRoute() {
   return (
@@ -42,6 +43,8 @@ function MainRoute() {
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/order/detail/:id" element={<OrderDetailPages />} />
+
           <Route path="/shopping-cart" element={<CartPage />} />
           <Route path="/account-order/:id" element={<AccountOrderPage />} /> 
           <Route path="/address/:id" element={<AddressPage />} />
@@ -58,7 +61,7 @@ function MainRoute() {
           <Route path="/brand-detail/:id" element={<BrandDetailPages/>} />
           <Route path="/notification/:id" element={<NotFoundPage/>} />
           <Route path="/add-product-in-brand/:id" element={<AddProductInBrand />} />
-          <Route path={`banner-detail/:id`} element={<BannerDetailPage />} />
+          <Route path="/banner-detail/:id" element={<BannerDetailPage />} />
         </Route>
 
       </Routes>

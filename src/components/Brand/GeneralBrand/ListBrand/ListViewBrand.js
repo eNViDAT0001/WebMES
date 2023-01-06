@@ -17,7 +17,7 @@ export const ListViewBrand = () => {
   const DataBrand = useSelector((state) => state.provider.ListBrand) || [];
   const dispatch = useDispatch();
   useEffect(() => {
-    if (DataBrand.length === 0) {
+    if (DataBrand.status != 204 && DataBrand.status != 200) {
       dispatch(FetchGetListBrand(userID));
     }
   }, [dispatch, DataBrand, userID]);
@@ -25,6 +25,10 @@ export const ListViewBrand = () => {
   const handleButtonFilter = (e) => {
     if (variant === VARIANT.contained) setVariant(VARIANT.outlined);
     else setVariant(VARIANT.contained);
+  };
+
+  const emptyBrand = () => {
+    return DataBrand.status == 204 || DataBrand.status != 200;
   };
   return (
     <div className="px-5">
@@ -40,11 +44,11 @@ export const ListViewBrand = () => {
       </div>
       {variant === VARIANT.contained ? <div></div> : <FiltersBrand />}
       <div className="my-10 pl-10 border flex flex-row bg-gradient-to-r from-[#ffafbd] to-[#ffc3a0] rounded-2xl shadow-lg">
-        {!DataBrand || DataBrand.length === 0 ? (
+        {emptyBrand() ? (
           <h1 className=" text-xl uppercase">you don't have a brand</h1>
         ) : (
           <div className="flex flex-row flex-wrap justify-start w-full">
-            {DataBrand.map((data) => (
+            {DataBrand.data.data.map((data) => (
               <Link
                 to={`/brand-detail/${data.ID}`}
                 className="w-[20%] min-h-[320px] max-h-[400px] border rounded-2xl shadow-xl my-5 mx-5 bg-white hover:scale-105"
@@ -72,9 +76,6 @@ export const ListViewBrand = () => {
             ))}
           </div>
         )}
-      </div>
-      <div className="flex justify-center">
-        <Pagination count={10} showFirstButton showLastButton />
       </div>
     </div>
   );

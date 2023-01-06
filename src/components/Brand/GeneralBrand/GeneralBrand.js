@@ -2,8 +2,7 @@ import React from "react";
 import { Divider } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { TotalBrand } from "./TotalBrand";
-import { TotalProduct } from "./TotalProduct";
-import { TotalRevenue } from "./TotalRevenue";
+
 
 export const GeneralBrand = () => {
   return (
@@ -16,10 +15,9 @@ export const GeneralBrand = () => {
         <div className="my-2">
           <Divider />
         </div>
-        <div className="flex flex-row justify-around flex-wrap">
+        <div className="flex flex-row justify-start flex-wrap px-10">
           <TotalBrand />
-          <TotalProduct />
-          <TotalRevenue />
+
         </div>
         <div className="my-5">
           <Divider />

@@ -22,9 +22,9 @@ import { FixAddressPage } from "../pages/AccountPages/FixAddressPage";
 import { AdminPages } from "../pages/AdminPages/AdminPages";
 import { BrandPages } from "../pages/BrandPages/BrandGeneral";
 import { BrandDetailPages } from "../pages/BrandPages/BrandDetailPages";
-import { AddProductInBrand } from "../components/Brand/BrandDetail/AddProductInBrand";
 import { BannerDetailPage } from "../pages/HomePages/BannerDetailPage";
 import { OrderDetailPages } from "../pages/OrderPages/OrderDetailPages";
+import { AddProductInBrand } from "../components/Brand/AddProduct/AddProductInBrand";
 
 function MainRoute() {
   return (

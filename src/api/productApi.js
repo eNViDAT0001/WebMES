@@ -52,6 +52,14 @@ export const ProductApi = {
     GetProductFromCategorySelected:(id)=>{
         const url=`/products/category/${id}/preview`
         return axiosClient.get(url)
+    },
+    //for add product
+    AddNewProduct:(idProvider,idUser,body)=>{
+        const url= `/products/provider/${idProvider}/user/${idUser}`
+        return axiosClient.post(url,body)
+    },
+    AddSpecificationTreeInProduct:(idProduct,body)=>{
+        const url=`/products/${idProduct}/specification`
+        return axiosClient.post(url,body)
     }
-
 }

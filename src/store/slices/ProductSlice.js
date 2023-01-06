@@ -14,6 +14,7 @@ const initialState= {
     CategoryTree:{},
     CategoryRoof:{},
     CategoryHandle:{},
+    numberRating: 0,
     Quantity: 1,
     OptionIdSelected: -1,
 }
@@ -25,6 +26,9 @@ const productSlice = createSlice({
     reducers:
     {
         resetProduct:()=>initialState,
+        setNumberRating: (state,action)=>{
+            state.numberRating = action.payload
+        },
         setOptionIdSelected:(state,action)=>{
             state.OptionIdSelected = action.payload          
         },
@@ -88,7 +92,6 @@ export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
 
 export const FetchFullProductInCategory = (filters) => async (dispatch) => {
     try {
-
         const response = await ProductApi.GetProductPreview(transformFilters(filters))
         dispatch(setProductPreviewInCategory(response))
     } catch (error) {

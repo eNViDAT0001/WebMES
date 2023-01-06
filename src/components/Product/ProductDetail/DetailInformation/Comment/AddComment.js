@@ -25,10 +25,11 @@ export const AddComment = (props) => {
   const [displayUpload, setDisplayUpload] = useState([]);
   const [fileUpload, setFileUpload] = useState([]);
   const [textComment, setTextComment] = useState("");
+
   const handleTextComment = (e) => {
     setTextComment(e.currentTarget.value);
   };
-  useEffect(() => {}, [displayUpload]);
+
   const UseApiUploadPicture = async (body) => {
     await FileApi.UploadNewPicture(body).then((res) => {
       toast("Up ảnh thành công", {
@@ -41,9 +42,10 @@ export const AddComment = (props) => {
   const handleButtonUploadFile = (e) => {
     const file = e.target.files[0];
     fileUpload.push(file);
-    formDataDisplayImage.append('files',file);
+    formDataDisplayImage.append("files", file);
     UseApiUploadPicture(formDataDisplayImage);
   };
+
   const handleButtonSend = (e) => {
     const formDataComment = new FormData();
 
@@ -61,11 +63,10 @@ export const AddComment = (props) => {
       formDataComment.append("userID", userID);
       formDataComment.append("description", textComment);
       formDataComment.append("rating", valueRating);
-      if(fileUpload.length!==0) { 
-        fileUpload.map((data)=>{
-          formDataComment.append("files",data)
-
-        })
+      if (fileUpload.length !== 0) {
+        fileUpload.map((data) => {
+          formDataComment.append("files", data);
+        });
       }
       //setDisableButton(true);
       AddComment(props.id, userID, formDataComment);

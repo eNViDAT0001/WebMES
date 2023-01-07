@@ -17,6 +17,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import { Button, IconButton, Paper, TableHead } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { CartShoppingApi } from "../../api/CartShopping";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -65,7 +69,27 @@ const ListCart = () => {
   const handleChangeComboBox = (e, value) => {
     dispatch(setSelectedCart(value));
   };
-  
+
+
+  const DeleteCartShopping = async(idCart,idItemCart)=>{
+    await CartShoppingApi.DeleteItemInCart(idCart,idItemCart)
+    .then(res=>{
+      if(res.status==200)
+      {
+        toast("Delete Item success", {
+          type: "success",
+          autoClose: 1000,
+          onClose:setTimeout(()=>{
+              window.location.reload()
+          },1500)
+        });
+      }
+    })
+  }
+
+  const handleDeleteButton = (e)=>{
+    DeleteCartShopping(selectedCart.ID,e.currentTarget.id)
+  }
   return (
     <div>
       <div className=" w-[65%]">
@@ -83,8 +107,9 @@ const ListCart = () => {
       <div>
         {!checkObjectEmpty(selectedCart) ? (
           <div className="space-y-3">
-            <h1 className="font-bold text-xl">Your select:</h1>
+            <h1 className="font-bold text-xl my-4">Your select:</h1>
             <div>
+              {/* 
               <div className="h-[100px] border flex justify-between items-center px-[10%] shadow-xl ">
                 <input
                   type="text"
@@ -95,7 +120,11 @@ const ListCart = () => {
                   APPLY COUPON
                 </button>
               </div>
+              */}
+
               <TableContainer component={Paper}>
+              <ToastContainer position="top-right" newestOnTop />
+
                 <Table sx={{ minWidth: 400 }} aria-label="customized table">
                   <TableHead>
                     <TableRow>
@@ -106,6 +135,7 @@ const ListCart = () => {
                       <StyledTableCell align="center">Discount</StyledTableCell>
                       <StyledTableCell align="center">Option</StyledTableCell>
                       <StyledTableCell align="center">Total</StyledTableCell>
+                      <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -136,7 +166,7 @@ const ListCart = () => {
                           </StyledTableCell>
                           <StyledTableCell align="center">
                             <div className="px-3 py-1 border border-[#D80001] text-[#D80001]">
-                              -{row.discount}%
+                              {row.discount}%
                             </div>
                           </StyledTableCell>
                           <StyledTableCell align="center">
@@ -149,6 +179,17 @@ const ListCart = () => {
                                 (100 - row.discount)) /
                                 100
                             )}{" "}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            <IconButton
+                              id={row.id}
+                              color="primary"
+                              aria-label="upload picture"
+                              component="label"
+                              onClick={handleDeleteButton}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
                           </StyledTableCell>
                         </StyledTableRow>
                       ))

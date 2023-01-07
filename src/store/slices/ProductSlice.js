@@ -14,7 +14,7 @@ const initialState= {
     CategoryTree:{},
     CategoryRoof:{},
     CategoryHandle:{},
-    numberRating: 0,
+    numberRatingInCategory: 0,
     Quantity: 1,
     OptionIdSelected: -1,
 }
@@ -27,7 +27,7 @@ const productSlice = createSlice({
     {
         resetProduct:()=>initialState,
         setNumberRating: (state,action)=>{
-            state.numberRating = action.payload
+            state.numberRatingInCategory = action.payload
         },
         setOptionIdSelected:(state,action)=>{
             state.OptionIdSelected = action.payload          
@@ -81,9 +81,9 @@ export const FetchProductInBanner = (id) => async(dispatch) =>{
     }
 }
 
-export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
+export const FetchProductFromSelectCategory = (id,filter) => async(dispatch) =>{
     try {
-        const response = await ProductApi.GetProductFromCategorySelected(id)
+        const response = await ProductApi.GetProductFromCategorySelected(id,filter)
         dispatch(setProductPreviewInCategory(response))
     } catch (error) {
         console.log(error)
@@ -92,7 +92,8 @@ export const FetchProductFromSelectCategory = (id) => async(dispatch) =>{
 
 export const FetchFullProductInCategory = (filters) => async (dispatch) => {
     try {
-        const response = await ProductApi.GetProductPreview(transformFilters(filters))
+        console.log(filters)
+        const response = await ProductApi.GetProductPreview(filters)
         dispatch(setProductPreviewInCategory(response))
     } catch (error) {
         console.log(error)
@@ -165,7 +166,7 @@ export const FetchSpecificationFromOneProduct = (id) => async(dispatch) =>{
 }
 export const FetchProductInHomePage = (filters) => async (dispatch) => {
     try {
-        const response = await ProductApi.GetProductPreview(transformFilters(filters))
+        const response = await ProductApi.GetProductPreview(filters)
         dispatch(setProductPreviewInHomePage(response))
     } catch (error) {
         console.log(error)
@@ -181,6 +182,7 @@ export const {
     setBanners,
     setCategoryTree,
     setCategoryRoof,
+    setNumberRating,
     setDescription,
     setMedia,
     setSpecification,

@@ -189,8 +189,8 @@ export const OrderTable = (props) => {
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <div className="px-3 py-1 border border-[#C40201] text-[#C40201]">
-                      {`-${row.Discount}%`}
+                    <div className="px-3 py-1 border border-[#00F700] text-[#00F700]">
+                      {`${row.Discount}%`}
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>

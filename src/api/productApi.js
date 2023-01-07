@@ -1,3 +1,4 @@
+import { transformFilters } from "../stogare_function/listActions";
 import axiosClient from "./Client";
 export const ProductApi = {
     GetComment:(id,filters) =>{
@@ -21,8 +22,8 @@ export const ProductApi = {
         return axiosClient.get(url)
     },
     GetProductPreview:(filters)=>{
-        const url=(filters) ? `/products/preview?${filters}` : `/products/preview`
         console.log(filters)
+        const url=`/products/preview?${transformFilters(filters)}`
         return axiosClient.get(url)
     },
     GetDetailProduct:(id)=>{
@@ -49,8 +50,8 @@ export const ProductApi = {
         const url=`/products/${id}/media`
         return axiosClient.get(url) 
     },
-    GetProductFromCategorySelected:(id)=>{
-        const url=`/products/category/${id}/preview`
+    GetProductFromCategorySelected:(id,filters)=>{
+        const url=`/products/category/${id}/preview?${transformFilters(filters)}`
         return axiosClient.get(url)
     },
     //for add product
@@ -61,5 +62,9 @@ export const ProductApi = {
     AddSpecificationTreeInProduct:(idProduct,body)=>{
         const url=`/products/${idProduct}/specification`
         return axiosClient.post(url,body)
+    },
+    DeleteProduct: (idProduct) =>{
+        const url = `/products/${idProduct}`
+        return axiosClient.delete(url)
     }
 }

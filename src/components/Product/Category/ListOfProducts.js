@@ -4,22 +4,24 @@ import starNotActive from "../../../assets/star_not.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkObjectEmpty } from "../../../stogare_function/listActions";
-import { useCallback, useEffect } from "react";
-import { FetchFullProductInCategory, FetchProductFromSelectCategory } from "../../../store/slices/ProductSlice";
+import { useCallback, useEffect, useState } from "react";
+import { FetchFullProductInCategory, FetchProductFromSelectCategory, setProductPreviewInCategory } from "../../../store/slices/ProductSlice";
 import { useLayoutEffect } from "react";
 const ListOfProducts = (props) => {
   const id = props.id
   const dispatch = useDispatch()
   const ListProductPreview = useSelector((state) => state.product.ProductPreviewInCategory);
+  
 
 
-  const loadFullProductInCategory = useCallback(async () => {
+  const loadFullProductInCategory = useCallback(async() => {
     await dispatch(FetchFullProductInCategory());
   });
 
-  const loadProductInCategorySelected = useCallback(async () => {
+  const loadProductInCategorySelected = useCallback(async() => {
     await dispatch(FetchProductFromSelectCategory(id));
   });
+
   useLayoutEffect(() => {
     if((ListProductPreview.status!=200) && (ListProductPreview.status!=204)){
       if(id==0) loadFullProductInCategory()

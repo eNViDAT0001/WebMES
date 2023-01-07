@@ -42,6 +42,9 @@ const AddProductSlice = createSlice({
     setMedia: (state, action) => {
       state.media = action.payload;
     },
+    addFileInDescription: (state, action) => {
+      state.description_md.push(action.payload);
+    },
     setDescriptionName: (state, action) => {
       state.description_name = action.payload;
     },
@@ -68,6 +71,7 @@ export const {
   setDescriptionName,
   setDescriptionMD,
   setSpecificationName,
+  addFileInDescription,
   setDataOption,
 } = AddProductSlice.actions;
 export default AddProductSlice.reducer;

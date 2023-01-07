@@ -22,17 +22,21 @@ const CategoryPage = () => {
   const CategoryTree = useSelector((state) => state.product.CategoryTree);
   const ProductInCategory = useSelector((state) => state.product.ProductPreviewInCategory);
   const CategoryHandle = useSelector((state) => state.product.CategoryHandle);
+  const ratingSelector = useSelector((state)=>state.product.numberRatingInCategory)
 
+  const filter = {
+     "limit": ratingSelector
+  }
   const loadCategoryTree = useCallback(async () => {
     await dispatch(FetchAllCategoryTree());
   });
 
   const loadFullProductInCategory = useCallback(async () => {
-    await dispatch(FetchFullProductInCategory());
+    await dispatch(FetchFullProductInCategory(filter));
   });
 
   const loadProductInCategorySelected = useCallback(async () => {
-    await dispatch(FetchProductFromSelectCategory(id));
+    await dispatch(FetchProductFromSelectCategory(id,filter));
   });
 
 

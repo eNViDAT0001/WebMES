@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { FetchOrderInProvider } from "../../../../store/slices/OrderSlice";
 import { OrderApi } from "../../../../api/OrderApi";
+import { currencyFormat } from "../../../../stogare_function/listActions";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -88,6 +89,7 @@ export const ListViewOrders = (props) => {
     }
     UpdateStatus(idHandle,body)
   }
+  
   return (
     <div>
       {orderEmpty() ? (
@@ -146,7 +148,7 @@ export const ListViewOrders = (props) => {
                     <StyledTableCell align="left">
                       {row.Quantity}{" "}
                     </StyledTableCell>
-                    <StyledTableCell align="left">{row.Total} </StyledTableCell>
+                    <StyledTableCell align="left">{currencyFormat(row.Total)}đ</StyledTableCell>
                     <StyledTableCell align="left">
                     
                     <Autocomplete

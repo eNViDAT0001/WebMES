@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   FetchAllCategoryTree,
   setCategoryHandle,
-  setProductPreview,
-  setProductPreviewInCategory,
+
 } from "../../../store/slices/ProductSlice";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";

@@ -24,9 +24,9 @@ export const AddProductInBrand = () => {
   const discount = useSelector((state) => state.addProduct.discount);
   const media = useSelector((state) => state.addProduct.media);
   const options = useSelector((state) => state.addProduct.options);
-  const specification_name = useSelector(
-    (state) => state.addProduct.specification_name
-  );
+  const specification_name = useSelector((state) => state.addProduct.specification_name);
+  const description_name = useSelector((state)=>state.addProduct.description_name)
+  const description_md = useSelector((state)=>state.addProduct.description_md)
 
   console.log(price);
 
@@ -101,22 +101,41 @@ export const AddProductInBrand = () => {
         type: "warning",
         autoClose: 1000,
       });
-    } else {
-      const dataform = new FormData();
-      setOpenButton(false);
-      dataform.append("category_id", parseInt(category_id));
-      dataform.append("name", name);
-      dataform.append("price", parseInt(price));
-
-      if (discount != 0) dataform.append("discount", parseInt(discount));
-      if (media.length !== 0) {
-        media.map((data) => {
-          dataform.append("media", data);
+    } 
+    else if((description_name!="") && (description_md.length==0)){
+        toast("Need upload file md ", {
+          type: "warning",
+          autoClose: 1000,
         });
       }
-      AddBasicProduct(id, localStorage.getItem("UserID"), dataform);
-    }
-  };
+    else
+    {
+        const dataform = new FormData();
+        setOpenButton(false);
+        dataform.append("category_id", parseInt(category_id));
+        dataform.append("name", name);
+        dataform.append("price", parseInt(price));
+  
+        if (discount != 0) dataform.append("discount", parseInt(discount));
+        if (media.length !== 0) {
+          media.map((data) => {
+            dataform.append("media", data);
+          });
+        }
+        if(description_name=="") { 
+          dataform.append("descriptions_name", description_name)
+          description_md.map(data=>{
+            dataform.append("descriptions_md",data)
+          })
+        
+        }
+        AddBasicProduct(id, localStorage.getItem("UserID"), dataform);
+      }
+    }  
+    
+      
+  
+  
   return (
     <div className="flex justify-center bg-[#F5F5F5] font-[Montserrat]">
       <ToastContainer position="top-right" newestOnTop />
@@ -145,15 +164,13 @@ export const AddProductInBrand = () => {
           <h1 className="text-xl font-bold">Specification :</h1>
         </div>
         <Divider />
-        <AddSpecification />
-        {/*
+        <AddSpecification />    
         <div className="flex flex-row space-x-5">
           <DescriptionIcon />
           <h1 className="text-xl font-bold">Description :</h1>
         </div>
         <Divider />
         <AddDescriptions />
-         */}
 
         <div className="flex flex-row-reverse">
           <Button
@@ -167,4 +184,4 @@ export const AddProductInBrand = () => {
       </div>
     </div>
   );
-};
+  }

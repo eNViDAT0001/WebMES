@@ -15,13 +15,9 @@ export const TotalOrder = () => {
 
   const nameInForm = useSelector((state) => state.address.NameInFormCreate);
   const phoneInForm = useSelector((state) => state.address.PhoneInFormCreate);
-  const provinceInForm = useSelector(
-    (state) => state.address.ProvinceInFormCreate
-  );
-  const districtInForm = useSelector(
-    (state) => state.address.DistrictInFormCreate
-  );
-    console.log(bill)
+  const provinceInForm = useSelector((state) => state.address.ProvinceInFormCreate);
+  const districtInForm = useSelector((state) => state.address.DistrictInFormCreate);
+    //console.log(bill)
   const wardInForm = useSelector((state) => state.address.WardInFormCreate);
   const streetInForm = useSelector((state) => state.address.StreetInFormCreate);
   const formAddressSelected = useSelector(
@@ -43,6 +39,7 @@ export const TotalOrder = () => {
   const addToList = (bill,listSave) =>{
     if((Array.isArray(listSave)) && (bill)){
         bill.Items.map(data=>{
+          //console.log(data)
             const body={...data,"provider_id": bill.ProviderID,"product_option_id": data.option_id,"option": data.option_name}
             listSave.push(body)
         })
@@ -50,7 +47,18 @@ export const TotalOrder = () => {
     return listSave
   }
 
+  const addToListID = (bill,listSave) =>{
+    if((Array.isArray(listSave)) && (bill)){
+      bill.Items.map(data=>{
+          const body=parseInt(data.id)
+          listSave.push(body)
+      })
+  }
+  return listSave
+  }
+
   const AddNewOrder= async(body)=>{
+    console.log(body)
     await OrderApi.AddNewOrder(body)
     .then((res)=>{
         if(res.status==200){
@@ -58,8 +66,7 @@ export const TotalOrder = () => {
             type: "success",
             autoClose: 1000,
             onClose:setTimeout(()=>{
-              localStorage.removeItem("SaveCart")
-
+                localStorage.removeItem("SaveCart")
                 window.location.replace("/completed")
             },1500)
           });
@@ -77,7 +84,7 @@ export const TotalOrder = () => {
         "district" : districtInForm,
         "ward" : wardInForm,
         "street": streetInForm,
-        "card_item_ids": [parseInt(bill.ID)],
+        "cart_items_ids": [...addToListID(bill,[])],
         "quantity": parseInt(localStorage.getItem("TotalQuantity")),
         "total" : parseInt(localStorage.getItem("TotalPrice")),
         "items": addToList(bill,[])
@@ -94,7 +101,7 @@ export const TotalOrder = () => {
         "district" : formAddressSelected.District,
         "ward" : formAddressSelected.Ward,
         "street": formAddressSelected.Street,
-        "card_item_ids": [parseInt(bill.ID)],
+        "cart_items_ids": [...addToListID(bill,[])],
         "quantity": parseInt(localStorage.getItem("TotalQuantity")),
         "total" : parseInt(localStorage.getItem("TotalPrice")),
         "items": addToList(bill,[])
@@ -115,7 +122,7 @@ export const TotalOrder = () => {
         CreateOrderFromInputForm();
       }
     } else {
-        console.log(formAddressSelected)
+        //console.log(formAddressSelected)
       CreateOrderFromSelectAddress();
     }
   };

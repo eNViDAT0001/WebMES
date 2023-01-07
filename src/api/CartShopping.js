@@ -8,6 +8,9 @@ export const CartShoppingApi = {
     const url = `carts/user/${userID}`;
     return axiosClient.get(url);
   },
-
+  DeleteItemInCart:(cartID,cartItemID)=>{
+    const url=`carts/${cartID}/items/${cartItemID}`
+    return axiosClient.delete(url)
+  }
 
 };

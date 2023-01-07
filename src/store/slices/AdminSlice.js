@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AdminApi } from '../../api/AdminApi'
 
 const initialState = {
-    ListUser:[],
+    ListUser:{},
 }
 
 const AdminSlice = createSlice({
@@ -20,7 +20,7 @@ const AdminSlice = createSlice({
 export const GetListUser = () => async(dispatch) =>{
     try{
         const response = await AdminApi.ListUser()
-        dispatch(setListUser(response.data.data))
+        dispatch(setListUser(response))
     }catch(err){
         console.log(err)
     }

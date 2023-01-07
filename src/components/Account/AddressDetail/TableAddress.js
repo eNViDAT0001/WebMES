@@ -52,14 +52,14 @@ export const TableAddress = (props) => {
     window.location.replace("/address-create");
   };
 
-  const DeleteAddressSelect = async (id, body) => {
-    await AddressApi.DeleteAddress(id, body)
+  const DeleteAddressSelect = async (addressID, userID) => {
+    await AddressApi.DeleteAddress(addressID, userID)
       .then((res) => {
         toast("Delete address successful", {
           type: "success",
           autoClose: 2000,
           Close: setTimeout(
-            () => window.location.replace(`/address-detail/${props.id}`),
+            () => window.location.reload(),
             2000
           ),
         });
@@ -67,19 +67,15 @@ export const TableAddress = (props) => {
       .catch((error) => {
         toast("Delete address failed", {
           type: "error",
-          autoClose: 200000,
-          Close: setTimeout(
-            () => window.location.replace(`/address-detail/${props.id}`),
-            200000
-          ),
+          autoClose: 2000,
         });
       });
   };
   const handleButtonDelete = (e) => {
-    const idsTemp = [];
-    idsTemp.push(parseInt(e.currentTarget.id));
+    const addressID = e.currentTarget.id
+    const userID = props.id
 
-    DeleteAddressSelect(props.id, JSON.stringify({"ids":idsTemp}));
+    DeleteAddressSelect(addressID, userID);
   };
 
   const SaveAddressFix = async (addressID, userID) => {

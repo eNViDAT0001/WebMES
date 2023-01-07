@@ -11,6 +11,10 @@ export const CartShoppingApi = {
   DeleteItemInCart:(cartID,cartItemID)=>{
     const url=`carts/${cartID}/items/${cartItemID}`
     return axiosClient.delete(url)
+  },
+  UpdateCartQuantity:(cartID,cartItemID,body)=>{
+    const url = `carts/${cartID}/items/${cartItemID}`
+    return axiosClient.patch(url,body)
   }
 
 };

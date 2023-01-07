@@ -38,8 +38,8 @@ export const AddressApi = {
     const url = `/addresses/${idAddress}/user/${idUser}`;
     return axiosClient.patch(url, { ...body });
   },
-  DeleteAddress: (id, body) => {
-    const url = `/addresses/user/${id}`;
-    return axiosClient.delete(url, JSON.stringify({ids: [5]}));
+  DeleteAddress: (idAddress,idUser) => {
+    const url = `/addresses/${idAddress}/user/${idUser}`;
+    return axiosClient.delete(url);
   },
 };

@@ -60,12 +60,12 @@ export const HeaderUser = () => {
               </Link>
             </div>
 
-            <Link
+            {/* <Link
               to="/contact"
               className="text-gray-800 hover:text-[#FB2E86] duration-300"
             >
               Contact
-            </Link>
+            </Link> */}
             {!(userID) ? (<div></div>) : 
             <div
             onClick={handleClickBrand}

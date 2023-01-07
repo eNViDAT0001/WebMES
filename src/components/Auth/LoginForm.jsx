@@ -157,9 +157,9 @@ export const LoginForm = () => {
               />
             </Box>
           </div>
-          <h1 className="font-[Lato] mt-3 text-[#9096B2] hover:underline">
+          {/*<h1 className="font-[Lato] mt-3 text-[#9096B2] hover:underline">
             Forgot your password?
-          </h1>
+            </h1>*/}
           <button
             className="w-full h-[40px] h-max-[70px] bg-[#FF1788] text-white  mt-5 mb-5"
             onClick={handleLoginButton}
@@ -169,12 +169,12 @@ export const LoginForm = () => {
           </button>
         </div>
         <Divider>Or</Divider>
-        <div className="w-full h-[100%] mt-4">
+        {/*<div className="w-full h-[100%] mt-4">
           <div className="flex flex-row">
             <FacebookLoginButton text="Facebook" iconSize="20px" size="40px" />
             <GoogleLoginButton text="Google" iconSize="20px" size="40px" />
           </div>
-        </div>
+            </div>*/}
       </div>
       <Link
         to="/register"

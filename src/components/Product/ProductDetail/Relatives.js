@@ -7,28 +7,28 @@ import starActive from "../../../assets/star.png";
 import starNotActive from "../../../assets/star_not.png";
 const Relative = [
   {
-    id: 1,
+    id: 7,
     name: "Mens Fashion Wear",
     cost: 51.0,
     star: 4,
     img: relative1,
   },
   {
-    id: 2,
+    id: 8,
     name: "Women’s Fashion",
     cost: 67.0,
     star: 5,
     img: relative2,
   },
   {
-    id: 3,
+    id: 9,
     name: "Wolx Dummy Fashion",
     cost: 67.0,
     star: 4,
     img: relative3,
   },
   {
-    id: 4,
+    id: 10,
     name: "Top Wall Digital Clock",
     cost: 51.0,
     star: 3,
@@ -37,6 +37,10 @@ const Relative = [
 ];
 
 const Relatives = () => {
+
+  const goToOtherProduct = (e)=>{
+    window.location.replace(`/product/${e.currentTarget.id}`)
+  }
   return (
     <div className="w-full flex justify-center my-20">
       <div className="flex justify-center">
@@ -47,7 +51,8 @@ const Relatives = () => {
           <div className="flex flex-row mt-24 space-x-7">
             {Relative.map((data) => (
               <div
-                key={data.id}
+                id={data.id}
+                onClick={goToOtherProduct}
                 className="w-270px h-404px flex flex-col border hover:shadow-md hover:scale-110"
               >
                 <img

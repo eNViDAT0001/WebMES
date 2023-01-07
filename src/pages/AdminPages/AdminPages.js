@@ -64,7 +64,6 @@ export const AdminPages = () => {
             aria-label="styled tabs example"
           >
             <StyledTab label="User" value="user" />
-            <StyledTab label="Order" value="order" />
           </StyledTabs>
           <Box sx={{ p: 3 }} />
         </Box>
@@ -72,9 +71,7 @@ export const AdminPages = () => {
           <TabPanel value="user">
             <UserList />
           </TabPanel>
-          <TabPanel value="order">
-            <AdminOrder />
-          </TabPanel>
+
         </div>
       </TabContext>
     </div>

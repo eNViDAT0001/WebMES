@@ -4,8 +4,8 @@ export const AdminApi = {
     const url = `users`;
     return axiosClient.get(url);
   },
-  DeleteUser:(body)=>{
-    const url = 'users'
-    return axiosClient.delete(url,body)
+  DeleteUser:(userID)=>{
+    const url = `users/${userID}`
+    return axiosClient.delete(url)
   }
 };

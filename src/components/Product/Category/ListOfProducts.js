@@ -3,7 +3,7 @@ import starActive from "../../../assets/star.png";
 import starNotActive from "../../../assets/star_not.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { checkObjectEmpty } from "../../../stogare_function/listActions";
+import { checkObjectEmpty, currencyFormat } from "../../../stogare_function/listActions";
 import { useCallback, useEffect, useState } from "react";
 import { FetchFullProductInCategory, FetchProductFromSelectCategory, setProductPreviewInCategory } from "../../../store/slices/ProductSlice";
 import { useLayoutEffect } from "react";
@@ -35,7 +35,7 @@ const ListOfProducts = (props) => {
     else if(ListProductPreview.status==200) return false
     else if(ListProductPreview.status==204) return true
   }
-
+ 
   return (
     <div className="w-full">
       {(emptyListProductPreview()) ? (
@@ -63,10 +63,10 @@ const ListOfProducts = (props) => {
                 </h1>
                 <div className="flex flex-row">
                   <h1 className="font-normal text-purple-name-product text-sm mr-9px">
-                    ${(data.Price * (100 - data.Discount)) / 100}
+                    {`${currencyFormat((data.Price * (100 - data.Discount)) / 100)}đ`}
                   </h1>
                   <h1 className="font-normal text-pink-price-sale text-sm line-through mb-10px mr-4">
-                    ${data.Price}
+                    {`${currencyFormat(data.Price)}đ`}
                   </h1>
                   <Rating
                     emptySymbol={

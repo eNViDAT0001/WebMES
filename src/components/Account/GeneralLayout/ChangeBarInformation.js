@@ -15,12 +15,12 @@ const SlideBarData = [
     img: Account,
     url: "/detail",
   },
-  {
-    id: 2,
-    title: "Notification",
-    img: Notification,
-    url: "/notification",
-  },
+  // {
+  //   id: 2,
+  //   title: "Notification",
+  //   img: Notification,
+  //   url: "/notification",
+  // },
   {
     id: 3,
     title: "Order",

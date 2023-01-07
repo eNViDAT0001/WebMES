@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   FetchAllCartShopping,
+  setCart,
   setSelectedCart,
 } from "../../store/slices/CartSlice";
 import TableRow from "@mui/material/TableRow";
@@ -70,25 +71,67 @@ const ListCart = () => {
     dispatch(setSelectedCart(value));
   };
 
-
-  const DeleteCartShopping = async(idCart,idItemCart)=>{
-    await CartShoppingApi.DeleteItemInCart(idCart,idItemCart)
-    .then(res=>{
-      if(res.status==200)
-      {
+  const DeleteCartShopping = async (idCart, idItemCart) => {
+    await CartShoppingApi.DeleteItemInCart(idCart, idItemCart).then((res) => {
+      if (res.status == 200) {
         toast("Delete Item success", {
           type: "success",
           autoClose: 1000,
-          onClose:setTimeout(()=>{
-              window.location.reload()
-          },1500)
+          onClose: setTimeout(() => {
+            window.location.reload();
+          }, 1500),
         });
       }
+    });
+  };
+
+  const handleDeleteButton = (e) => {
+    DeleteCartShopping(selectedCart.ID, e.currentTarget.id);
+  };
+
+
+  const UpdateCartQuantity = async(idCart,idItemCart,body)=>{
+    console.log(body)
+    await CartShoppingApi.UpdateCartQuantity(idCart,idItemCart,body)
+    .then((res)=>{
     })
   }
+  
+  const handleDescreaseQuantity = (e) =>{
+    const idHandle = parseInt(e.currentTarget.id)
+    const arrayItemsHandle = [...selectedCart.Items]
+    const indexCartItemFilter =  arrayItemsHandle.findIndex(object=>object.id==idHandle)
+    const cartItemFilter=arrayItemsHandle[indexCartItemFilter]
 
-  const handleDeleteButton = (e)=>{
-    DeleteCartShopping(selectedCart.ID,e.currentTarget.id)
+    const cartID = selectedCart.ID
+    const cartItemID = cartItemFilter.id
+    
+    const quantityDesrease = Math.max(1,cartItemFilter.quantity-1)
+
+    const body={
+      "quantity ": quantityDesrease
+
+    }
+
+     UpdateCartQuantity(cartID,cartItemID,body)
+  }
+
+  const handleIncreaseQuantity = (e) =>{
+    const idHandle = parseInt(e.currentTarget.id)
+    const arrayItemsHandle = [...selectedCart.Items]
+    const indexCartItemFilter =  arrayItemsHandle.findIndex(object=>object.id==idHandle)
+    const cartItemFilter=arrayItemsHandle[indexCartItemFilter]
+
+    const cartID = selectedCart.ID
+    const cartItemID = cartItemFilter.id
+
+
+    const quantityIncrease = cartItemFilter.quantity+1
+
+    const body={
+      "quantity ": quantityIncrease
+    }
+     UpdateCartQuantity(cartID,cartItemID,body)
   }
   return (
     <div>
@@ -123,7 +166,7 @@ const ListCart = () => {
               */}
 
               <TableContainer component={Paper}>
-              <ToastContainer position="top-right" newestOnTop />
+                <ToastContainer position="top-right" newestOnTop />
 
                 <Table sx={{ minWidth: 400 }} aria-label="customized table">
                   <TableHead>
@@ -162,7 +205,21 @@ const ListCart = () => {
                             {currencyFormat(row.price)}
                           </StyledTableCell>
                           <StyledTableCell align="center">
-                            {row.quantity}
+                            {/*<div className="flex flex-row">
+                              <div 
+                              id={row.id}
+                              className="px-2 border hover:cursor-pointer"
+                              onClick={handleDescreaseQuantity}
+                              >-</div>
+                              <div className="px-3 border">{row.quantity}</div>
+                              <div
+                              id={row.id}
+                              className="px-2 border hover:cursor-pointer"
+                              onClick={handleIncreaseQuantity}
+                              >+</div>
+                      </div>*/}
+                                                        {row.quantity}
+
                           </StyledTableCell>
                           <StyledTableCell align="center">
                             <div className="px-3 py-1 border border-[#D80001] text-[#D80001]">

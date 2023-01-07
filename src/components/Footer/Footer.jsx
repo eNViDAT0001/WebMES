@@ -14,7 +14,6 @@ const Footer = () => {
         </div>
       </div>
       <div className="md:flex sm:px-12 px-4 bg-[#ffffff19] py-2">
-        <h1 className="">Contact Info:</h1>
       </div>
       <InfoContainer />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center pt-2 text-gray-400 text-sm pb-8">

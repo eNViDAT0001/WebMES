@@ -85,9 +85,9 @@ const CategoryPage = () => {
       <div className="flex justify-center font-['Josefin_Sans'] ">
         <div className="w-[78%]">
           <div className="flex flex-row justify-start my-[100px] space-x-10 w-full">
-            <div className="flex flex-col">
+            <div className="flex flex-col w-[30%]">
               <TreeCategory id={id}/>
-              <RatingItem id={id}/>
+              {/* <RatingItem id={id}/> */}
             </div>
             <ListOfProducts id={id}/>
           </div>
